@@ -37,7 +37,7 @@ function TDMA(a::Vector{<:Real}, b::Vector{<:Real}, c::Vector{<:Real}, d::Vector
     return x
 end
 
-
+ 
 function initialize_abcd(N)
     a = zeros(N)
     b = zeros(N)
@@ -54,14 +54,16 @@ function advance_velocity(past_var::Dict, Px::Real, discretization::Dict, W=0::R
 
     N = length(U_past)
 
-    aU, bU, cU, dU = initialize_abcd(N) 
+    aU, bU, cU, dU = initialize_abcd(N)
+
     beta = discretization["beta"]
     dt = discretization["dt"]
+    dz = discretization["dz"]
     
     for i in 2:(N-1)
         aU[i] = -beta/2*(nu_past[i] + nu_past[i-1])
         bU[i] = 1 + beta/2*(nu_past[i+1] + 2*nu_past[i] + nu_past[i-1])
-        cU[i] = -beta/2*(nu_past[i] + nu_past[i+1])
+        cU[i] = -beta/2 * (nu_past[i] + nu_past[i+1])
         dU[i] = U_past[i] - dt*Px #[i]
     end
 
@@ -71,7 +73,7 @@ function advance_velocity(past_var::Dict, Px::Real, discretization::Dict, W=0::R
 
     aU[end] = -beta/2*(nu_past[end] + nu_past[end-1])
     bU[end] = 1 + beta/2*(nu_past[end] + nu_past[end-1])
-    dU[end] = U_past[end] - dt*Px + W # Px[end]
+    dU[end] = U_past[end] - dt*Px + W #dz # Px[end]
 
     U = TDMA(aU, bU, cU, dU, N)
 
@@ -82,6 +84,7 @@ function advance_algae(variables, algae, gamma, discretization)
     N = discretization["N"]
     beta = discretization["beta"]
     dt = discretization["dt"]
+    dz = discretization["dz"]
 
     aA, bA, cA, dA = initialize_abcd(N)
 
@@ -187,7 +190,7 @@ function advance_Q2(past_var::Dict, ustar, discretization::Dict, B1=B1)
     aQ2, bQ2, cQ2, dQ2 = initialize_abcd(N)
 
     # diss = @. (2 * dt *(Q2_past[2:end].^0.5))/(B1*L_past[2:end])
-    # print()
+  
     for i in 2:(N-1)
         diss = 2*dt * ((Q2_past[i]^0.5)/(B1*L_past[i]))
         aQ2[i] = -0.5*beta*(Kq_past[i] + Kq_past[i-1])
@@ -195,7 +198,7 @@ function advance_Q2(past_var::Dict, ustar, discretization::Dict, B1=B1)
         cQ2[i] = -0.5*beta*(Kq_past[i] + Kq_past[i+1]) # buoyancy production term  
                                                        # (should be negative such that this term is
                                                        # adding TKE when density is unstable)
-        dQ2[i] = Q2_past[i] + 0.25*beta*nu_t_past[i]*(U_past[i+1]-U_past[i-1])^2 - dt*Kz_past[i]*(N_BV2_past[i])
+        dQ2[i] = Q2_past[i] + 0.25*beta*nu_t_past[i]*(U_past[i+1]-U_past[i-1])^2 - dt*Kz_past[i]*N_BV2_past[i]
     end
 
     # Bottom-Boundary Condition
@@ -210,12 +213,8 @@ function advance_Q2(past_var::Dict, ustar, discretization::Dict, B1=B1)
     dissipation = 2 * dt *((Q2_past[end]^0.5)/(B1*L_past[end]))
     aQ2[end] = -0.5*beta*(Kq_past[end] + Kq_past[end-1])
     bQ2[end] = 1 + 0.5*beta*(Kq_past[end] + 2*Kq_past[end] + Kq_past[end-1]) + dissipation
-    dQ2[end] = Q2_past[end] + 0.25*beta*nu_t_past[end]*(U_past[end] - U_past[end-1])^2 - 4*dt*Kz_past[end]*(N_BV2_past[end])
+    dQ2[end] = Q2_past[end] + 0.25*beta*nu_t_past[end] * (U_past[end] - U_past[end-1])^2 - 4*dt*Kz_past[end]*N_BV2_past[end]
 
-    # println("aQ2", aQ2)
-    # println("bQ2", bQ2)
-    # println("cQ2", cQ2)
-    # println("dQ2", dQ2)
 
     Q2  = TDMA(aQ2, bQ2, cQ2, dQ2, N) 
     Q2  = add_noise_floor(Q2)
@@ -244,41 +243,36 @@ function advance_Q2L(past_var::Dict, ustar::Real, discretization::Dict, B1=B1, k
     N_BV2_past = past_var["N_BV2"]
     nut_past = past_var["Nu"]
 
+
     aQ2L, bQ2L, cQ2L, dQ2L = initialize_abcd(N)
     
     for i in 2:(N-1)
-        dissipation_i = 2*dt*((Q2_past[i]^0.5) / (B1*L_past[i]))*(1+E2*(L_past[i]/(kappa*abs(-H-z[i])))^2 
-                                                    + E3*(L_past[i]/(kappa*abs(z[i])))^2)
+        dissipation_i = 2*dt*((sqrt(Q2_past[i])) / (B1*L_past[i]))*(1+E2*(L_past[i]/(kappa*abs(H-z[i])))^2 + E3*(L_past[i]/(kappa*z[i]))^2)
         aQ2L[i] = -0.5*beta*(Kq_past[i] + Kq_past[i-1])
         bQ2L[i] = 1 + 0.5*beta*(Kq_past[i+1] + 2*Kq_past[i] + Kq_past[i-1]) + dissipation_i
         cQ2L[i] = -0.5*beta*(Kq_past[i] + Kq_past[i+1])
-        dQ2L[i] = Q2L_past[i] + 0.25*beta*nut_past[i]*L_past[i] * (U_past[i+1]-U_past[i-1])^2 
-                                - 2*dt*L_past[i]*Kz_past[i]*(N_BV2_past[i])
-        # println("beta*nut_past[i]*L_past[i] = " , beta*nut_past[i]*L_past[i] ) 
-        # println("(U_past[i+1]-U_past[i-1])^2 = " ,(U_past[i+1]-U_past[i-1])^2 )  
-        # println("dQ2L[i]= ",dQ2L[i])     
+        dQ2L[i] = Q2L_past[i] + 0.25*beta*nut_past[i]*E1*L_past[i]*(U_past[i+1]-U_past[i-1])^2  - 2*dt*L_past[i]*E1*Kz_past[i]*N_BV2_past[i]
     end 
 
     # Bottom boundary Condition
     q2lbot = B1^(2/3) * (ustar^2) * kappa * zb
     bdryterm = 0.5*beta*Kq_past[1]*q2lbot
-    dissipation =  2 * dt *(Q2_past[1]^0.5)/(B1*L_past[1])*(1+E2*(L_past[1]/(kappa*abs(-H-z[1])))^2 
+    dissipation =  2 * dt *(Q2_past[1]^0.5)/(B1*L_past[1])*(1+E2*(L_past[1]/(kappa*abs(H-z[1])))^2 
                                                 + E3*(L_past[1]/(kappa*abs(z[1])))^2)
     bQ2L[1] = 1+0.5*beta*(Kq_past[2] + Kq_past[1]) + dissipation
     cQ2L[1] = -0.5*beta*(Kq_past[2] + Kq_past[1])      
     dQ2L[1] = Q2L_past[1] + dt*((ustar^4)/nut_past[1])*E1*L_past[1] - dt*L_past[1]*E1*Kz_past[1]*(N_BV2_past[1]) + bdryterm                                      
 
-    # Top boundary conditio
-    dissipation =  2 * dt *(Q2_past[end]^0.5)/(B1*L_past[end])*(1+E2*(L_past[end]/(kappa*abs(-H-z[end])))^2 
+    # Top boundary condition
+    dissipation =  2 * dt *(sqrt(Q2_past[end]))/(B1*L_past[end])*(1+E2*(L_past[end]/(kappa*abs(H-z[end])))^2 
                                                 + E3*(L_past[end]/(kappa*abs(z[end])))^2)
     aQ2L[end] = -0.5*beta*(Kq_past[end] + Kq_past[end-1])
     bQ2L[end] = 1+0.5*beta*(Kq_past[end] + 2*Kq_past[end] + Kq_past[end-1]) + dissipation
-    dQ2L[end] = Q2L_past[end] + 0.25*beta*nut_past[end]*L_past[end]*(U_past[end]-U_past[end-1])^2 - 2*dt*L_past[end]*Kz_past[end]*(N_BV2_past[end])
-    # println("bQ2L", bQ2L)
-    # println("cQ2L", cQ2L)
-    # println("dQ2L", dQ2L)
+    dQ2L[end] = Q2L_past[end] + (0.25*beta*nut_past[end]*E1*L_past[end]*(U_past[end]-U_past[end-1])^2) - (2*dt*L_past[end-1]*E1*Kz_past[end]*N_BV2_past[end]) # Lp[end-1 or end]?
 
     Q2L  = TDMA(aQ2L, bQ2L, cQ2L, dQ2L, N)
-    Q2L  = add_noise_floor(Q2L)
+    Q2L = abs.(Q2L)
+    
+    # Q2L  = add_noise_floor(Q2L)
     return  Q2L 
 end 

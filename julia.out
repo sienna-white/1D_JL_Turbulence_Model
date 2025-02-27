@@ -1,0 +1,28 @@
+Running model with ws1 = 0.0, ws2 = 0.0, pmax1 = 0.0, pmax2 = 0.0, and output file name = output/unstrat_0.nc 
+
+Read in CIMIS data ...
+Read in wind data ...
+UKqNuCKzLQ2Q2LN_BV2algae1algae2
+ Time = 2024-08-10 00:00:10
+Index = 2 
+
+ Time = 2024-08-10 00:00:20
+Index = 3 
+
+ Time = 2024-08-10 00:00:30
+Index = 4 
+
+ Time = 2024-08-10 00:00:40
+Index = 5 
+
+ Time = 2024-08-10 00:00:50
+Index = 6 
+
+ Time = 2024-08-10 00:01:00
+Index = 7 
+
+ Time = 2024-08-10 00:01:10
+Index = 8 
+
+ Time = 2024-08-10 00:01:20
+Index = 9 

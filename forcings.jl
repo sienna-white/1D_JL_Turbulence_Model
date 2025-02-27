@@ -6,7 +6,7 @@ specific_heat_water = 4181 # J/kg-degC
 specific_heat_air = 1007 # J/kg-degCxrh
 c_d = 0.05   # Drag coefficient 
 
-function get_pressure_at_timestamp(time::Real, T_Px::Real, phase_shift=0)
+function get_pressure_at_timestamp(time::Real, Px0::Real, T_Px::Real, phase_shift=0)
 
     if T_Px == 0
         return Px0
@@ -38,8 +38,12 @@ end
 
 
 
-function wind_speed_2_wind_stress(Wind::Real, c_d=c_d, rhoA=rhoA)
-    return (c_d * Wind)^2 * rhoA
+function wind_speed_2_wind_stress(Wind::Real, discretization, c_d=c_d, rhoA=rhoA, rho0=rhoW)
+    # c_d = 0.05
+    dt = discretization["dt"]
+    dz = discretization["dz"]
+    W = (c_d * Wind)^2 * rhoA * dt/(dz*rho0) 
+    return W # Changed 2/21 to be W^2 instead of (0.5*W)^2
 end
 
 # Wind = model.wind_speed(time_index, bottom_speed, top_speed, phase_shift=WIND_PHASE_SHIFT)
