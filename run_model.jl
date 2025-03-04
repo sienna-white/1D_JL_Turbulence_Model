@@ -274,7 +274,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
         if i % isave == 0
             index = div(i, isave) + 1  #(i-1) #div(i, isave)
-            # print("index = $index \n")
             save2output(time, index, "algae1", algae1["c"])
             save2output(time, index, "algae2", algae2["c"])
             save2output(time, index, "U", variables["U"])
@@ -286,7 +285,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
             save2output(time, index, "N_BV2", variables["N_BV2"])
             save2output(time, index, "Nu", variables["Nu"])
             save2output(time, index, "Kq", variables["Kq"])
-            # save2output(time, index, "N_BV2", variables["N_BV2"])
             push!(real_times_saved, real_time[i])
         end
 
