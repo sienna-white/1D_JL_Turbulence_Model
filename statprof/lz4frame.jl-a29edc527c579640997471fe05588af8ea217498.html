@@ -1,0 +1,4144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - ../../../../../global/homes/s/siennaw/.julia/packages/CodecLz4/RFE2B/src/headers/lz4frame.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 22:05:19
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Julia wrapper for header: /usr/local/include/lz4frame.h</span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Automatically generated using Clang.jl wrap_c, version 0.0.0</span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># docstrings copied from /usr/local/include/lz4frame.h</span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>###########################</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> # PRIVATE DEFINITIONS : Do Not Export</span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> # Do not use these definitions.</span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> # They are exposed to allow static allocation of &#96;LZ4_streamHC_t&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> # Using these definitions makes the code vulnerable to potential API break when upgrading LZ4</span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>############################</span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4HC_DICTIONARY_LOGSIZE &#61; 17</span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4HC_MAXD &#61; 1 &lt;&lt; LZ4HC_DICTIONARY_LOGSIZE</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4HC_MAXD_MASK &#61; LZ4HC_MAXD - 1</span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4HC_HASH_LOG &#61; 15</span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4HC_HASHTABLESIZE &#61; 1 &lt;&lt; LZ4HC_HASH_LOG</span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4HC_HASH_MASK &#61; LZ4HC_HASHTABLESIZE - 1</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_STREAMHCSIZE &#61; 4LZ4HC_HASHTABLESIZE &#43; 2LZ4HC_MAXD &#43; 56</span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_STREAMHCSIZE_SIZET &#61; floor&#40;Int, LZ4_STREAMHCSIZE / sizeof&#40;Csize_t&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4_streamHC_t</span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    table::NTuple&#123;LZ4_STREAMHCSIZE_SIZET, Csize_t&#125;</span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_MEMORY_USAGE &#61; 14</span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_MAX_INPUT_SIZE &#61; 0x7e000000</span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_HASHLOG &#61; LZ4_MEMORY_USAGE - 2</span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_HASHTABLESIZE &#61; 1 &lt;&lt; LZ4_MEMORY_USAGE</span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_HASH_SIZE_U32 &#61; 1 &lt;&lt; LZ4_HASHLOG</span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_STREAMDECODESIZE_U64 &#61; 4</span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4_STREAMSIZE_U64 &#61;&#40;&#40;1 &lt;&lt; &#40;LZ4_MEMORY_USAGE-3&#41;&#41; &#43; 4&#41;</span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4_stream_t</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    table::NTuple&#123;LZ4_STREAMSIZE_U64, Culonglong&#125;</span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L37'>
+          <td class='lineno'>37</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L38'>
+          <td class='lineno'>38</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4_streamDecode_t</span>
+          </td>
+        </tr>
+        <tr id='L39'>
+          <td class='lineno'>39</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    table::NTuple&#123;LZ4_STREAMDECODESIZE_U64, Culonglong&#125;</span>
+          </td>
+        </tr>
+        <tr id='L40'>
+          <td class='lineno'>40</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L41'>
+          <td class='lineno'>41</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L42'>
+          <td class='lineno'>42</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Constants</span>
+          </td>
+        </tr>
+        <tr id='L43'>
+          <td class='lineno'>43</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_VERSION &#61; 100</span>
+          </td>
+        </tr>
+        <tr id='L44'>
+          <td class='lineno'>44</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_HEADER_SIZE_MAX &#61; 19</span>
+          </td>
+        </tr>
+        <tr id='L45'>
+          <td class='lineno'>45</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L46'>
+          <td class='lineno'>46</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Block Size</span>
+          </td>
+        </tr>
+        <tr id='L47'>
+          <td class='lineno'>47</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_default &#61; &#40;UInt32&#41;&#40;0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L48'>
+          <td class='lineno'>48</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_max64KB &#61; &#40;UInt32&#41;&#40;4&#41;</span>
+          </td>
+        </tr>
+        <tr id='L49'>
+          <td class='lineno'>49</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_max256KB &#61; &#40;UInt32&#41;&#40;5&#41;</span>
+          </td>
+        </tr>
+        <tr id='L50'>
+          <td class='lineno'>50</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_max1MB &#61; &#40;UInt32&#41;&#40;6&#41;</span>
+          </td>
+        </tr>
+        <tr id='L51'>
+          <td class='lineno'>51</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_max4MB &#61; &#40;UInt32&#41;&#40;7&#41;</span>
+          </td>
+        </tr>
+        <tr id='L52'>
+          <td class='lineno'>52</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L53'>
+          <td class='lineno'>53</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Block Mode</span>
+          </td>
+        </tr>
+        <tr id='L54'>
+          <td class='lineno'>54</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_blockLinked &#61; &#40;UInt32&#41;&#40;0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L55'>
+          <td class='lineno'>55</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_blockIndependent &#61; &#40;UInt32&#41;&#40;1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L56'>
+          <td class='lineno'>56</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L57'>
+          <td class='lineno'>57</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Content Checksum Flag</span>
+          </td>
+        </tr>
+        <tr id='L58'>
+          <td class='lineno'>58</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_noContentChecksum &#61; &#40;UInt32&#41;&#40;0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L59'>
+          <td class='lineno'>59</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_contentChecksumEnabled &#61; &#40;UInt32&#41;&#40;1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L60'>
+          <td class='lineno'>60</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L61'>
+          <td class='lineno'>61</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Block Checksum Flag</span>
+          </td>
+        </tr>
+        <tr id='L62'>
+          <td class='lineno'>62</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_noBlockChecksum &#61; &#40;UInt32&#41;&#40;0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L63'>
+          <td class='lineno'>63</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_blockChecksumEnabled &#61; &#40;UInt32&#41;&#40;1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L64'>
+          <td class='lineno'>64</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L65'>
+          <td class='lineno'>65</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Frame Type</span>
+          </td>
+        </tr>
+        <tr id='L66'>
+          <td class='lineno'>66</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_frame &#61; &#40;UInt32&#41;&#40;0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L67'>
+          <td class='lineno'>67</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const LZ4F_skippableFrame &#61; &#40;UInt32&#41;&#40;1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L68'>
+          <td class='lineno'>68</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L69'>
+          <td class='lineno'>69</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>@enum BlockSizeID::Cuint default_size &#61; 0 max64KB &#61; 4 max256KB &#61; 5 max1MB &#61; 6 max4MB &#61; 7</span>
+          </td>
+        </tr>
+        <tr id='L70'>
+          <td class='lineno'>70</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>@enum BlockMode::Cuint block_linked &#61; 0 block_independent &#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L71'>
+          <td class='lineno'>71</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>@enum FrameType::Cuint normal_frame &#61; 0 skippable_frame &#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L72'>
+          <td class='lineno'>72</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L73'>
+          <td class='lineno'>73</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_compressOptions_t</span>
+          </td>
+        </tr>
+        <tr id='L74'>
+          <td class='lineno'>74</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    stableSrc::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L75'>
+          <td class='lineno'>75</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    reserved::NTuple&#123;3, Cuint&#125;</span>
+          </td>
+        </tr>
+        <tr id='L76'>
+          <td class='lineno'>76</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L77'>
+          <td class='lineno'>77</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L78'>
+          <td class='lineno'>78</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_decompressOptions_t</span>
+          </td>
+        </tr>
+        <tr id='L79'>
+          <td class='lineno'>79</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    stableDst::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L80'>
+          <td class='lineno'>80</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    reserved::NTuple&#123;3, Cuint&#125;</span>
+          </td>
+        </tr>
+        <tr id='L81'>
+          <td class='lineno'>81</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L82'>
+          <td class='lineno'>82</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L83'>
+          <td class='lineno'>83</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_frameInfo_t</span>
+          </td>
+        </tr>
+        <tr id='L84'>
+          <td class='lineno'>84</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blockSizeID::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L85'>
+          <td class='lineno'>85</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blockMode::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L86'>
+          <td class='lineno'>86</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    contentChecksumFlag::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L87'>
+          <td class='lineno'>87</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    frameType::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L88'>
+          <td class='lineno'>88</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    contentSize::Culonglong</span>
+          </td>
+        </tr>
+        <tr id='L89'>
+          <td class='lineno'>89</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dictID::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L90'>
+          <td class='lineno'>90</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blockChecksumFlag::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L91'>
+          <td class='lineno'>91</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L92'>
+          <td class='lineno'>92</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L93'>
+          <td class='lineno'>93</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_frameInfo_t&#40;;</span>
+          </td>
+        </tr>
+        <tr id='L94'>
+          <td class='lineno'>94</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blocksizeid::BlockSizeID&#61;default_size,</span>
+          </td>
+        </tr>
+        <tr id='L95'>
+          <td class='lineno'>95</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blockmode::BlockMode&#61;block_linked,</span>
+          </td>
+        </tr>
+        <tr id='L96'>
+          <td class='lineno'>96</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    contentchecksum::Bool&#61;false,</span>
+          </td>
+        </tr>
+        <tr id='L97'>
+          <td class='lineno'>97</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    frametype::FrameType&#61;normal_frame,</span>
+          </td>
+        </tr>
+        <tr id='L98'>
+          <td class='lineno'>98</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    contentsize::Integer&#61;0,</span>
+          </td>
+        </tr>
+        <tr id='L99'>
+          <td class='lineno'>99</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blockchecksum::Bool&#61;false,</span>
+          </td>
+        </tr>
+        <tr id='L100'>
+          <td class='lineno'>100</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#41;</span>
+          </td>
+        </tr>
+        <tr id='L101'>
+          <td class='lineno'>101</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    LZ4F_frameInfo_t&#40;Cuint&#40;blocksizeid&#41;, Cuint&#40;blockmode&#41;, Cuint&#40;contentchecksum&#41;, Cuint&#40;frametype&#41;, Culonglong&#40;contentsize&#41;, Cuint&#40;0&#41;, Cuint&#40;blockchecksum&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L102'>
+          <td class='lineno'>102</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L103'>
+          <td class='lineno'>103</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L104'>
+          <td class='lineno'>104</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_preferences_t</span>
+          </td>
+        </tr>
+        <tr id='L105'>
+          <td class='lineno'>105</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    frameInfo::LZ4F_frameInfo_t</span>
+          </td>
+        </tr>
+        <tr id='L106'>
+          <td class='lineno'>106</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    compressionLevel::Cint</span>
+          </td>
+        </tr>
+        <tr id='L107'>
+          <td class='lineno'>107</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    autoFlush::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L108'>
+          <td class='lineno'>108</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    reserved::NTuple&#123;4, Cuint&#125;</span>
+          </td>
+        </tr>
+        <tr id='L109'>
+          <td class='lineno'>109</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L110'>
+          <td class='lineno'>110</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L111'>
+          <td class='lineno'>111</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_preferences_t&#40;frame_info::LZ4F_frameInfo_t; compressionlevel::Integer&#61;0, autoflush::Bool&#61;false&#41;</span>
+          </td>
+        </tr>
+        <tr id='L112'>
+          <td class='lineno'>112</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    LZ4F_preferences_t&#40;frame_info, Cint&#40;compressionlevel&#41;, Cuint&#40;autoflush&#41;, &#40;0,0,0,0&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L113'>
+          <td class='lineno'>113</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L114'>
+          <td class='lineno'>114</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L115'>
+          <td class='lineno'>115</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_CDict</span>
+          </td>
+        </tr>
+        <tr id='L116'>
+          <td class='lineno'>116</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dictContent::Ptr&#123;Cvoid&#125;</span>
+          </td>
+        </tr>
+        <tr id='L117'>
+          <td class='lineno'>117</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    fastCtx::Ptr&#123;LZ4_stream_t&#125;</span>
+          </td>
+        </tr>
+        <tr id='L118'>
+          <td class='lineno'>118</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    HCCtx::Ptr&#123;LZ4_streamHC_t&#125;</span>
+          </td>
+        </tr>
+        <tr id='L119'>
+          <td class='lineno'>119</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L120'>
+          <td class='lineno'>120</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L121'>
+          <td class='lineno'>121</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct XXH32_state_t</span>
+          </td>
+        </tr>
+        <tr id='L122'>
+          <td class='lineno'>122</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   total_len_32::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L123'>
+          <td class='lineno'>123</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   large_len::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L124'>
+          <td class='lineno'>124</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   v1::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L125'>
+          <td class='lineno'>125</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   v2::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L126'>
+          <td class='lineno'>126</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   v3::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L127'>
+          <td class='lineno'>127</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   v4::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L128'>
+          <td class='lineno'>128</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   mem32::NTuple&#123;4,UInt32&#125;</span>
+          </td>
+        </tr>
+        <tr id='L129'>
+          <td class='lineno'>129</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   memsize::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L130'>
+          <td class='lineno'>130</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   reserved::Cuint</span>
+          </td>
+        </tr>
+        <tr id='L131'>
+          <td class='lineno'>131</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L132'>
+          <td class='lineno'>132</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L133'>
+          <td class='lineno'>133</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_cctx</span>
+          </td>
+        </tr>
+        <tr id='L134'>
+          <td class='lineno'>134</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    prefs::LZ4F_preferences_t</span>
+          </td>
+        </tr>
+        <tr id='L135'>
+          <td class='lineno'>135</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    version::UInt32</span>
+          </td>
+        </tr>
+        <tr id='L136'>
+          <td class='lineno'>136</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    cStage::UInt32</span>
+          </td>
+        </tr>
+        <tr id='L137'>
+          <td class='lineno'>137</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    cdict::Ptr&#123;LZ4F_CDict&#125;</span>
+          </td>
+        </tr>
+        <tr id='L138'>
+          <td class='lineno'>138</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    maxBlockSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L139'>
+          <td class='lineno'>139</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    maxBufferSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L140'>
+          <td class='lineno'>140</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpBuff::Ptr&#123;Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L141'>
+          <td class='lineno'>141</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpIn::Ptr&#123;Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L142'>
+          <td class='lineno'>142</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpInSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L143'>
+          <td class='lineno'>143</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    totalInSize::UInt64</span>
+          </td>
+        </tr>
+        <tr id='L144'>
+          <td class='lineno'>144</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    xxh::XXH32_state_t</span>
+          </td>
+        </tr>
+        <tr id='L145'>
+          <td class='lineno'>145</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    lz4CtxPtr::Ptr&#123;Cvoid&#125;</span>
+          </td>
+        </tr>
+        <tr id='L146'>
+          <td class='lineno'>146</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    lz4CtxLevel::UInt32</span>
+          </td>
+        </tr>
+        <tr id='L147'>
+          <td class='lineno'>147</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L148'>
+          <td class='lineno'>148</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L149'>
+          <td class='lineno'>149</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct LZ4F_dctx</span>
+          </td>
+        </tr>
+        <tr id='L150'>
+          <td class='lineno'>150</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    frameInfo::LZ4F_frameInfo_t</span>
+          </td>
+        </tr>
+        <tr id='L151'>
+          <td class='lineno'>151</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    version::UInt32</span>
+          </td>
+        </tr>
+        <tr id='L152'>
+          <td class='lineno'>152</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dStage::UInt32</span>
+          </td>
+        </tr>
+        <tr id='L153'>
+          <td class='lineno'>153</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    frameRemainingSize::UInt64</span>
+          </td>
+        </tr>
+        <tr id='L154'>
+          <td class='lineno'>154</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    maxBlockSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L155'>
+          <td class='lineno'>155</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    maxBufferSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L156'>
+          <td class='lineno'>156</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpIn::Ptr&#123;Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L157'>
+          <td class='lineno'>157</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpInSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L158'>
+          <td class='lineno'>158</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpInTarget::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L159'>
+          <td class='lineno'>159</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpOutBuffer::Ptr&#123;Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L160'>
+          <td class='lineno'>160</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dict::Ptr&#123;Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L161'>
+          <td class='lineno'>161</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dictSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L162'>
+          <td class='lineno'>162</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpOut::Ptr&#123;Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L163'>
+          <td class='lineno'>163</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpOutSize::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L164'>
+          <td class='lineno'>164</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    tmpOutStart::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L165'>
+          <td class='lineno'>165</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    xxh::XXH32_state_t</span>
+          </td>
+        </tr>
+        <tr id='L166'>
+          <td class='lineno'>166</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    blockChecksum::XXH32_state_t</span>
+          </td>
+        </tr>
+        <tr id='L167'>
+          <td class='lineno'>167</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    header::NTuple&#123;LZ4F_HEADER_SIZE_MAX, Cuchar&#125;</span>
+          </td>
+        </tr>
+        <tr id='L168'>
+          <td class='lineno'>168</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L169'>
+          <td class='lineno'>169</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L170'>
+          <td class='lineno'>170</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function check_context_initialized&#40;ctx::Ptr&#123;LZ4F_cctx&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L171'>
+          <td class='lineno'>171</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if ctx &#61;&#61; Ptr&#123;LZ4F_cctx&#125;&#40;C_NULL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L172'>
+          <td class='lineno'>172</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_cctx&quot;, &quot;Uninitialized compression context&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L173'>
+          <td class='lineno'>173</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L174'>
+          <td class='lineno'>174</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L175'>
+          <td class='lineno'>175</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L176'>
+          <td class='lineno'>176</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function check_context_initialized&#40;ctx::Ptr&#123;LZ4F_dctx&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L177'>
+          <td class='lineno'>177</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if ctx &#61;&#61; Ptr&#123;LZ4F_dctx&#125;&#40;C_NULL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L178'>
+          <td class='lineno'>178</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_dctx&quot;, &quot;Uninitialized decompression context&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L179'>
+          <td class='lineno'>179</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L180'>
+          <td class='lineno'>180</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L181'>
+          <td class='lineno'>181</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L182'>
+          <td class='lineno'>182</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_isError&#40;code::Csize_t&#41;</span>
+          </td>
+        </tr>
+        <tr id='L183'>
+          <td class='lineno'>183</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    err &#61; ccall&#40;&#40;:LZ4F_isError, liblz4&#41;, UInt32, &#40;Csize_t,&#41;, code&#41;</span>
+          </td>
+        </tr>
+        <tr id='L184'>
+          <td class='lineno'>184</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    convert&#40;Bool, err&#41;</span>
+          </td>
+        </tr>
+        <tr id='L185'>
+          <td class='lineno'>185</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L186'>
+          <td class='lineno'>186</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L187'>
+          <td class='lineno'>187</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_getErrorName&#40;code::Csize_t&#41;</span>
+          </td>
+        </tr>
+        <tr id='L188'>
+          <td class='lineno'>188</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    str &#61; ccall&#40;&#40;:LZ4F_getErrorName, liblz4&#41;, Cstring, &#40;Csize_t,&#41;, code&#41;</span>
+          </td>
+        </tr>
+        <tr id='L189'>
+          <td class='lineno'>189</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    unsafe_string&#40;str&#41;</span>
+          </td>
+        </tr>
+        <tr id='L190'>
+          <td class='lineno'>190</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L191'>
+          <td class='lineno'>191</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L192'>
+          <td class='lineno'>192</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L193'>
+          <td class='lineno'>193</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Gets the current LZ4F version.</span>
+          </td>
+        </tr>
+        <tr id='L194'>
+          <td class='lineno'>194</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L195'>
+          <td class='lineno'>195</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_getVersion&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L196'>
+          <td class='lineno'>196</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ccall&#40;&#40;:LZ4F_getVersion, liblz4&#41;, UInt32, &#40;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L197'>
+          <td class='lineno'>197</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L198'>
+          <td class='lineno'>198</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L199'>
+          <td class='lineno'>199</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L200'>
+          <td class='lineno'>200</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The first thing to do is to create a compressionContext object, which will be used in all compression operations.</span>
+          </td>
+        </tr>
+        <tr id='L201'>
+          <td class='lineno'>201</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>This is achieved using &#96;LZ4F_createCompressionContext&#40;&#41;&#96;, which takes as argument a version.</span>
+          </td>
+        </tr>
+        <tr id='L202'>
+          <td class='lineno'>202</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The version provided MUST be the current version. It is intended to track potential version mismatch, notably when using DLL.</span>
+          </td>
+        </tr>
+        <tr id='L203'>
+          <td class='lineno'>203</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The function will provide a pointer to a fully allocated &#96;LZ4F_cctx&#96; object.</span>
+          </td>
+        </tr>
+        <tr id='L204'>
+          <td class='lineno'>204</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Will throw an error if there was an error during context creation.</span>
+          </td>
+        </tr>
+        <tr id='L205'>
+          <td class='lineno'>205</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L206'>
+          <td class='lineno'>206</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_createCompressionContext&#40;cctxPtr::Ref&#123;Ptr&#123;LZ4F_cctx&#125;&#125;, version::UInt32&#41;</span>
+          </td>
+        </tr>
+        <tr id='L207'>
+          <td class='lineno'>207</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_createCompressionContext, liblz4&#41;, Csize_t, &#40;Ref&#123;Ptr&#123;LZ4F_cctx&#125;&#125;, UInt32&#41;, cctxPtr, version&#41;</span>
+          </td>
+        </tr>
+        <tr id='L208'>
+          <td class='lineno'>208</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L209'>
+          <td class='lineno'>209</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_createCompressionContext&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L210'>
+          <td class='lineno'>210</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L211'>
+          <td class='lineno'>211</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L212'>
+          <td class='lineno'>212</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L213'>
+          <td class='lineno'>213</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L214'>
+          <td class='lineno'>214</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L215'>
+          <td class='lineno'>215</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Releases the memory of a &#96;LZ4F_cctx&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L216'>
+          <td class='lineno'>216</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L217'>
+          <td class='lineno'>217</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_freeCompressionContext&#40;cctx::Ptr&#123;LZ4F_cctx&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L218'>
+          <td class='lineno'>218</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ccall&#40;&#40;:LZ4F_freeCompressionContext, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_cctx&#125;,&#41;, cctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L219'>
+          <td class='lineno'>219</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L220'>
+          <td class='lineno'>220</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L221'>
+          <td class='lineno'>221</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L222'>
+          <td class='lineno'>222</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Will write the frame header into &#96;dstBuffer&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L223'>
+          <td class='lineno'>223</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L224'>
+          <td class='lineno'>224</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;dstCapacity&#96; must be &gt;&#61; &#96;LZ4F_HEADER_SIZE_MAX&#96; bytes.</span>
+          </td>
+        </tr>
+        <tr id='L225'>
+          <td class='lineno'>225</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;prefsPtr&#96; is optional : you can provide &#96;C_NULL&#96; as argument, all preferences will then be set to default.</span>
+          </td>
+        </tr>
+        <tr id='L226'>
+          <td class='lineno'>226</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Returns the number of bytes written into &#96;dstBuffer&#96; for the header or throws an error.</span>
+          </td>
+        </tr>
+        <tr id='L227'>
+          <td class='lineno'>227</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> &quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L228'>
+          <td class='lineno'>228</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_compressBegin&#40;cctx::Ptr&#123;LZ4F_cctx&#125;, dstBuffer, dstCapacity::Csize_t, prefsPtr::Ref&#123;LZ4F_preferences_t&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L229'>
+          <td class='lineno'>229</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;cctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L230'>
+          <td class='lineno'>230</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_compressBegin, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_cctx&#125;, Ptr&#123;Cvoid&#125;, Csize_t, Ref&#123;LZ4F_preferences_t&#125;&#41;, cctx, dstBuffer, dstCapacity, prefsPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L231'>
+          <td class='lineno'>231</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L232'>
+          <td class='lineno'>232</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_compressBegin&quot; ,LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L233'>
+          <td class='lineno'>233</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L234'>
+          <td class='lineno'>234</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L235'>
+          <td class='lineno'>235</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L236'>
+          <td class='lineno'>236</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L237'>
+          <td class='lineno'>237</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L238'>
+          <td class='lineno'>238</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Provides minimum &#96;dstCapacity&#96; for a given &#96;srcSize&#96; to guarantee operation success in worst case situations.</span>
+          </td>
+        </tr>
+        <tr id='L239'>
+          <td class='lineno'>239</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L240'>
+          <td class='lineno'>240</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;prefsPtr&#96; is optional : when &#96;C_NULL&#96; is provided, preferences will be set to cover worst case scenario.</span>
+          </td>
+        </tr>
+        <tr id='L241'>
+          <td class='lineno'>241</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Result is always the same for a &#96;srcSize&#96; and &#96;prefsPtr&#96;, so it can be trusted to size reusable buffers.</span>
+          </td>
+        </tr>
+        <tr id='L242'>
+          <td class='lineno'>242</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>When &#96;srcSize&#61;&#61;0&#96;, &#96;LZ4F_compressBound&#40;&#41;&#96; provides an upper bound for &#96;LZ4F_flush&#40;&#41;&#96; and &#96;LZ4F_compressEnd&#40;&#41;&#96; operations.</span>
+          </td>
+        </tr>
+        <tr id='L243'>
+          <td class='lineno'>243</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L244'>
+          <td class='lineno'>244</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_compressBound&#40;srcSize::Csize_t, prefsPtr::Ref&#123;LZ4F_preferences_t&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L245'>
+          <td class='lineno'>245</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ccall&#40;&#40;:LZ4F_compressBound, liblz4&#41;, Csize_t, &#40;Csize_t, Ref&#123;LZ4F_preferences_t&#125;&#41;, srcSize, prefsPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L246'>
+          <td class='lineno'>246</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L247'>
+          <td class='lineno'>247</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L248'>
+          <td class='lineno'>248</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L249'>
+          <td class='lineno'>249</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Can be called repetitively to compress as much data as necessary.</span>
+          </td>
+        </tr>
+        <tr id='L250'>
+          <td class='lineno'>250</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L251'>
+          <td class='lineno'>251</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>An important rule is that &#96;dstCapacity&#96; MUST be large enough to ensure operation success even in worst case situations.</span>
+          </td>
+        </tr>
+        <tr id='L252'>
+          <td class='lineno'>252</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>This value is provided by &#96;LZ4F_compressBound&#40;&#41;&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L253'>
+          <td class='lineno'>253</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>If this condition is not respected, &#96;LZ4F_compress&#40;&#41;&#96; will fail.</span>
+          </td>
+        </tr>
+        <tr id='L254'>
+          <td class='lineno'>254</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>LZ4F_compressUpdate&#40;&#41; doesn&#39;t guarantee error recovery. When an error occurs, compression context must be freed or resized.</span>
+          </td>
+        </tr>
+        <tr id='L255'>
+          <td class='lineno'>255</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;cOptPtr&#96; is optional : &#96;C_NULL&#96; can be provided, in which case all options are set to default.</span>
+          </td>
+        </tr>
+        <tr id='L256'>
+          <td class='lineno'>256</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Returns the number of bytes written into &#96;dstBuffer&#96; &#40;it can be zero, meaning input data was just buffered&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L257'>
+          <td class='lineno'>257</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>or throws an error if it fails.</span>
+          </td>
+        </tr>
+        <tr id='L258'>
+          <td class='lineno'>258</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> &quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L259'>
+          <td class='lineno'>259</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_compressUpdate&#40;cctx::Ptr&#123;LZ4F_cctx&#125;, dstBuffer, dstCapacity::Csize_t, srcBuffer, srcSize::Csize_t, cOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L260'>
+          <td class='lineno'>260</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;cctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L261'>
+          <td class='lineno'>261</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_compressUpdate, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_cctx&#125;, Ptr&#123;Cvoid&#125;, Csize_t, Ptr&#123;Cvoid&#125;, Csize_t, Ptr&#123;LZ4F_compressOptions_t&#125;&#41;, cctx, dstBuffer, dstCapacity, srcBuffer, srcSize, cOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L262'>
+          <td class='lineno'>262</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L263'>
+          <td class='lineno'>263</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_compressUpdate&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L264'>
+          <td class='lineno'>264</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L265'>
+          <td class='lineno'>265</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L266'>
+          <td class='lineno'>266</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L267'>
+          <td class='lineno'>267</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L268'>
+          <td class='lineno'>268</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L269'>
+          <td class='lineno'>269</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>When data must be generated and sent immediately, without waiting for a block to be completely filled,</span>
+          </td>
+        </tr>
+        <tr id='L270'>
+          <td class='lineno'>270</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>it&#39;s possible to call &#96;LZ4_flush&#40;&#41;&#96;. It will immediately compress any data buffered within &#96;cctx&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L271'>
+          <td class='lineno'>271</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;dstCapacity&#96; must be large enough to ensure the operation will be successful.</span>
+          </td>
+        </tr>
+        <tr id='L272'>
+          <td class='lineno'>272</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;cOptPtr&#96; is optional : it&#39;s possible to provide &#96;C_NULL&#96;, all options will be set to default.</span>
+          </td>
+        </tr>
+        <tr id='L273'>
+          <td class='lineno'>273</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Returns the number of bytes written into &#96;dstBuffer&#96; &#40;it can be zero, which means there was no data stored within &#96;cctx&#96;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L274'>
+          <td class='lineno'>274</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>or throws an error if it fails.</span>
+          </td>
+        </tr>
+        <tr id='L275'>
+          <td class='lineno'>275</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L276'>
+          <td class='lineno'>276</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_flush&#40;cctx::Ptr&#123;LZ4F_cctx&#125;, dstBuffer, dstCapacity::Csize_t, cOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L277'>
+          <td class='lineno'>277</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;cctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L278'>
+          <td class='lineno'>278</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_flush, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_cctx&#125;, Ptr&#123;Cvoid&#125;, Csize_t, Ptr&#123;LZ4F_compressOptions_t&#125;&#41;, cctx, dstBuffer, dstCapacity, cOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L279'>
+          <td class='lineno'>279</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L280'>
+          <td class='lineno'>280</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_flush&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L281'>
+          <td class='lineno'>281</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L282'>
+          <td class='lineno'>282</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L283'>
+          <td class='lineno'>283</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L284'>
+          <td class='lineno'>284</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L285'>
+          <td class='lineno'>285</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L286'>
+          <td class='lineno'>286</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Invoke to properly finish an LZ4 frame.</span>
+          </td>
+        </tr>
+        <tr id='L287'>
+          <td class='lineno'>287</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L288'>
+          <td class='lineno'>288</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>It will flush whatever data remained within &#96;cctx&#96; &#40;like &#96;LZ4_flush&#40;&#41;&#96;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L289'>
+          <td class='lineno'>289</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>and properly finalize the frame, with an endMark and a checksum.</span>
+          </td>
+        </tr>
+        <tr id='L290'>
+          <td class='lineno'>290</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;cOptPtr&#96; is optional : &#96;C_NULL&#96; can be provided, in which case all options will be set to default.</span>
+          </td>
+        </tr>
+        <tr id='L291'>
+          <td class='lineno'>291</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Returns the number of bytes written into &#96;dstBuffer&#96; &#40;necessarily &gt;&#61; 4 &#40;endMark&#41;, or 8 if optional frame checksum is enabled&#41;</span>
+          </td>
+        </tr>
+        <tr id='L292'>
+          <td class='lineno'>292</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>or throws an error if it fails &#40;which can be tested using &#96;LZ4F_isError&#40;&#41;&#96;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L293'>
+          <td class='lineno'>293</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>A successful call to &#96;LZ4F_compressEnd&#40;&#41;&#96; makes &#96;cctx&#96; available again for another compression task.</span>
+          </td>
+        </tr>
+        <tr id='L294'>
+          <td class='lineno'>294</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L295'>
+          <td class='lineno'>295</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_compressEnd&#40;cctx::Ptr&#123;LZ4F_cctx&#125;, dstBuffer, dstCapacity::Csize_t, cOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L296'>
+          <td class='lineno'>296</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;cctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L297'>
+          <td class='lineno'>297</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_compressEnd, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_cctx&#125;, Ptr&#123;Cvoid&#125;, Csize_t, Ptr&#123;LZ4F_compressOptions_t&#125;&#41;, cctx, dstBuffer, dstCapacity, cOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L298'>
+          <td class='lineno'>298</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L299'>
+          <td class='lineno'>299</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_compressEnd&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L300'>
+          <td class='lineno'>300</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L301'>
+          <td class='lineno'>301</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L302'>
+          <td class='lineno'>302</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L303'>
+          <td class='lineno'>303</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L304'>
+          <td class='lineno'>304</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L305'>
+          <td class='lineno'>305</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Create an &#96;LZ4F_dctx object&#96;, to track all decompression operations.</span>
+          </td>
+        </tr>
+        <tr id='L306'>
+          <td class='lineno'>306</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L307'>
+          <td class='lineno'>307</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The version provided MUST be the current LZ4F version.</span>
+          </td>
+        </tr>
+        <tr id='L308'>
+          <td class='lineno'>308</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The function provides a pointer to an allocated and initialized &#96;LZ4F_dctx&#96; object.</span>
+          </td>
+        </tr>
+        <tr id='L309'>
+          <td class='lineno'>309</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The the function throws an error if the &#96;LZ4F_dctx&#96; object cannot be initialized.</span>
+          </td>
+        </tr>
+        <tr id='L310'>
+          <td class='lineno'>310</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The &#96;dctx&#96; memory can be released using &#96;LZ4F_freeDecompressionContext&#40;&#41;&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L311'>
+          <td class='lineno'>311</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L312'>
+          <td class='lineno'>312</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_createDecompressionContext&#40;dctxPtr::Ref&#123;Ptr&#123;LZ4F_dctx&#125;&#125;, version::UInt32&#41;</span>
+          </td>
+        </tr>
+        <tr id='L313'>
+          <td class='lineno'>313</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_createDecompressionContext, liblz4&#41;, Csize_t, &#40;Ref&#123;Ptr&#123;LZ4F_dctx&#125;&#125;, UInt32&#41;, dctxPtr, version&#41;</span>
+          </td>
+        </tr>
+        <tr id='L314'>
+          <td class='lineno'>314</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L315'>
+          <td class='lineno'>315</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_createDecompressionContext&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L316'>
+          <td class='lineno'>316</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L317'>
+          <td class='lineno'>317</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L318'>
+          <td class='lineno'>318</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L319'>
+          <td class='lineno'>319</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L320'>
+          <td class='lineno'>320</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L321'>
+          <td class='lineno'>321</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Frees the decompressionContext.</span>
+          </td>
+        </tr>
+        <tr id='L322'>
+          <td class='lineno'>322</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L323'>
+          <td class='lineno'>323</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The result of &#96;LZ4F_freeDecompressionContext&#40;&#41;&#96; is indicative of the current state of decompressionContext when being released.</span>
+          </td>
+        </tr>
+        <tr id='L324'>
+          <td class='lineno'>324</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>That is, it should be &#61;&#61; 0 if decompression has been completed fully and correctly.</span>
+          </td>
+        </tr>
+        <tr id='L325'>
+          <td class='lineno'>325</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L326'>
+          <td class='lineno'>326</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_freeDecompressionContext&#40;dctx::Ptr&#123;LZ4F_dctx&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L327'>
+          <td class='lineno'>327</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ccall&#40;&#40;:LZ4F_freeDecompressionContext, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_dctx&#125;,&#41;, dctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L328'>
+          <td class='lineno'>328</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L329'>
+          <td class='lineno'>329</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L330'>
+          <td class='lineno'>330</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L331'>
+          <td class='lineno'>331</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Extracts frame parameters &#40;max blockSize, dictID, etc.&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L332'>
+          <td class='lineno'>332</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L333'>
+          <td class='lineno'>333</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Its usage is optional.</span>
+          </td>
+        </tr>
+        <tr id='L334'>
+          <td class='lineno'>334</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Extracted information is typically useful for allocation and dictionary.</span>
+          </td>
+        </tr>
+        <tr id='L335'>
+          <td class='lineno'>335</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>This function works in 2 situations :</span>
+          </td>
+        </tr>
+        <tr id='L336'>
+          <td class='lineno'>336</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> - At the beginning of a new frame, in which case</span>
+          </td>
+        </tr>
+        <tr id='L337'>
+          <td class='lineno'>337</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   it will decode information from &#96;srcBuffer&#96;, starting the decoding process.</span>
+          </td>
+        </tr>
+        <tr id='L338'>
+          <td class='lineno'>338</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   Input size must be large enough to successfully decode the entire frame header.</span>
+          </td>
+        </tr>
+        <tr id='L339'>
+          <td class='lineno'>339</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   Frame header size is variable, but is guaranteed to be &lt;&#61; &#96;LZ4F_HEADER_SIZE_MAX&#96; bytes.</span>
+          </td>
+        </tr>
+        <tr id='L340'>
+          <td class='lineno'>340</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   It&#39;s allowed to provide more input data than this minimum.</span>
+          </td>
+        </tr>
+        <tr id='L341'>
+          <td class='lineno'>341</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> - After decoding has been started.</span>
+          </td>
+        </tr>
+        <tr id='L342'>
+          <td class='lineno'>342</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   In which case, no input is read, frame parameters are extracted from dctx.</span>
+          </td>
+        </tr>
+        <tr id='L343'>
+          <td class='lineno'>343</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> - If decoding has barely started, but not yet extracted information from header,</span>
+          </td>
+        </tr>
+        <tr id='L344'>
+          <td class='lineno'>344</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   &#96;LZ4F_getFrameInfo&#40;&#41;&#96; will fail.</span>
+          </td>
+        </tr>
+        <tr id='L345'>
+          <td class='lineno'>345</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The number of bytes consumed from srcBuffer will be updated within &#96;srcSizePtr&#96; &#40;necessarily &lt;&#61; original value&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L346'>
+          <td class='lineno'>346</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Decompression must resume from &#40;&#96;srcBuffer&#96; &#43; &#96;srcSizePtr&#96;&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L347'>
+          <td class='lineno'>347</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Returns an hint about how many &#96;srcSize&#96; bytes &#96;LZ4F_decompress&#40;&#41;&#96; expects for next call or throws an error.</span>
+          </td>
+        </tr>
+        <tr id='L348'>
+          <td class='lineno'>348</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L349'>
+          <td class='lineno'>349</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Note 1 : In case of error, dctx is not modified. Decoding operation can resume from beginning safely.</span>
+          </td>
+        </tr>
+        <tr id='L350'>
+          <td class='lineno'>350</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Note 2 : Frame parameters are *copied into* an already allocated &#96;LZ4F_frameInfo_t&#96; structure.</span>
+          </td>
+        </tr>
+        <tr id='L351'>
+          <td class='lineno'>351</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L352'>
+          <td class='lineno'>352</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_getFrameInfo&#40;dctx::Ptr&#123;LZ4F_dctx&#125;, frameInfoPtr::Ref&#123;LZ4F_frameInfo_t&#125;, srcBuffer, srcSizePtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L353'>
+          <td class='lineno'>353</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;dctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L354'>
+          <td class='lineno'>354</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_getFrameInfo, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_dctx&#125;, Ref&#123;LZ4F_frameInfo_t&#125;, Ptr&#123;Cvoid&#125;, Ref&#123;Csize_t&#125;&#41;, dctx, frameInfoPtr, srcBuffer, srcSizePtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L355'>
+          <td class='lineno'>355</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L356'>
+          <td class='lineno'>356</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_getFrameInfo&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L357'>
+          <td class='lineno'>357</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L358'>
+          <td class='lineno'>358</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L359'>
+          <td class='lineno'>359</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L360'>
+          <td class='lineno'>360</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L361'>
+          <td class='lineno'>361</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L362'>
+          <td class='lineno'>362</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Call this function repetitively to regenerate compressed data from &#96;srcBuffer&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L363'>
+          <td class='lineno'>363</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L364'>
+          <td class='lineno'>364</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The function will read up to &#96;srcSizePtr&#96; bytes from &#96;srcBuffer&#96;,</span>
+          </td>
+        </tr>
+        <tr id='L365'>
+          <td class='lineno'>365</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>and decompress data into &#96;dstBuffer&#96;, of capacity &#96;dstSizePtr&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L366'>
+          <td class='lineno'>366</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The number of bytes consumed from &#96;srcBuffer&#96; will be written into &#96;srcSizePtr&#96; &#40;necessarily &lt;&#61; original value&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L367'>
+          <td class='lineno'>367</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The number of bytes decompressed into &#96;dstBuffer&#96; will be written into &#96;dstSizePtr&#96; &#40;necessarily &lt;&#61; original value&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L368'>
+          <td class='lineno'>368</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The function does not necessarily read all input bytes, so always check value in &#96;srcSizePtr&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L369'>
+          <td class='lineno'>369</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Unconsumed source data must be presented again in subsequent invocations.</span>
+          </td>
+        </tr>
+        <tr id='L370'>
+          <td class='lineno'>370</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L371'>
+          <td class='lineno'>371</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;dstBuffer&#96; can freely change between each consecutive function invocation.</span>
+          </td>
+        </tr>
+        <tr id='L372'>
+          <td class='lineno'>372</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;dstBuffer&#96; content will be overwritten.</span>
+          </td>
+        </tr>
+        <tr id='L373'>
+          <td class='lineno'>373</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L374'>
+          <td class='lineno'>374</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Returns an hint of how many &#96;srcSize&#96; bytes &#96;LZ4F_decompress&#40;&#41;&#96; expects for next call.</span>
+          </td>
+        </tr>
+        <tr id='L375'>
+          <td class='lineno'>375</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Schematically, it&#39;s the size of the current &#40;or remaining&#41; compressed block &#43; header of next block.</span>
+          </td>
+        </tr>
+        <tr id='L376'>
+          <td class='lineno'>376</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Respecting the hint provides some small speed benefit, because it skips intermediate buffers.</span>
+          </td>
+        </tr>
+        <tr id='L377'>
+          <td class='lineno'>377</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>This is just a hint though, it&#39;s always possible to provide any srcSize.</span>
+          </td>
+        </tr>
+        <tr id='L378'>
+          <td class='lineno'>378</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L379'>
+          <td class='lineno'>379</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>When a frame is fully decoded, returns 0 &#40;no more data expected&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L380'>
+          <td class='lineno'>380</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>When provided with more bytes than necessary to decode a frame,</span>
+          </td>
+        </tr>
+        <tr id='L381'>
+          <td class='lineno'>381</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;LZ4F_decompress&#40;&#41;&#96; will stop reading exactly at end of current frame, and return 0.</span>
+          </td>
+        </tr>
+        <tr id='L382'>
+          <td class='lineno'>382</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L383'>
+          <td class='lineno'>383</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>If decompression failed, an error is thrown.</span>
+          </td>
+        </tr>
+        <tr id='L384'>
+          <td class='lineno'>384</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>After a decompression error, the &#96;dctx&#96; context is not resumable.</span>
+          </td>
+        </tr>
+        <tr id='L385'>
+          <td class='lineno'>385</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Use &#96;LZ4F_resetDecompressionContext&#40;&#41;&#96; to return to clean state.</span>
+          </td>
+        </tr>
+        <tr id='L386'>
+          <td class='lineno'>386</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>After a frame is fully decoded, dctx can be used again to decompress another frame.</span>
+          </td>
+        </tr>
+        <tr id='L387'>
+          <td class='lineno'>387</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L388'>
+          <td class='lineno'>388</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            <div class='call-sites'>
+              24 &#40;6 &#37;&#41;
+              samples spent in LZ4F_decompress
+              <br />
+              24 &#40;100 &#37;&#41; &#40;ex.&#41;,
+              24 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from process
+              <a href='frame_compression.jl-17f92f2392745db0e75c30090b8d70e1620cff86.html#L213'>line 213</a>
+              <br />
+            </div>
+            
+            <span class='code'>function LZ4F_decompress&#40;dctx::Ptr&#123;LZ4F_dctx&#125;, dstBuffer, dstSizePtr::Ref&#123;Csize_t&#125;, srcBuffer, srcSizePtr::Ref&#123;Csize_t&#125;, dOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L389'>
+          <td class='lineno'>389</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;dctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L390'>
+          <td class='lineno'>390</td>
+          <td class='tracecount excl'>24 &#40;6 &#37;&#41;</td>
+          <td class='tracecount incl'>24 &#40;6 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; ccall&#40;&#40;:LZ4F_decompress, liblz4&#41;, Csize_t, &#40;Ptr&#123;LZ4F_dctx&#125;, Ptr&#123;Cvoid&#125;, Ref&#123;Csize_t&#125;, Ptr&#123;Cvoid&#125;, Ref&#123;Csize_t&#125;, Ptr&#123;LZ4F_decompressOptions_t&#125;&#41;, dctx, dstBuffer, dstSizePtr, srcBuffer, srcSizePtr, dOptPtr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L391'>
+          <td class='lineno'>391</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if LZ4F_isError&#40;ret&#41;</span>
+          </td>
+        </tr>
+        <tr id='L392'>
+          <td class='lineno'>392</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;LZ4Exception&#40;&quot;LZ4F_decompress&quot;, LZ4F_getErrorName&#40;ret&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L393'>
+          <td class='lineno'>393</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L394'>
+          <td class='lineno'>394</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L395'>
+          <td class='lineno'>395</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L396'>
+          <td class='lineno'>396</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L397'>
+          <td class='lineno'>397</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L398'>
+          <td class='lineno'>398</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L399'>
+          <td class='lineno'>399</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Re-initializes decompression context</span>
+          </td>
+        </tr>
+        <tr id='L400'>
+          <td class='lineno'>400</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L401'>
+          <td class='lineno'>401</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>In case of an error, the context is left in &quot;undefined&quot; state.</span>
+          </td>
+        </tr>
+        <tr id='L402'>
+          <td class='lineno'>402</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>In which case, it&#39;s necessary to reset it, before re-using it.</span>
+          </td>
+        </tr>
+        <tr id='L403'>
+          <td class='lineno'>403</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>This method can also be used to abruptly stop any unfinished decompression,</span>
+          </td>
+        </tr>
+        <tr id='L404'>
+          <td class='lineno'>404</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>and start a new one using same context resources.</span>
+          </td>
+        </tr>
+        <tr id='L405'>
+          <td class='lineno'>405</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> &quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L406'>
+          <td class='lineno'>406</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function LZ4F_resetDecompressionContext&#40;dctx::Ptr&#123;LZ4F_dctx&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L407'>
+          <td class='lineno'>407</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    check_context_initialized&#40;dctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L408'>
+          <td class='lineno'>408</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ccall&#40;&#40;:LZ4F_resetDecompressionContext, liblz4&#41;, Cvoid, &#40;Ptr&#123;LZ4F_dctx&#125;,&#41;, dctx&#41;</span>
+          </td>
+        </tr>
+        <tr id='L409'>
+          <td class='lineno'>409</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L410'>
+          <td class='lineno'>410</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+

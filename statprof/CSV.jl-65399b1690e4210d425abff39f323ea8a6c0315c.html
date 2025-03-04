@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - ../../../../../global/homes/s/siennaw/.julia/packages/CSV/XLcqT/src/CSV.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 22:05:19
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>CSV provides fast, flexible reader &amp; writer for delimited text files in various formats.</span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Reading:</span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>- &#96;CSV.File&#96; reads delimited data and returns a &#96;CSV.File&#96; object, which allows dot-access to columns and iterating rows.</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>- &#96;CSV.read&#96; is similar to &#96;CSV.File&#96; but used when the input will be passed directly to a sink function such as a &#96;DataFrame&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>- &#96;CSV.Rows&#96; reads delimited data and returns a &#96;CSV.Rows&#96; object, which allows &quot;streaming&quot; the data by iterating and thereby has a lower memory footprint than &#96;CSV.File&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>- &#96;CSV.Chunks&#96; allows processing extremely large files in &quot;batches&quot; or &quot;chunks&quot;.</span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Writing:</span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>- &#96;CSV.write&#96; writes a &#91;Tables.jl interface input&#93;&#40;https://github.com/JuliaData/Tables.jl&#41; such as a &#96;DataFrame&#96; to a csv file or an in-memory IOBuffer.</span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>- &#96;CSV.RowWriter&#96; creates an iterator that produces csv-formatted strings for each row in the input table.</span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Here is an example of reading a csv file and passing the input to a &#96;DataFrame&#96;:</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;julia</span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using CSV, DataFrames</span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>ExampleInputDF &#61; CSV.read&#40;&quot;ExampleInputFile.csv&quot;, DataFrame&#41;</span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Here is an example of writing out a &#96;DataFrame&#96; to a csv file:</span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;julia</span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using CSV, DataFrames</span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>ExampleOutputDF &#61; DataFrame&#40;rand&#40;10,10&#41;, :auto&#41;</span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>CSV.write&#40;&quot;ExampleOutputFile.csv&quot;, ExampleOutputDF&#41;</span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>module CSV</span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>if &#33;isdefined&#40;Base, :contains&#41;</span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    contains&#40;haystack, needle&#41; &#61; occursin&#40;needle, haystack&#41;</span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># stdlib</span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using Mmap, Dates, Unicode</span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Parsers.jl is used for core type parsing from byte buffers</span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># and all other parsing options &#40;quoted fields, delimiters, dateformats etc.&#41;</span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using Parsers</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Tables.jl allows integration with all other table/data file formats</span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using Tables</span>
+          </td>
+        </tr>
+        <tr id='L37'>
+          <td class='lineno'>37</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># PooledArrays.jl is used for materializing pooled columns</span>
+          </td>
+        </tr>
+        <tr id='L38'>
+          <td class='lineno'>38</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using PooledArrays</span>
+          </td>
+        </tr>
+        <tr id='L39'>
+          <td class='lineno'>39</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># SentinelArrays.jl allow efficient conversion from Vector&#123;Union&#123;T, Missing&#125;&#125; to Vector&#123;T&#125;</span>
+          </td>
+        </tr>
+        <tr id='L40'>
+          <td class='lineno'>40</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># it also provides the MissingVector and ChainedVector array types</span>
+          </td>
+        </tr>
+        <tr id='L41'>
+          <td class='lineno'>41</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using SentinelArrays</span>
+          </td>
+        </tr>
+        <tr id='L42'>
+          <td class='lineno'>42</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># InlineStrings and WeakRefStrings provide the InlineString and PosLenString types for more gc-friendly string types</span>
+          </td>
+        </tr>
+        <tr id='L43'>
+          <td class='lineno'>43</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using InlineStrings, WeakRefStrings</span>
+          </td>
+        </tr>
+        <tr id='L44'>
+          <td class='lineno'>44</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>export PosLenString, InlineString</span>
+          </td>
+        </tr>
+        <tr id='L45'>
+          <td class='lineno'>45</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>export String1, String3, String7, String15, String31, String63, String127, String255</span>
+          </td>
+        </tr>
+        <tr id='L46'>
+          <td class='lineno'>46</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># CodecZlib is used for unzipping gzip files</span>
+          </td>
+        </tr>
+        <tr id='L47'>
+          <td class='lineno'>47</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using CodecZlib</span>
+          </td>
+        </tr>
+        <tr id='L48'>
+          <td class='lineno'>48</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># FilePathsBase allows more structured file path types</span>
+          </td>
+        </tr>
+        <tr id='L49'>
+          <td class='lineno'>49</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using FilePathsBase</span>
+          </td>
+        </tr>
+        <tr id='L50'>
+          <td class='lineno'>50</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># WorkerUtilities for lock/spawn utilities</span>
+          </td>
+        </tr>
+        <tr id='L51'>
+          <td class='lineno'>51</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using WorkerUtilities</span>
+          </td>
+        </tr>
+        <tr id='L52'>
+          <td class='lineno'>52</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L53'>
+          <td class='lineno'>53</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct Error &lt;: Exception</span>
+          </td>
+        </tr>
+        <tr id='L54'>
+          <td class='lineno'>54</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    msg::String</span>
+          </td>
+        </tr>
+        <tr id='L55'>
+          <td class='lineno'>55</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L56'>
+          <td class='lineno'>56</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L57'>
+          <td class='lineno'>57</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Base.showerror&#40;io::IO, e::Error&#41; &#61; println&#40;io, e.msg&#41;</span>
+          </td>
+        </tr>
+        <tr id='L58'>
+          <td class='lineno'>58</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L59'>
+          <td class='lineno'>59</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># constants</span>
+          </td>
+        </tr>
+        <tr id='L60'>
+          <td class='lineno'>60</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const DEFAULT_STRINGTYPE &#61; InlineString</span>
+          </td>
+        </tr>
+        <tr id='L61'>
+          <td class='lineno'>61</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const DEFAULT_POOL &#61; &#40;0.2, 500&#41;</span>
+          </td>
+        </tr>
+        <tr id='L62'>
+          <td class='lineno'>62</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const DEFAULT_ROWS_TO_CHECK &#61; 30</span>
+          </td>
+        </tr>
+        <tr id='L63'>
+          <td class='lineno'>63</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const DEFAULT_MAX_WARNINGS &#61; 100</span>
+          </td>
+        </tr>
+        <tr id='L64'>
+          <td class='lineno'>64</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const DEFAULT_MAX_INLINE_STRING_LENGTH &#61; 32</span>
+          </td>
+        </tr>
+        <tr id='L65'>
+          <td class='lineno'>65</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const TRUE_STRINGS &#61; &#91;&quot;true&quot;, &quot;True&quot;, &quot;TRUE&quot;, &quot;T&quot;, &quot;1&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L66'>
+          <td class='lineno'>66</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const FALSE_STRINGS &#61; &#91;&quot;false&quot;, &quot;False&quot;, &quot;FALSE&quot;, &quot;F&quot;, &quot;0&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L67'>
+          <td class='lineno'>67</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const StringCodeUnits &#61; Base.CodeUnits&#123;UInt8, String&#125;</span>
+          </td>
+        </tr>
+        <tr id='L68'>
+          <td class='lineno'>68</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const ValidSources &#61; Union&#123;Vector&#123;UInt8&#125;, SubArray&#123;UInt8, 1, Vector&#123;UInt8&#125;&#125;, StringCodeUnits, IO, Cmd, AbstractString, AbstractPath&#125;</span>
+          </td>
+        </tr>
+        <tr id='L69'>
+          <td class='lineno'>69</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MAX_INPUT_SIZE &#61; Int &#61;&#61;&#61; Int64 ? 2^42 : typemax&#40;Int32&#41;</span>
+          </td>
+        </tr>
+        <tr id='L70'>
+          <td class='lineno'>70</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const EMPTY_INT_ARRAY &#61; Int&#91;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L71'>
+          <td class='lineno'>71</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L72'>
+          <td class='lineno'>72</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;keyworddocs.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L73'>
+          <td class='lineno'>73</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;utils.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L74'>
+          <td class='lineno'>74</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;detection.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L75'>
+          <td class='lineno'>75</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;context.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L76'>
+          <td class='lineno'>76</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;file.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L77'>
+          <td class='lineno'>77</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;chunks.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L78'>
+          <td class='lineno'>78</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;rows.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L79'>
+          <td class='lineno'>79</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;write.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L80'>
+          <td class='lineno'>80</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L81'>
+          <td class='lineno'>81</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L82'>
+          <td class='lineno'>82</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;CSV.read&#40;source, sink::T; kwargs...&#41;&#96; &#61;&gt; T</span>
+          </td>
+        </tr>
+        <tr id='L83'>
+          <td class='lineno'>83</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L84'>
+          <td class='lineno'>84</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Read and parses a delimited file or files, materializing directly using the &#96;sink&#96; function. Allows avoiding excessive copies</span>
+          </td>
+        </tr>
+        <tr id='L85'>
+          <td class='lineno'>85</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>of columns for certain sinks like &#96;DataFrame&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L86'>
+          <td class='lineno'>86</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L87'>
+          <td class='lineno'>87</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Example</span>
+          </td>
+        </tr>
+        <tr id='L88'>
+          <td class='lineno'>88</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L89'>
+          <td class='lineno'>89</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; using CSV, DataFrames</span>
+          </td>
+        </tr>
+        <tr id='L90'>
+          <td class='lineno'>90</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L91'>
+          <td class='lineno'>91</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; path &#61; tempname&#40;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L92'>
+          <td class='lineno'>92</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L93'>
+          <td class='lineno'>93</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; write&#40;path, &quot;a,b,c\\n1,2,3&quot;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L94'>
+          <td class='lineno'>94</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L95'>
+          <td class='lineno'>95</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; CSV.read&#40;path, DataFrame&#41;</span>
+          </td>
+        </tr>
+        <tr id='L96'>
+          <td class='lineno'>96</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>1×3 DataFrame</span>
+          </td>
+        </tr>
+        <tr id='L97'>
+          <td class='lineno'>97</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> Row │ a      b      c</span>
+          </td>
+        </tr>
+        <tr id='L98'>
+          <td class='lineno'>98</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>     │ Int64  Int64  Int64</span>
+          </td>
+        </tr>
+        <tr id='L99'>
+          <td class='lineno'>99</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>─────┼─────────────────────</span>
+          </td>
+        </tr>
+        <tr id='L100'>
+          <td class='lineno'>100</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   1 │     1      2      3</span>
+          </td>
+        </tr>
+        <tr id='L101'>
+          <td class='lineno'>101</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L102'>
+          <td class='lineno'>102</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; CSV.read&#40;path, DataFrame; header&#61;false&#41;</span>
+          </td>
+        </tr>
+        <tr id='L103'>
+          <td class='lineno'>103</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>2×3 DataFrame</span>
+          </td>
+        </tr>
+        <tr id='L104'>
+          <td class='lineno'>104</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'> Row │ Column1  Column2  Column3</span>
+          </td>
+        </tr>
+        <tr id='L105'>
+          <td class='lineno'>105</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>     │ String1  String1  String1</span>
+          </td>
+        </tr>
+        <tr id='L106'>
+          <td class='lineno'>106</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>─────┼───────────────────────────</span>
+          </td>
+        </tr>
+        <tr id='L107'>
+          <td class='lineno'>107</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   1 │ a        b        c</span>
+          </td>
+        </tr>
+        <tr id='L108'>
+          <td class='lineno'>108</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   2 │ 1        2        3</span>
+          </td>
+        </tr>
+        <tr id='L109'>
+          <td class='lineno'>109</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L110'>
+          <td class='lineno'>110</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L111'>
+          <td class='lineno'>111</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#36;KEYWORD_DOCS</span>
+          </td>
+        </tr>
+        <tr id='L112'>
+          <td class='lineno'>112</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L113'>
+          <td class='lineno'>113</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>35 &#40;9 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              35 &#40;9 &#37;&#41;
+              samples spent in read
+              <br />
+              
+              18 &#40;51 &#37;&#41; &#40;incl.&#41;
+              when called from run_my_model
+              <a href='run_model.jl-1578659b3b52a77292ed1339762b5233869a2b57.html#L68'>line 68</a>
+              <br />
+              
+              17 &#40;49 &#37;&#41; &#40;incl.&#41;
+              when called from run_my_model
+              <a href='run_model.jl-1578659b3b52a77292ed1339762b5233869a2b57.html#L54'>line 54</a>
+              <br />
+            </div>
+            <div class='callees'>
+              35 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='CSV.jl-65399b1690e4210d425abff39f323ea8a6c0315c.html#L117'>#read#118</a>
+              <br />
+            </div>
+            <span class='code'>function read&#40;source, sink&#61;nothing; copycols::Bool&#61;false, kwargs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L114'>
+          <td class='lineno'>114</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if sink &#61;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L115'>
+          <td class='lineno'>115</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        throw&#40;ArgumentError&#40;&quot;provide a valid sink argument, like &#96;using DataFrames; CSV.read&#40;source, DataFrame&#41;&#96;&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L116'>
+          <td class='lineno'>116</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L117'>
+          <td class='lineno'>117</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>35 &#40;9 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              35 &#40;9 &#37;&#41;
+              samples spent in #read#118
+              <br />
+              
+              35 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from read
+              <a href='CSV.jl-65399b1690e4210d425abff39f323ea8a6c0315c.html#L113'>line 113</a>
+              <br />
+            </div>
+            <div class='callees'>
+              35 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='file.jl-3809e4ebb709eeda827301af71b7ac57f9b8b204.html#L162'>File</a>
+              <br />
+            </div>
+            <span class='code'>    Tables.CopiedColumns&#40;CSV.File&#40;source; kwargs...&#41;&#41; |&gt; sink</span>
+          </td>
+        </tr>
+        <tr id='L118'>
+          <td class='lineno'>118</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L119'>
+          <td class='lineno'>119</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L120'>
+          <td class='lineno'>120</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>include&#40;&quot;precompile.jl&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L121'>
+          <td class='lineno'>121</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L122'>
+          <td class='lineno'>122</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function __init__&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L123'>
+          <td class='lineno'>123</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L124'>
+          <td class='lineno'>124</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L125'>
+          <td class='lineno'>125</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end # module</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+

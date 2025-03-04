@@ -1,0 +1,2639 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - ../../../../../global/homes/s/siennaw/.julia/packages/NCDatasets/LjXBn/src/cfvariable.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 22:05:19
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>############################################################</span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Creating variables</span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>############################################################</span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    defVar&#40;ds::NCDataset,name,vtype,dimnames; kwargs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    defVar&#40;ds::NCDataset,name,data,dimnames; kwargs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Define a variable with the name &#96;name&#96; in the dataset &#96;ds&#96;.  &#96;vtype&#96; can be</span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Julia types in the table below &#40;with the corresponding NetCDF type&#41;. The</span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>parameter &#96;dimnames&#96; is a tuple with the names of the dimension.  For scalar</span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>this parameter is the empty tuple &#96;&#40;&#41;&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The variable is returned &#40;of the type &#96;CFVariable&#96;&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Instead of providing the variable type one can directly give also the data &#96;data&#96; which</span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>will be used to fill the NetCDF variable. In this case, the dimensions with</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>the appropriate size will be created as required using the names in &#96;dimnames&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>If &#96;data&#96; is a vector or array of &#96;DateTime&#96; objects, then the dates</span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>are saved as double-precision floats and units</span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&#36;&#40;CFTime.DEFAULT_TIME_UNITS&#41;&quot; &#40;unless a time unit</span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>is specifed with the &#96;attrib&#96; keyword as described below&#41;. Dates are</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>converted to the default calendar in the CF conversion which is the</span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mixed Julian/Gregorian calendar.</span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## Keyword arguments</span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;fillvalue&#96;: A value filled in the NetCDF file to indicate missing data.</span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>   It will be stored in the _FillValue attribute. &#96;NCDatasets&#96; does not use implicitely the default NetCDF fill values when reading data.</span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;chunksizes&#96;: Vector integers setting the chunk size. The total size of a chunk must be less than 4 GiB.</span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;deflatelevel&#96;: Compression level: 0 &#40;default&#41; means no compression and 9 means maximum compression. Each chunk will be compressed individually.</span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;shuffle&#96;: If true, the shuffle filter is activated which can improve the compression ratio.</span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;checksum&#96;: The checksum method can be &#96;:fletcher32&#96; or &#96;:nochecksum&#96; &#40;checksumming is disabled, which is the default&#41;</span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;attrib&#96;: An iterable of attribute name and attribute value pairs, for example a &#96;Dict&#96;, &#96;DataStructures.OrderedDict&#96; or simply a vector of pairs &#40;see example below&#41;</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>* &#96;typename&#96; &#40;string&#41;: The name of the NetCDF type required for &#91;vlen arrays&#93;&#40;https://web.archive.org/save/https://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-c/nc_005fdef_005fvlen.html&#41;</span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L37'>
+          <td class='lineno'>37</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;chunksizes&#96;, &#96;deflatelevel&#96;, &#96;shuffle&#96; and &#96;checksum&#96; can only be</span>
+          </td>
+        </tr>
+        <tr id='L38'>
+          <td class='lineno'>38</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>set on NetCDF 4 files. Compression of strings and variable-length arrays is not</span>
+          </td>
+        </tr>
+        <tr id='L39'>
+          <td class='lineno'>39</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>supported by the underlying NetCDF library.</span>
+          </td>
+        </tr>
+        <tr id='L40'>
+          <td class='lineno'>40</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L41'>
+          <td class='lineno'>41</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## NetCDF data types</span>
+          </td>
+        </tr>
+        <tr id='L42'>
+          <td class='lineno'>42</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L43'>
+          <td class='lineno'>43</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NetCDF Type | Julia Type |</span>
+          </td>
+        </tr>
+        <tr id='L44'>
+          <td class='lineno'>44</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>|-------------|------------|</span>
+          </td>
+        </tr>
+        <tr id='L45'>
+          <td class='lineno'>45</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_BYTE     | Int8 |</span>
+          </td>
+        </tr>
+        <tr id='L46'>
+          <td class='lineno'>46</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_UBYTE    | UInt8 |</span>
+          </td>
+        </tr>
+        <tr id='L47'>
+          <td class='lineno'>47</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_SHORT    | Int16 |</span>
+          </td>
+        </tr>
+        <tr id='L48'>
+          <td class='lineno'>48</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_INT      | Int32 |</span>
+          </td>
+        </tr>
+        <tr id='L49'>
+          <td class='lineno'>49</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_INT64    | Int64 |</span>
+          </td>
+        </tr>
+        <tr id='L50'>
+          <td class='lineno'>50</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_FLOAT    | Float32 |</span>
+          </td>
+        </tr>
+        <tr id='L51'>
+          <td class='lineno'>51</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_DOUBLE   | Float64 |</span>
+          </td>
+        </tr>
+        <tr id='L52'>
+          <td class='lineno'>52</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_CHAR     | Char |</span>
+          </td>
+        </tr>
+        <tr id='L53'>
+          <td class='lineno'>53</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>| NC_STRING   | String |</span>
+          </td>
+        </tr>
+        <tr id='L54'>
+          <td class='lineno'>54</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L55'>
+          <td class='lineno'>55</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L56'>
+          <td class='lineno'>56</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## Dimension ordering</span>
+          </td>
+        </tr>
+        <tr id='L57'>
+          <td class='lineno'>57</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L58'>
+          <td class='lineno'>58</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The data is stored in the NetCDF file in the same order as they are stored in</span>
+          </td>
+        </tr>
+        <tr id='L59'>
+          <td class='lineno'>59</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>memory. As julia uses the</span>
+          </td>
+        </tr>
+        <tr id='L60'>
+          <td class='lineno'>60</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#91;Column-major ordering&#93;&#40;https://en.wikipedia.org/wiki/Row-_and_column-major_order&#41;</span>
+          </td>
+        </tr>
+        <tr id='L61'>
+          <td class='lineno'>61</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>for arrays, the order of dimensions will appear reversed when the data is loaded</span>
+          </td>
+        </tr>
+        <tr id='L62'>
+          <td class='lineno'>62</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>in languages or programs using</span>
+          </td>
+        </tr>
+        <tr id='L63'>
+          <td class='lineno'>63</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#91;Row-major ordering&#93;&#40;https://en.wikipedia.org/wiki/Row-_and_column-major_order&#41;</span>
+          </td>
+        </tr>
+        <tr id='L64'>
+          <td class='lineno'>64</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>such as C/C&#43;&#43;, Python/NumPy or the tools &#96;ncdump&#96;/&#96;ncgen&#96;</span>
+          </td>
+        </tr>
+        <tr id='L65'>
+          <td class='lineno'>65</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#40;&#91;NetCDF CDL&#93;&#40;https://web.archive.org/web/20220513091844/https://docs.unidata.ucar.edu/nug/current/_c_d_l.html&#41;&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L66'>
+          <td class='lineno'>66</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>NumPy can also use Column-major ordering but Row-major order is the default. For the column-major</span>
+          </td>
+        </tr>
+        <tr id='L67'>
+          <td class='lineno'>67</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>interpretation of the dimensions &#40;as in Julia&#41;, the</span>
+          </td>
+        </tr>
+        <tr id='L68'>
+          <td class='lineno'>68</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#91;CF Convention recommends&#93;&#40;https://web.archive.org/web/20220328110810/http://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html#dimensions&#41; the</span>
+          </td>
+        </tr>
+        <tr id='L69'>
+          <td class='lineno'>69</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>order  &quot;longitude&quot; &#40;X&#41;, &quot;latitude&quot; &#40;Y&#41;, &quot;height or depth&quot; &#40;Z&#41; and</span>
+          </td>
+        </tr>
+        <tr id='L70'>
+          <td class='lineno'>70</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;date or time&quot; &#40;T&#41; &#40;if applicable&#41;. All other dimensions should, whenever</span>
+          </td>
+        </tr>
+        <tr id='L71'>
+          <td class='lineno'>71</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>possible, be placed to the right of the spatiotemporal dimensions.</span>
+          </td>
+        </tr>
+        <tr id='L72'>
+          <td class='lineno'>72</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L73'>
+          <td class='lineno'>73</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## Example:</span>
+          </td>
+        </tr>
+        <tr id='L74'>
+          <td class='lineno'>74</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L75'>
+          <td class='lineno'>75</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>In this example, &#96;scale_factor&#96; and &#96;add_offset&#96; are applied when the &#96;data&#96;</span>
+          </td>
+        </tr>
+        <tr id='L76'>
+          <td class='lineno'>76</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>is saved.</span>
+          </td>
+        </tr>
+        <tr id='L77'>
+          <td class='lineno'>77</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L78'>
+          <td class='lineno'>78</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;julia-repl</span>
+          </td>
+        </tr>
+        <tr id='L79'>
+          <td class='lineno'>79</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; using DataStructures</span>
+          </td>
+        </tr>
+        <tr id='L80'>
+          <td class='lineno'>80</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; data &#61; randn&#40;3,5&#41;</span>
+          </td>
+        </tr>
+        <tr id='L81'>
+          <td class='lineno'>81</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; NCDataset&#40;&quot;test_file.nc&quot;,&quot;c&quot;&#41; do ds</span>
+          </td>
+        </tr>
+        <tr id='L82'>
+          <td class='lineno'>82</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>          defVar&#40;ds,&quot;temp&quot;,data,&#40;&quot;lon&quot;,&quot;lat&quot;&#41;, attrib &#61; OrderedDict&#40;</span>
+          </td>
+        </tr>
+        <tr id='L83'>
+          <td class='lineno'>83</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>             &quot;units&quot; &#61;&gt; &quot;degree_Celsius&quot;,</span>
+          </td>
+        </tr>
+        <tr id='L84'>
+          <td class='lineno'>84</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>             &quot;add_offset&quot; &#61;&gt; -273.15,</span>
+          </td>
+        </tr>
+        <tr id='L85'>
+          <td class='lineno'>85</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>             &quot;scale_factor&quot; &#61;&gt; 0.1,</span>
+          </td>
+        </tr>
+        <tr id='L86'>
+          <td class='lineno'>86</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>             &quot;long_name&quot; &#61;&gt; &quot;Temperature&quot;</span>
+          </td>
+        </tr>
+        <tr id='L87'>
+          <td class='lineno'>87</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>          &#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L88'>
+          <td class='lineno'>88</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>       end;</span>
+          </td>
+        </tr>
+        <tr id='L89'>
+          <td class='lineno'>89</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L90'>
+          <td class='lineno'>90</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L91'>
+          <td class='lineno'>91</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#33;&#33;&#33; note</span>
+          </td>
+        </tr>
+        <tr id='L92'>
+          <td class='lineno'>92</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L93'>
+          <td class='lineno'>93</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    If the attributes &#96;_FillValue&#96;, &#96;missing_value&#96;, &#96;add_offset&#96;, &#96;scale_factor&#96;,</span>
+          </td>
+        </tr>
+        <tr id='L94'>
+          <td class='lineno'>94</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    &#96;units&#96; and &#96;calendar&#96; are used, they should be defined when calling &#96;defVar&#96;</span>
+          </td>
+        </tr>
+        <tr id='L95'>
+          <td class='lineno'>95</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    by using the parameter &#96;attrib&#96; as shown in the example above.</span>
+          </td>
+        </tr>
+        <tr id='L96'>
+          <td class='lineno'>96</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L97'>
+          <td class='lineno'>97</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L98'>
+          <td class='lineno'>98</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L99'>
+          <td class='lineno'>99</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              2 &#40;1 &#37;&#41;
+              samples spent in defVar
+              <br />
+              
+              1 &#40;50 &#37;&#41; &#40;incl.&#41;
+              when called from run_my_model
+              <a href='run_model.jl-1578659b3b52a77292ed1339762b5233869a2b57.html#L325'>line 325</a>
+              <br />
+              
+              1 &#40;50 &#37;&#41; &#40;incl.&#41;
+              when called from defVar
+              <a href='cfvariable.jl-9e8fe4c33be1a4111649f4945da358b8bb82224f.html#L99'>line 99</a>
+              <br />
+            </div>
+            <div class='callees'>
+              1 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='cfvariable.jl-9e8fe4c33be1a4111649f4945da358b8bb82224f.html#L99'>#defVar#30</a>
+              <br />
+            </div>
+            <span class='code'>function defVar&#40;ds::NCDataset,name::SymbolOrString,vtype::DataType,dimnames;</span>
+          </td>
+        </tr>
+        <tr id='L100'>
+          <td class='lineno'>100</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                chunksizes &#61; nothing,</span>
+          </td>
+        </tr>
+        <tr id='L101'>
+          <td class='lineno'>101</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                shuffle &#61; false,</span>
+          </td>
+        </tr>
+        <tr id='L102'>
+          <td class='lineno'>102</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                deflatelevel &#61; nothing,</span>
+          </td>
+        </tr>
+        <tr id='L103'>
+          <td class='lineno'>103</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                checksum &#61; nothing,</span>
+          </td>
+        </tr>
+        <tr id='L104'>
+          <td class='lineno'>104</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                fillvalue &#61; nothing,</span>
+          </td>
+        </tr>
+        <tr id='L105'>
+          <td class='lineno'>105</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                nofill &#61; false,</span>
+          </td>
+        </tr>
+        <tr id='L106'>
+          <td class='lineno'>106</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                typename &#61; nothing,</span>
+          </td>
+        </tr>
+        <tr id='L107'>
+          <td class='lineno'>107</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                attrib &#61; &#40;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L108'>
+          <td class='lineno'>108</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    defmode&#40;ds&#41; # make sure that the file is in define mode</span>
+          </td>
+        </tr>
+        <tr id='L109'>
+          <td class='lineno'>109</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dimids &#61; Cint&#91;nc_inq_dimid&#40;ds.ncid,dimname&#41; for dimname in dimnames&#91;end:-1:1&#93;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L110'>
+          <td class='lineno'>110</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L111'>
+          <td class='lineno'>111</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    typeid &#61;</span>
+          </td>
+        </tr>
+        <tr id='L112'>
+          <td class='lineno'>112</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if vtype &lt;: Vector</span>
+          </td>
+        </tr>
+        <tr id='L113'>
+          <td class='lineno'>113</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            # variable-length type</span>
+          </td>
+        </tr>
+        <tr id='L114'>
+          <td class='lineno'>114</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            typeid &#61; nc_def_vlen&#40;ds.ncid, typename, ncType&#91;eltype&#40;vtype&#41;&#93;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L115'>
+          <td class='lineno'>115</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        else</span>
+          </td>
+        </tr>
+        <tr id='L116'>
+          <td class='lineno'>116</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            # base-type</span>
+          </td>
+        </tr>
+        <tr id='L117'>
+          <td class='lineno'>117</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            haskey&#40;ncType, vtype&#41; || error&#40;&quot;&#36;vtype not supported&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L118'>
+          <td class='lineno'>118</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            ncType&#91;vtype&#93;</span>
+          </td>
+        </tr>
+        <tr id='L119'>
+          <td class='lineno'>119</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L120'>
+          <td class='lineno'>120</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L121'>
+          <td class='lineno'>121</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    varid &#61; nc_def_var&#40;ds.ncid,name,typeid,dimids&#41;</span>
+          </td>
+        </tr>
+        <tr id='L122'>
+          <td class='lineno'>122</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L123'>
+          <td class='lineno'>123</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if chunksizes &#33;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L124'>
+          <td class='lineno'>124</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        storage &#61; :chunked</span>
+          </td>
+        </tr>
+        <tr id='L125'>
+          <td class='lineno'>125</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # this will fail on NetCDF-3 files</span>
+          </td>
+        </tr>
+        <tr id='L126'>
+          <td class='lineno'>126</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        nc_def_var_chunking&#40;ds.ncid,varid,storage,reverse&#40;chunksizes&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L127'>
+          <td class='lineno'>127</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L128'>
+          <td class='lineno'>128</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L129'>
+          <td class='lineno'>129</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if shuffle || &#40;deflatelevel &#33;&#61;&#61; nothing&#41;</span>
+          </td>
+        </tr>
+        <tr id='L130'>
+          <td class='lineno'>130</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        deflate &#61; deflatelevel &#33;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L131'>
+          <td class='lineno'>131</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L132'>
+          <td class='lineno'>132</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # this will fail on NetCDF-3 files</span>
+          </td>
+        </tr>
+        <tr id='L133'>
+          <td class='lineno'>133</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        nc_def_var_deflate&#40;ds.ncid,varid,shuffle,deflate,deflatelevel&#41;</span>
+          </td>
+        </tr>
+        <tr id='L134'>
+          <td class='lineno'>134</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L135'>
+          <td class='lineno'>135</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L136'>
+          <td class='lineno'>136</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if checksum &#33;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L137'>
+          <td class='lineno'>137</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        nc_def_var_fletcher32&#40;ds.ncid,varid,checksum&#41;</span>
+          </td>
+        </tr>
+        <tr id='L138'>
+          <td class='lineno'>138</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L139'>
+          <td class='lineno'>139</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L140'>
+          <td class='lineno'>140</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if fillvalue &#33;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L141'>
+          <td class='lineno'>141</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        nc_def_var_fill&#40;ds.ncid, varid, nofill, vtype&#40;fillvalue&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L142'>
+          <td class='lineno'>142</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L143'>
+          <td class='lineno'>143</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L144'>
+          <td class='lineno'>144</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            <div class='callees'>
+              1 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='dataset.jl-101c159c904c339878dc912cf0c41ef6d4f3c63f.html#L170'>getindex</a>
+              <br />
+            </div>
+            <span class='code'>    v &#61; ds&#91;name&#93;</span>
+          </td>
+        </tr>
+        <tr id='L145'>
+          <td class='lineno'>145</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    for &#40;attname,attval&#41; in attrib</span>
+          </td>
+        </tr>
+        <tr id='L146'>
+          <td class='lineno'>146</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        @debug &quot;variable &#36;name: setting &#36;attname&quot; attval typeof&#40;attval&#41; eltype&#40;v&#41;</span>
+          </td>
+        </tr>
+        <tr id='L147'>
+          <td class='lineno'>147</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        v.attrib&#91;attname&#93; &#61; attval</span>
+          </td>
+        </tr>
+        <tr id='L148'>
+          <td class='lineno'>148</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L149'>
+          <td class='lineno'>149</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L150'>
+          <td class='lineno'>150</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # note: element type of ds&#91;name&#93; potentially changed</span>
+          </td>
+        </tr>
+        <tr id='L151'>
+          <td class='lineno'>151</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # we cannot return v here</span>
+          </td>
+        </tr>
+        <tr id='L152'>
+          <td class='lineno'>152</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return ds&#91;name&#93;</span>
+          </td>
+        </tr>
+        <tr id='L153'>
+          <td class='lineno'>153</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L154'>
+          <td class='lineno'>154</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L155'>
+          <td class='lineno'>155</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L156'>
+          <td class='lineno'>156</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function defVar&#40;dest::AbstractDataset,srcvar::AbstractNCVariable; kwargs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L157'>
+          <td class='lineno'>157</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    _ignore_checksum &#61; false</span>
+          </td>
+        </tr>
+        <tr id='L158'>
+          <td class='lineno'>158</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if haskey&#40;kwargs,:checksum&#41;</span>
+          </td>
+        </tr>
+        <tr id='L159'>
+          <td class='lineno'>159</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        _ignore_checksum &#61; kwargs&#91;:checksum&#93; &#61;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L160'>
+          <td class='lineno'>160</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L161'>
+          <td class='lineno'>161</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L162'>
+          <td class='lineno'>162</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    src &#61; dataset&#40;srcvar&#41;</span>
+          </td>
+        </tr>
+        <tr id='L163'>
+          <td class='lineno'>163</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    varname &#61; name&#40;srcvar&#41;</span>
+          </td>
+        </tr>
+        <tr id='L164'>
+          <td class='lineno'>164</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L165'>
+          <td class='lineno'>165</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # dimensions</span>
+          </td>
+        </tr>
+        <tr id='L166'>
+          <td class='lineno'>166</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    unlimited_dims &#61; unlimited&#40;src&#41;</span>
+          </td>
+        </tr>
+        <tr id='L167'>
+          <td class='lineno'>167</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L168'>
+          <td class='lineno'>168</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    for dimname in dimnames&#40;srcvar&#41;</span>
+          </td>
+        </tr>
+        <tr id='L169'>
+          <td class='lineno'>169</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if dimname in dimnames&#40;dest,parents &#61; true&#41;</span>
+          </td>
+        </tr>
+        <tr id='L170'>
+          <td class='lineno'>170</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            # dimension is already defined</span>
+          </td>
+        </tr>
+        <tr id='L171'>
+          <td class='lineno'>171</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            continue</span>
+          </td>
+        </tr>
+        <tr id='L172'>
+          <td class='lineno'>172</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L173'>
+          <td class='lineno'>173</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L174'>
+          <td class='lineno'>174</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if dimname in unlimited_dims</span>
+          </td>
+        </tr>
+        <tr id='L175'>
+          <td class='lineno'>175</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            defDim&#40;dest, dimname, Inf&#41;</span>
+          </td>
+        </tr>
+        <tr id='L176'>
+          <td class='lineno'>176</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        else</span>
+          </td>
+        </tr>
+        <tr id='L177'>
+          <td class='lineno'>177</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            defDim&#40;dest, dimname, dim&#40;src,dimname&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L178'>
+          <td class='lineno'>178</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L179'>
+          <td class='lineno'>179</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L180'>
+          <td class='lineno'>180</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L181'>
+          <td class='lineno'>181</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    var &#61; variable&#40;src,varname&#41;</span>
+          </td>
+        </tr>
+        <tr id='L182'>
+          <td class='lineno'>182</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dimension_names &#61; dimnames&#40;var&#41;</span>
+          </td>
+        </tr>
+        <tr id='L183'>
+          <td class='lineno'>183</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    cfdestvar &#61; defVar&#40;dest, varname, eltype&#40;var&#41;, dimension_names;</span>
+          </td>
+        </tr>
+        <tr id='L184'>
+          <td class='lineno'>184</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                       attrib &#61; attribs&#40;var&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L185'>
+          <td class='lineno'>185</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    destvar &#61; variable&#40;dest,varname&#41;</span>
+          </td>
+        </tr>
+        <tr id='L186'>
+          <td class='lineno'>186</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L187'>
+          <td class='lineno'>187</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if hasmethod&#40;chunking,Tuple&#123;typeof&#40;var&#41;&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L188'>
+          <td class='lineno'>188</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        storage,chunksizes &#61; chunking&#40;var&#41;</span>
+          </td>
+        </tr>
+        <tr id='L189'>
+          <td class='lineno'>189</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        @debug &quot;chunking &quot; name&#40;var&#41; size&#40;var&#41; size&#40;cfdestvar&#41; storage chunksizes</span>
+          </td>
+        </tr>
+        <tr id='L190'>
+          <td class='lineno'>190</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        chunking&#40;cfdestvar,storage,chunksizes&#41;</span>
+          </td>
+        </tr>
+        <tr id='L191'>
+          <td class='lineno'>191</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L192'>
+          <td class='lineno'>192</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L193'>
+          <td class='lineno'>193</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if hasmethod&#40;deflate,Tuple&#123;typeof&#40;var&#41;&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L194'>
+          <td class='lineno'>194</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        isshuffled,isdeflated,deflate_level &#61; deflate&#40;var&#41;</span>
+          </td>
+        </tr>
+        <tr id='L195'>
+          <td class='lineno'>195</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        @debug &quot;compression&quot; isshuffled isdeflated deflate_level</span>
+          </td>
+        </tr>
+        <tr id='L196'>
+          <td class='lineno'>196</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        deflate&#40;cfdestvar,isshuffled,isdeflated,deflate_level&#41;</span>
+          </td>
+        </tr>
+        <tr id='L197'>
+          <td class='lineno'>197</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L198'>
+          <td class='lineno'>198</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L199'>
+          <td class='lineno'>199</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if hasmethod&#40;checksum,Tuple&#123;typeof&#40;var&#41;&#125;&#41; &amp;&amp; &#33;_ignore_checksum</span>
+          </td>
+        </tr>
+        <tr id='L200'>
+          <td class='lineno'>200</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        checksummethod &#61; checksum&#40;var&#41;</span>
+          </td>
+        </tr>
+        <tr id='L201'>
+          <td class='lineno'>201</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        @debug &quot;check-sum&quot; checksummethod</span>
+          </td>
+        </tr>
+        <tr id='L202'>
+          <td class='lineno'>202</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        checksum&#40;cfdestvar,checksummethod&#41;</span>
+          </td>
+        </tr>
+        <tr id='L203'>
+          <td class='lineno'>203</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L204'>
+          <td class='lineno'>204</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L205'>
+          <td class='lineno'>205</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # copy data</span>
+          </td>
+        </tr>
+        <tr id='L206'>
+          <td class='lineno'>206</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if hasmethod&#40;eachchunk,Tuple&#123;typeof&#40;var&#41;&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L207'>
+          <td class='lineno'>207</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        for indices in eachchunk&#40;var&#41;</span>
+          </td>
+        </tr>
+        <tr id='L208'>
+          <td class='lineno'>208</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            destvar&#91;indices...&#93; &#61; var&#91;indices...&#93;</span>
+          </td>
+        </tr>
+        <tr id='L209'>
+          <td class='lineno'>209</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L210'>
+          <td class='lineno'>210</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L211'>
+          <td class='lineno'>211</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        indices &#61; ntuple&#40;i -&gt; :,ndims&#40;var&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L212'>
+          <td class='lineno'>212</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        destvar&#91;indices...&#93; &#61; var&#91;indices...&#93;</span>
+          </td>
+        </tr>
+        <tr id='L213'>
+          <td class='lineno'>213</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L214'>
+          <td class='lineno'>214</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L215'>
+          <td class='lineno'>215</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return cfdestvar</span>
+          </td>
+        </tr>
+        <tr id='L216'>
+          <td class='lineno'>216</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L217'>
+          <td class='lineno'>217</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L218'>
+          <td class='lineno'>218</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>export defVar</span>
+          </td>
+        </tr>
+        <tr id='L219'>
+          <td class='lineno'>219</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L220'>
+          <td class='lineno'>220</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L221'>
+          <td class='lineno'>221</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># more efficient implementation implementing a cache</span>
+          </td>
+        </tr>
+        <tr id='L222'>
+          <td class='lineno'>222</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function boundsParentVar&#40;ds::AbstractNCDataset,varname&#41;</span>
+          </td>
+        </tr>
+        <tr id='L223'>
+          <td class='lineno'>223</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # iterating using variable ids instead of variable names</span>
+          </td>
+        </tr>
+        <tr id='L224'>
+          <td class='lineno'>224</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # is more efficient &#40;but not possible for e.g. multi-file datasets&#41;</span>
+          </td>
+        </tr>
+        <tr id='L225'>
+          <td class='lineno'>225</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    eachvariable&#40;ds::NCDataset&#41; &#61; &#40;variable&#40;ds,varid&#41; for varid in nc_inq_varids&#40;ds.ncid&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L226'>
+          <td class='lineno'>226</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    eachvariable&#40;ds&#41; &#61; &#40;variable&#40;ds,vname&#41; for vname in keys&#40;ds&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L227'>
+          <td class='lineno'>227</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L228'>
+          <td class='lineno'>228</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L229'>
+          <td class='lineno'>229</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # get from cache is available</span>
+          </td>
+        </tr>
+        <tr id='L230'>
+          <td class='lineno'>230</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if length&#40;values&#40;ds._boundsmap&#41;&#41; &gt; 0</span>
+          </td>
+        </tr>
+        <tr id='L231'>
+          <td class='lineno'>231</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        return get&#40;ds._boundsmap,varname,&quot;&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L232'>
+          <td class='lineno'>232</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L233'>
+          <td class='lineno'>233</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        for v in eachvariable&#40;ds&#41;</span>
+          </td>
+        </tr>
+        <tr id='L234'>
+          <td class='lineno'>234</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            bounds &#61; get&#40;v.attrib,&quot;bounds&quot;,&quot;&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L235'>
+          <td class='lineno'>235</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            if bounds &#61;&#61;&#61; varname</span>
+          </td>
+        </tr>
+        <tr id='L236'>
+          <td class='lineno'>236</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                return name&#40;v&#41;</span>
+          </td>
+        </tr>
+        <tr id='L237'>
+          <td class='lineno'>237</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            end</span>
+          </td>
+        </tr>
+        <tr id='L238'>
+          <td class='lineno'>238</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L239'>
+          <td class='lineno'>239</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L240'>
+          <td class='lineno'>240</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        return &quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L241'>
+          <td class='lineno'>241</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L242'>
+          <td class='lineno'>242</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L243'>
+          <td class='lineno'>243</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L244'>
+          <td class='lineno'>244</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L245'>
+          <td class='lineno'>245</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>export cfvariable</span>
+          </td>
+        </tr>
+        <tr id='L246'>
+          <td class='lineno'>246</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L247'>
+          <td class='lineno'>247</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L248'>
+          <td class='lineno'>248</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dimsize&#40;v::CFVariable&#41;</span>
+          </td>
+        </tr>
+        <tr id='L249'>
+          <td class='lineno'>249</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Get the size of a &#96;CFVariable&#96; as a named tuple of dimension → length.</span>
+          </td>
+        </tr>
+        <tr id='L250'>
+          <td class='lineno'>250</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L251'>
+          <td class='lineno'>251</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function dimsize&#40;v::Union&#123;CFVariable&#123;T,N,&lt;:Variable&#125;,MFCFVariable,SubVariable&#125;&#41; where &#123;T,N&#125;</span>
+          </td>
+        </tr>
+        <tr id='L252'>
+          <td class='lineno'>252</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    s &#61; size&#40;v&#41;</span>
+          </td>
+        </tr>
+        <tr id='L253'>
+          <td class='lineno'>253</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    names &#61; Symbol.&#40;dimnames&#40;v&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L254'>
+          <td class='lineno'>254</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return NamedTuple&#123;names&#125;&#40;s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L255'>
+          <td class='lineno'>255</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L256'>
+          <td class='lineno'>256</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L257'>
+          <td class='lineno'>257</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L258'>
+          <td class='lineno'>258</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>export dimsize</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+

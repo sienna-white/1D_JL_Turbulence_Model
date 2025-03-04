@@ -1,0 +1,3162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - ../../../../../global/common/software/nersc/n9/julia/1.10.4/share/julia/base/error.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 21:18:01
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># This file is a part of Julia. License is MIT: https://julialang.org/license</span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># pseudo-definitions to show how everything behaves</span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#</span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># throw&#40;label, val&#41; &#61; # throw a value to a dynamically enclosing block</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#</span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># function rethrow&#40;val&#41;</span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#     global current_exception &#61; val</span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#     throw&#40;current_handler&#40;&#41;, current_exception&#41;</span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># end</span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#</span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># rethrow&#40;&#41; &#61; rethrow&#40;current_exception&#41;</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#</span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># function throw&#40;val&#41;</span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#     global catch_backtrace &#61; backtrace&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>#     rethrow&#40;val&#41;</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># end</span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    throw&#40;e&#41;</span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Throw an object as an exception.</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>See also: &#91;&#96;rethrow&#96;&#93;&#40;@ref&#41;, &#91;&#96;error&#96;&#93;&#40;@ref&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>throw</span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## native julia error handling ##</span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    error&#40;message::AbstractString&#41;</span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Raise an &#96;ErrorException&#96; with the given message.</span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'>2 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>2 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              2 &#40;0 &#37;&#41;
+              samples spent in error
+              <br />
+              2 &#40;100 &#37;&#41; &#40;ex.&#41;,
+              2 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from concrete_eval_call
+              <a href='abstractinterpretation.jl-76a36272b07b5265f90720f45260eb0dd27a7774.html#L909'>line 909</a>
+              <br />
+            </div>
+            
+            <span class='code'>error&#40;s::AbstractString&#41; &#61; throw&#40;ErrorException&#40;s&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L37'>
+          <td class='lineno'>37</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L38'>
+          <td class='lineno'>38</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    error&#40;msg...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L39'>
+          <td class='lineno'>39</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L40'>
+          <td class='lineno'>40</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Raise an &#96;ErrorException&#96; with the given message.</span>
+          </td>
+        </tr>
+        <tr id='L41'>
+          <td class='lineno'>41</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L42'>
+          <td class='lineno'>42</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            <div class='call-sites'>
+              1 &#40;0 &#37;&#41;
+              samples spent in error
+              <br />
+              1 &#40;100 &#37;&#41; &#40;ex.&#41;,
+              1 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from concrete_eval_call
+              <a href='abstractinterpretation.jl-76a36272b07b5265f90720f45260eb0dd27a7774.html#L909'>line 909</a>
+              <br />
+            </div>
+            
+            <span class='code'>function error&#40;s::Vararg&#123;Any,N&#125;&#41; where &#123;N&#125;</span>
+          </td>
+        </tr>
+        <tr id='L43'>
+          <td class='lineno'>43</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    @noinline</span>
+          </td>
+        </tr>
+        <tr id='L44'>
+          <td class='lineno'>44</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    throw&#40;ErrorException&#40;Main.Base.string&#40;s...&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L45'>
+          <td class='lineno'>45</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L46'>
+          <td class='lineno'>46</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L47'>
+          <td class='lineno'>47</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L48'>
+          <td class='lineno'>48</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    rethrow&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L49'>
+          <td class='lineno'>49</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L50'>
+          <td class='lineno'>50</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Rethrow the current exception from within a &#96;catch&#96; block. The rethrown</span>
+          </td>
+        </tr>
+        <tr id='L51'>
+          <td class='lineno'>51</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>exception will continue propagation as if it had not been caught.</span>
+          </td>
+        </tr>
+        <tr id='L52'>
+          <td class='lineno'>52</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L53'>
+          <td class='lineno'>53</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#33;&#33;&#33; note</span>
+          </td>
+        </tr>
+        <tr id='L54'>
+          <td class='lineno'>54</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    The alternative form &#96;rethrow&#40;e&#41;&#96; allows you to associate an alternative</span>
+          </td>
+        </tr>
+        <tr id='L55'>
+          <td class='lineno'>55</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    exception object &#96;e&#96; with the current backtrace. However this misrepresents</span>
+          </td>
+        </tr>
+        <tr id='L56'>
+          <td class='lineno'>56</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    the program state at the time of the error so you&#39;re encouraged to instead</span>
+          </td>
+        </tr>
+        <tr id='L57'>
+          <td class='lineno'>57</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    throw a new exception using &#96;throw&#40;e&#41;&#96;. In Julia 1.1 and above, using</span>
+          </td>
+        </tr>
+        <tr id='L58'>
+          <td class='lineno'>58</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    &#96;throw&#40;e&#41;&#96; will preserve the root cause exception on the stack, as</span>
+          </td>
+        </tr>
+        <tr id='L59'>
+          <td class='lineno'>59</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    described in &#91;&#96;current_exceptions&#96;&#93;&#40;@ref&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L60'>
+          <td class='lineno'>60</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L61'>
+          <td class='lineno'>61</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>rethrow&#40;&#41; &#61; ccall&#40;:jl_rethrow, Bottom, &#40;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L62'>
+          <td class='lineno'>62</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>rethrow&#40;@nospecialize&#40;e&#41;&#41; &#61; ccall&#40;:jl_rethrow_other, Bottom, &#40;Any,&#41;, e&#41;</span>
+          </td>
+        </tr>
+        <tr id='L63'>
+          <td class='lineno'>63</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L64'>
+          <td class='lineno'>64</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct InterpreterIP</span>
+          </td>
+        </tr>
+        <tr id='L65'>
+          <td class='lineno'>65</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    code::Union&#123;CodeInfo,Core.MethodInstance,Nothing&#125;</span>
+          </td>
+        </tr>
+        <tr id='L66'>
+          <td class='lineno'>66</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    stmt::Csize_t</span>
+          </td>
+        </tr>
+        <tr id='L67'>
+          <td class='lineno'>67</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mod::Union&#123;Module,Nothing&#125;</span>
+          </td>
+        </tr>
+        <tr id='L68'>
+          <td class='lineno'>68</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L69'>
+          <td class='lineno'>69</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L70'>
+          <td class='lineno'>70</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># convert dual arrays &#40;raw bt buffer, array of GC managed values&#41; to a single</span>
+          </td>
+        </tr>
+        <tr id='L71'>
+          <td class='lineno'>71</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># array of locations</span>
+          </td>
+        </tr>
+        <tr id='L72'>
+          <td class='lineno'>72</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function _reformat_bt&#40;bt::Array&#123;Ptr&#123;Cvoid&#125;,1&#125;, bt2::Array&#123;Any,1&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L73'>
+          <td class='lineno'>73</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret &#61; Vector&#123;Union&#123;InterpreterIP,Ptr&#123;Cvoid&#125;&#125;&#125;&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L74'>
+          <td class='lineno'>74</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    i, j &#61; 1, 1</span>
+          </td>
+        </tr>
+        <tr id='L75'>
+          <td class='lineno'>75</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    while i &lt;&#61; length&#40;bt&#41;</span>
+          </td>
+        </tr>
+        <tr id='L76'>
+          <td class='lineno'>76</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        ip &#61; bt&#91;i&#93;::Ptr&#123;Cvoid&#125;</span>
+          </td>
+        </tr>
+        <tr id='L77'>
+          <td class='lineno'>77</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if UInt&#40;ip&#41; &#33;&#61; &#40;-1 &#37; UInt&#41; # See also jl_bt_is_native</span>
+          </td>
+        </tr>
+        <tr id='L78'>
+          <td class='lineno'>78</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            # native frame</span>
+          </td>
+        </tr>
+        <tr id='L79'>
+          <td class='lineno'>79</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            push&#33;&#40;ret, ip&#41;</span>
+          </td>
+        </tr>
+        <tr id='L80'>
+          <td class='lineno'>80</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            i &#43;&#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L81'>
+          <td class='lineno'>81</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            continue</span>
+          </td>
+        </tr>
+        <tr id='L82'>
+          <td class='lineno'>82</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L83'>
+          <td class='lineno'>83</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # Extended backtrace entry</span>
+          </td>
+        </tr>
+        <tr id='L84'>
+          <td class='lineno'>84</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        entry_metadata &#61; reinterpret&#40;UInt, bt&#91;i&#43;1&#93;&#41;::UInt</span>
+          </td>
+        </tr>
+        <tr id='L85'>
+          <td class='lineno'>85</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        njlvalues &#61;  entry_metadata &amp; 0x7</span>
+          </td>
+        </tr>
+        <tr id='L86'>
+          <td class='lineno'>86</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        nuintvals &#61; &#40;entry_metadata &gt;&gt; 3&#41; &amp; 0x7</span>
+          </td>
+        </tr>
+        <tr id='L87'>
+          <td class='lineno'>87</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        tag       &#61; &#40;entry_metadata &gt;&gt; 6&#41; &amp; 0xf</span>
+          </td>
+        </tr>
+        <tr id='L88'>
+          <td class='lineno'>88</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        header    &#61;  entry_metadata &gt;&gt; 10</span>
+          </td>
+        </tr>
+        <tr id='L89'>
+          <td class='lineno'>89</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if tag &#61;&#61; 1 # JL_BT_INTERP_FRAME_TAG</span>
+          </td>
+        </tr>
+        <tr id='L90'>
+          <td class='lineno'>90</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            code &#61; bt2&#91;j&#93;::Union&#123;CodeInfo,Core.MethodInstance,Nothing&#125;</span>
+          </td>
+        </tr>
+        <tr id='L91'>
+          <td class='lineno'>91</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            mod &#61; njlvalues &#61;&#61; 2 ? bt2&#91;j&#43;1&#93;::Union&#123;Module,Nothing&#125; : nothing</span>
+          </td>
+        </tr>
+        <tr id='L92'>
+          <td class='lineno'>92</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            push&#33;&#40;ret, InterpreterIP&#40;code, header, mod&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L93'>
+          <td class='lineno'>93</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        else</span>
+          </td>
+        </tr>
+        <tr id='L94'>
+          <td class='lineno'>94</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            # Tags we don&#39;t know about are an error</span>
+          </td>
+        </tr>
+        <tr id='L95'>
+          <td class='lineno'>95</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            throw&#40;ArgumentError&#40;&quot;Unexpected extended backtrace entry tag &#36;tag at bt&#91;&#36;i&#93;&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L96'>
+          <td class='lineno'>96</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L97'>
+          <td class='lineno'>97</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # See jl_bt_entry_size</span>
+          </td>
+        </tr>
+        <tr id='L98'>
+          <td class='lineno'>98</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        j &#43;&#61; Int&#40;njlvalues&#41;</span>
+          </td>
+        </tr>
+        <tr id='L99'>
+          <td class='lineno'>99</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        i &#43;&#61; 2 &#43; Int&#40;njlvalues &#43; nuintvals&#41;</span>
+          </td>
+        </tr>
+        <tr id='L100'>
+          <td class='lineno'>100</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L101'>
+          <td class='lineno'>101</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ret</span>
+          </td>
+        </tr>
+        <tr id='L102'>
+          <td class='lineno'>102</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L103'>
+          <td class='lineno'>103</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L104'>
+          <td class='lineno'>104</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L105'>
+          <td class='lineno'>105</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    backtrace&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L106'>
+          <td class='lineno'>106</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L107'>
+          <td class='lineno'>107</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Get a backtrace object for the current program point.</span>
+          </td>
+        </tr>
+        <tr id='L108'>
+          <td class='lineno'>108</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L109'>
+          <td class='lineno'>109</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function backtrace&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L110'>
+          <td class='lineno'>110</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    @noinline</span>
+          </td>
+        </tr>
+        <tr id='L111'>
+          <td class='lineno'>111</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # skip frame for backtrace&#40;&#41;. Note that for this to work properly,</span>
+          </td>
+        </tr>
+        <tr id='L112'>
+          <td class='lineno'>112</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # backtrace&#40;&#41; itself must not be interpreted nor inlined.</span>
+          </td>
+        </tr>
+        <tr id='L113'>
+          <td class='lineno'>113</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    skip &#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L114'>
+          <td class='lineno'>114</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    bt1, bt2 &#61; ccall&#40;:jl_backtrace_from_here, Ref&#123;SimpleVector&#125;, &#40;Cint, Cint&#41;, false, skip&#41;</span>
+          </td>
+        </tr>
+        <tr id='L115'>
+          <td class='lineno'>115</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return _reformat_bt&#40;bt1::Vector&#123;Ptr&#123;Cvoid&#125;&#125;, bt2::Vector&#123;Any&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L116'>
+          <td class='lineno'>116</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L117'>
+          <td class='lineno'>117</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L118'>
+          <td class='lineno'>118</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L119'>
+          <td class='lineno'>119</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    catch_backtrace&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L120'>
+          <td class='lineno'>120</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L121'>
+          <td class='lineno'>121</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Get the backtrace of the current exception, for use within &#96;catch&#96; blocks.</span>
+          </td>
+        </tr>
+        <tr id='L122'>
+          <td class='lineno'>122</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L123'>
+          <td class='lineno'>123</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function catch_backtrace&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L124'>
+          <td class='lineno'>124</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    bt, bt2 &#61; ccall&#40;:jl_get_backtrace, Ref&#123;SimpleVector&#125;, &#40;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L125'>
+          <td class='lineno'>125</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return _reformat_bt&#40;bt::Vector&#123;Ptr&#123;Cvoid&#125;&#125;, bt2::Vector&#123;Any&#125;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L126'>
+          <td class='lineno'>126</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L127'>
+          <td class='lineno'>127</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L128'>
+          <td class='lineno'>128</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct ExceptionStack &lt;: AbstractArray&#123;Any,1&#125;</span>
+          </td>
+        </tr>
+        <tr id='L129'>
+          <td class='lineno'>129</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    stack::Array&#123;Any,1&#125;</span>
+          </td>
+        </tr>
+        <tr id='L130'>
+          <td class='lineno'>130</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L131'>
+          <td class='lineno'>131</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L132'>
+          <td class='lineno'>132</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L133'>
+          <td class='lineno'>133</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    current_exceptions&#40;task::Task&#61;current_task&#40;&#41;; &#91;backtrace::Bool&#61;true&#93;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L134'>
+          <td class='lineno'>134</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L135'>
+          <td class='lineno'>135</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Get the stack of exceptions currently being handled. For nested catch blocks</span>
+          </td>
+        </tr>
+        <tr id='L136'>
+          <td class='lineno'>136</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>there may be more than one current exception in which case the most recently</span>
+          </td>
+        </tr>
+        <tr id='L137'>
+          <td class='lineno'>137</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>thrown exception is last in the stack. The stack is returned as an</span>
+          </td>
+        </tr>
+        <tr id='L138'>
+          <td class='lineno'>138</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;ExceptionStack&#96; which is an AbstractVector of named tuples</span>
+          </td>
+        </tr>
+        <tr id='L139'>
+          <td class='lineno'>139</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#40;exception,backtrace&#41;&#96;. If &#96;backtrace&#96; is false, the backtrace in each pair</span>
+          </td>
+        </tr>
+        <tr id='L140'>
+          <td class='lineno'>140</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>will be set to &#96;nothing&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L141'>
+          <td class='lineno'>141</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L142'>
+          <td class='lineno'>142</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Explicitly passing &#96;task&#96; will return the current exception stack on an</span>
+          </td>
+        </tr>
+        <tr id='L143'>
+          <td class='lineno'>143</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>arbitrary task. This is useful for inspecting tasks which have failed due to</span>
+          </td>
+        </tr>
+        <tr id='L144'>
+          <td class='lineno'>144</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>uncaught exceptions.</span>
+          </td>
+        </tr>
+        <tr id='L145'>
+          <td class='lineno'>145</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L146'>
+          <td class='lineno'>146</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#33;&#33;&#33; compat &quot;Julia 1.7&quot;</span>
+          </td>
+        </tr>
+        <tr id='L147'>
+          <td class='lineno'>147</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    This function went by the experimental name &#96;catch_stack&#40;&#41;&#96; in Julia</span>
+          </td>
+        </tr>
+        <tr id='L148'>
+          <td class='lineno'>148</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    1.1–1.6, and had a plain Vector-of-tuples as a return type.</span>
+          </td>
+        </tr>
+        <tr id='L149'>
+          <td class='lineno'>149</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L150'>
+          <td class='lineno'>150</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function current_exceptions&#40;task::Task&#61;current_task&#40;&#41;; backtrace::Bool&#61;true&#41;</span>
+          </td>
+        </tr>
+        <tr id='L151'>
+          <td class='lineno'>151</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    raw &#61; ccall&#40;:jl_get_excstack, Any, &#40;Any,Cint,Cint&#41;, task, backtrace, typemax&#40;Cint&#41;&#41;::Vector&#123;Any&#125;</span>
+          </td>
+        </tr>
+        <tr id='L152'>
+          <td class='lineno'>152</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    formatted &#61; Any&#91;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L153'>
+          <td class='lineno'>153</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    stride &#61; backtrace ? 3 : 1</span>
+          </td>
+        </tr>
+        <tr id='L154'>
+          <td class='lineno'>154</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    for i &#61; reverse&#40;1:stride:length&#40;raw&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L155'>
+          <td class='lineno'>155</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        exc &#61; raw&#91;i&#93;</span>
+          </td>
+        </tr>
+        <tr id='L156'>
+          <td class='lineno'>156</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        bt &#61; backtrace ? Base._reformat_bt&#40;raw&#91;i&#43;1&#93;,raw&#91;i&#43;2&#93;&#41; : nothing</span>
+          </td>
+        </tr>
+        <tr id='L157'>
+          <td class='lineno'>157</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        push&#33;&#40;formatted, &#40;exception&#61;exc,backtrace&#61;bt&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L158'>
+          <td class='lineno'>158</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L159'>
+          <td class='lineno'>159</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ExceptionStack&#40;formatted&#41;</span>
+          </td>
+        </tr>
+        <tr id='L160'>
+          <td class='lineno'>160</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L161'>
+          <td class='lineno'>161</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L162'>
+          <td class='lineno'>162</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## keyword arg lowering generates calls to this ##</span>
+          </td>
+        </tr>
+        <tr id='L163'>
+          <td class='lineno'>163</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function kwerr&#40;kw, args::Vararg&#123;Any,N&#125;&#41; where &#123;N&#125;</span>
+          </td>
+        </tr>
+        <tr id='L164'>
+          <td class='lineno'>164</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    @noinline</span>
+          </td>
+        </tr>
+        <tr id='L165'>
+          <td class='lineno'>165</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    throw&#40;MethodError&#40;Core.kwcall, &#40;kw, args...&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L166'>
+          <td class='lineno'>166</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L167'>
+          <td class='lineno'>167</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L168'>
+          <td class='lineno'>168</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## system error handling ##</span>
+          </td>
+        </tr>
+        <tr id='L169'>
+          <td class='lineno'>169</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L170'>
+          <td class='lineno'>170</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    systemerror&#40;sysfunc&#91;, errno::Cint&#61;Libc.errno&#40;&#41;&#93;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L171'>
+          <td class='lineno'>171</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    systemerror&#40;sysfunc, iftrue::Bool&#41;</span>
+          </td>
+        </tr>
+        <tr id='L172'>
+          <td class='lineno'>172</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L173'>
+          <td class='lineno'>173</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Raises a &#96;SystemError&#96; for &#96;errno&#96; with the descriptive string &#96;sysfunc&#96; if &#96;iftrue&#96; is &#96;true&#96;</span>
+          </td>
+        </tr>
+        <tr id='L174'>
+          <td class='lineno'>174</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L175'>
+          <td class='lineno'>175</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>systemerror&#40;p, b::Bool; extrainfo&#61;nothing&#41; &#61; b ? systemerror&#40;p, extrainfo&#61;extrainfo&#41; : nothing</span>
+          </td>
+        </tr>
+        <tr id='L176'>
+          <td class='lineno'>176</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>systemerror&#40;p, errno::Cint&#61;Libc.errno&#40;&#41;; extrainfo&#61;nothing&#41; &#61; throw&#40;Main.Base.SystemError&#40;string&#40;p&#41;, errno, extrainfo&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L177'>
+          <td class='lineno'>177</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L178'>
+          <td class='lineno'>178</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## system errors from Windows API functions</span>
+          </td>
+        </tr>
+        <tr id='L179'>
+          <td class='lineno'>179</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct WindowsErrorInfo</span>
+          </td>
+        </tr>
+        <tr id='L180'>
+          <td class='lineno'>180</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    errnum::UInt32</span>
+          </td>
+        </tr>
+        <tr id='L181'>
+          <td class='lineno'>181</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    extrainfo</span>
+          </td>
+        </tr>
+        <tr id='L182'>
+          <td class='lineno'>182</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L183'>
+          <td class='lineno'>183</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L184'>
+          <td class='lineno'>184</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    windowserror&#40;sysfunc&#91;, code::UInt32&#61;Libc.GetLastError&#40;&#41;&#93;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L185'>
+          <td class='lineno'>185</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    windowserror&#40;sysfunc, iftrue::Bool&#41;</span>
+          </td>
+        </tr>
+        <tr id='L186'>
+          <td class='lineno'>186</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L187'>
+          <td class='lineno'>187</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Like &#91;&#96;systemerror&#96;&#93;&#40;@ref&#41;, but for Windows API functions that use &#91;&#96;GetLastError&#96;&#93;&#40;@ref Base.Libc.GetLastError&#41; to</span>
+          </td>
+        </tr>
+        <tr id='L188'>
+          <td class='lineno'>188</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>return an error code instead of setting &#91;&#96;errno&#96;&#93;&#40;@ref Base.Libc.errno&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L189'>
+          <td class='lineno'>189</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L190'>
+          <td class='lineno'>190</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>windowserror&#40;p, b::Bool; extrainfo&#61;nothing&#41; &#61; b ? windowserror&#40;p, extrainfo&#61;extrainfo&#41; : nothing</span>
+          </td>
+        </tr>
+        <tr id='L191'>
+          <td class='lineno'>191</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>windowserror&#40;p, code::UInt32&#61;Libc.GetLastError&#40;&#41;; extrainfo&#61;nothing&#41; &#61; throw&#40;Main.Base.SystemError&#40;string&#40;p&#41;, 0, WindowsErrorInfo&#40;code, extrainfo&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L192'>
+          <td class='lineno'>192</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L193'>
+          <td class='lineno'>193</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L194'>
+          <td class='lineno'>194</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>## assertion macro ##</span>
+          </td>
+        </tr>
+        <tr id='L195'>
+          <td class='lineno'>195</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L196'>
+          <td class='lineno'>196</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L197'>
+          <td class='lineno'>197</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L198'>
+          <td class='lineno'>198</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    @assert cond &#91;text&#93;</span>
+          </td>
+        </tr>
+        <tr id='L199'>
+          <td class='lineno'>199</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L200'>
+          <td class='lineno'>200</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Throw an &#91;&#96;AssertionError&#96;&#93;&#40;@ref&#41; if &#96;cond&#96; is &#96;false&#96;. Preferred syntax for writing assertions.</span>
+          </td>
+        </tr>
+        <tr id='L201'>
+          <td class='lineno'>201</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Message &#96;text&#96; is optionally displayed upon assertion failure.</span>
+          </td>
+        </tr>
+        <tr id='L202'>
+          <td class='lineno'>202</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L203'>
+          <td class='lineno'>203</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#33;&#33;&#33; warning</span>
+          </td>
+        </tr>
+        <tr id='L204'>
+          <td class='lineno'>204</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    An assert might be disabled at various optimization levels.</span>
+          </td>
+        </tr>
+        <tr id='L205'>
+          <td class='lineno'>205</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Assert should therefore only be used as a debugging tool</span>
+          </td>
+        </tr>
+        <tr id='L206'>
+          <td class='lineno'>206</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    and not used for authentication verification &#40;e.g., verifying passwords&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L207'>
+          <td class='lineno'>207</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    nor should side effects needed for the function to work correctly</span>
+          </td>
+        </tr>
+        <tr id='L208'>
+          <td class='lineno'>208</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    be used inside of asserts.</span>
+          </td>
+        </tr>
+        <tr id='L209'>
+          <td class='lineno'>209</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L210'>
+          <td class='lineno'>210</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Examples</span>
+          </td>
+        </tr>
+        <tr id='L211'>
+          <td class='lineno'>211</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;jldoctest</span>
+          </td>
+        </tr>
+        <tr id='L212'>
+          <td class='lineno'>212</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; @assert iseven&#40;3&#41; &quot;3 is an odd number&#33;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L213'>
+          <td class='lineno'>213</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>ERROR: AssertionError: 3 is an odd number&#33;</span>
+          </td>
+        </tr>
+        <tr id='L214'>
+          <td class='lineno'>214</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L215'>
+          <td class='lineno'>215</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; @assert isodd&#40;3&#41; &quot;What even are numbers?&quot;</span>
+          </td>
+        </tr>
+        <tr id='L216'>
+          <td class='lineno'>216</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L217'>
+          <td class='lineno'>217</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L218'>
+          <td class='lineno'>218</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>macro assert&#40;ex, msgs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L219'>
+          <td class='lineno'>219</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    msg &#61; isempty&#40;msgs&#41; ? ex : msgs&#91;1&#93;</span>
+          </td>
+        </tr>
+        <tr id='L220'>
+          <td class='lineno'>220</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if isa&#40;msg, AbstractString&#41;</span>
+          </td>
+        </tr>
+        <tr id='L221'>
+          <td class='lineno'>221</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        msg &#61; msg # pass-through</span>
+          </td>
+        </tr>
+        <tr id='L222'>
+          <td class='lineno'>222</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    elseif &#33;isempty&#40;msgs&#41; &amp;&amp; &#40;isa&#40;msg, Expr&#41; || isa&#40;msg, Symbol&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L223'>
+          <td class='lineno'>223</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # message is an expression needing evaluating</span>
+          </td>
+        </tr>
+        <tr id='L224'>
+          <td class='lineno'>224</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        msg &#61; :&#40;Main.Base.string&#40;&#36;&#40;esc&#40;msg&#41;&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L225'>
+          <td class='lineno'>225</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    elseif isdefined&#40;Main, :Base&#41; &amp;&amp; isdefined&#40;Main.Base, :string&#41; &amp;&amp; applicable&#40;Main.Base.string, msg&#41;</span>
+          </td>
+        </tr>
+        <tr id='L226'>
+          <td class='lineno'>226</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        msg &#61; Main.Base.string&#40;msg&#41;</span>
+          </td>
+        </tr>
+        <tr id='L227'>
+          <td class='lineno'>227</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L228'>
+          <td class='lineno'>228</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # string&#40;&#41; might not be defined during bootstrap</span>
+          </td>
+        </tr>
+        <tr id='L229'>
+          <td class='lineno'>229</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        msg &#61; quote</span>
+          </td>
+        </tr>
+        <tr id='L230'>
+          <td class='lineno'>230</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            msg &#61; &#36;&#40;Expr&#40;:quote,msg&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L231'>
+          <td class='lineno'>231</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              1 &#40;0 &#37;&#41;
+              samples spent in macro expansion
+              <br />
+              1 &#40;100 &#37;&#41; &#40;ex.&#41;,
+              1 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from inline_apply&#33;
+              <a href='inlining.jl-39c2234312f32698caee15fdce132566374497d3.html#L1111'>line 1111</a>
+              <br />
+            </div>
+            
+            <span class='code'>            isdefined&#40;Main, :Base&#41; ? Main.Base.string&#40;msg&#41; :</span>
+          </td>
+        </tr>
+        <tr id='L232'>
+          <td class='lineno'>232</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                &#40;Core.println&#40;msg&#41;; &quot;Error during bootstrap. See stdout.&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L233'>
+          <td class='lineno'>233</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L234'>
+          <td class='lineno'>234</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L235'>
+          <td class='lineno'>235</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return :&#40;&#36;&#40;esc&#40;ex&#41;&#41; ? &#36;&#40;nothing&#41; : throw&#40;AssertionError&#40;&#36;msg&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L236'>
+          <td class='lineno'>236</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L237'>
+          <td class='lineno'>237</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L238'>
+          <td class='lineno'>238</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>struct ExponentialBackOff</span>
+          </td>
+        </tr>
+        <tr id='L239'>
+          <td class='lineno'>239</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    n::Int</span>
+          </td>
+        </tr>
+        <tr id='L240'>
+          <td class='lineno'>240</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    first_delay::Float64</span>
+          </td>
+        </tr>
+        <tr id='L241'>
+          <td class='lineno'>241</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    max_delay::Float64</span>
+          </td>
+        </tr>
+        <tr id='L242'>
+          <td class='lineno'>242</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    factor::Float64</span>
+          </td>
+        </tr>
+        <tr id='L243'>
+          <td class='lineno'>243</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    jitter::Float64</span>
+          </td>
+        </tr>
+        <tr id='L244'>
+          <td class='lineno'>244</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L245'>
+          <td class='lineno'>245</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    function ExponentialBackOff&#40;n, first_delay, max_delay, factor, jitter&#41;</span>
+          </td>
+        </tr>
+        <tr id='L246'>
+          <td class='lineno'>246</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        all&#40;x-&gt;x&gt;&#61;0, &#40;n, first_delay, max_delay, factor, jitter&#41;&#41; || error&#40;&quot;all inputs must be non-negative&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L247'>
+          <td class='lineno'>247</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        new&#40;n, first_delay, max_delay, factor, jitter&#41;</span>
+          </td>
+        </tr>
+        <tr id='L248'>
+          <td class='lineno'>248</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L249'>
+          <td class='lineno'>249</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L250'>
+          <td class='lineno'>250</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L251'>
+          <td class='lineno'>251</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L252'>
+          <td class='lineno'>252</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ExponentialBackOff&#40;; n&#61;1, first_delay&#61;0.05, max_delay&#61;10.0, factor&#61;5.0, jitter&#61;0.1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L253'>
+          <td class='lineno'>253</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L254'>
+          <td class='lineno'>254</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>A &#91;&#96;Float64&#96;&#93;&#40;@ref&#41; iterator of length &#96;n&#96; whose elements exponentially increase at a</span>
+          </td>
+        </tr>
+        <tr id='L255'>
+          <td class='lineno'>255</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>rate in the interval &#96;factor&#96; * &#40;1 ± &#96;jitter&#96;&#41;.  The first element is</span>
+          </td>
+        </tr>
+        <tr id='L256'>
+          <td class='lineno'>256</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;first_delay&#96; and all elements are clamped to &#96;max_delay&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L257'>
+          <td class='lineno'>257</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L258'>
+          <td class='lineno'>258</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>ExponentialBackOff&#40;; n&#61;1, first_delay&#61;0.05, max_delay&#61;10.0, factor&#61;5.0, jitter&#61;0.1&#41; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L259'>
+          <td class='lineno'>259</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ExponentialBackOff&#40;n, first_delay, max_delay, factor, jitter&#41;</span>
+          </td>
+        </tr>
+        <tr id='L260'>
+          <td class='lineno'>260</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function iterate&#40;ebo::ExponentialBackOff, state&#61; &#40;ebo.n, min&#40;ebo.first_delay, ebo.max_delay&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L261'>
+          <td class='lineno'>261</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    state&#91;1&#93; &lt; 1 &amp;&amp; return nothing</span>
+          </td>
+        </tr>
+        <tr id='L262'>
+          <td class='lineno'>262</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    next_n &#61; state&#91;1&#93;-1</span>
+          </td>
+        </tr>
+        <tr id='L263'>
+          <td class='lineno'>263</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    curr_delay &#61; state&#91;2&#93;</span>
+          </td>
+        </tr>
+        <tr id='L264'>
+          <td class='lineno'>264</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    next_delay &#61; min&#40;ebo.max_delay, state&#91;2&#93; * ebo.factor * &#40;1.0 - ebo.jitter &#43; &#40;Libc.rand&#40;Float64&#41; * 2.0 * ebo.jitter&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L265'>
+          <td class='lineno'>265</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    &#40;curr_delay, &#40;next_n, next_delay&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L266'>
+          <td class='lineno'>266</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L267'>
+          <td class='lineno'>267</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>length&#40;ebo::ExponentialBackOff&#41; &#61; ebo.n</span>
+          </td>
+        </tr>
+        <tr id='L268'>
+          <td class='lineno'>268</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>eltype&#40;::Type&#123;ExponentialBackOff&#125;&#41; &#61; Float64</span>
+          </td>
+        </tr>
+        <tr id='L269'>
+          <td class='lineno'>269</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L270'>
+          <td class='lineno'>270</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L271'>
+          <td class='lineno'>271</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    retry&#40;f;  delays&#61;ExponentialBackOff&#40;&#41;, check&#61;nothing&#41; -&gt; Function</span>
+          </td>
+        </tr>
+        <tr id='L272'>
+          <td class='lineno'>272</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L273'>
+          <td class='lineno'>273</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Return an anonymous function that calls function &#96;f&#96;.  If an exception arises,</span>
+          </td>
+        </tr>
+        <tr id='L274'>
+          <td class='lineno'>274</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;f&#96; is repeatedly called again, each time &#96;check&#96; returns &#96;true&#96;, after waiting the</span>
+          </td>
+        </tr>
+        <tr id='L275'>
+          <td class='lineno'>275</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>number of seconds specified in &#96;delays&#96;.  &#96;check&#96; should input &#96;delays&#96;&#39;s</span>
+          </td>
+        </tr>
+        <tr id='L276'>
+          <td class='lineno'>276</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>current state and the &#96;Exception&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L277'>
+          <td class='lineno'>277</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L278'>
+          <td class='lineno'>278</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#33;&#33;&#33; compat &quot;Julia 1.2&quot;</span>
+          </td>
+        </tr>
+        <tr id='L279'>
+          <td class='lineno'>279</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Before Julia 1.2 this signature was restricted to &#96;f::Function&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L280'>
+          <td class='lineno'>280</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L281'>
+          <td class='lineno'>281</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Examples</span>
+          </td>
+        </tr>
+        <tr id='L282'>
+          <td class='lineno'>282</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;julia</span>
+          </td>
+        </tr>
+        <tr id='L283'>
+          <td class='lineno'>283</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>retry&#40;f, delays&#61;fill&#40;5.0, 3&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L284'>
+          <td class='lineno'>284</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>retry&#40;f, delays&#61;rand&#40;5:10, 2&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L285'>
+          <td class='lineno'>285</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>retry&#40;f, delays&#61;Base.ExponentialBackOff&#40;n&#61;3, first_delay&#61;5, max_delay&#61;1000&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L286'>
+          <td class='lineno'>286</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>retry&#40;http_get, check&#61;&#40;s,e&#41;-&gt;e.status &#61;&#61; &quot;503&quot;&#41;&#40;url&#41;</span>
+          </td>
+        </tr>
+        <tr id='L287'>
+          <td class='lineno'>287</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>retry&#40;read, check&#61;&#40;s,e&#41;-&gt;isa&#40;e, IOError&#41;&#41;&#40;io, 128; all&#61;false&#41;</span>
+          </td>
+        </tr>
+        <tr id='L288'>
+          <td class='lineno'>288</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L289'>
+          <td class='lineno'>289</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L290'>
+          <td class='lineno'>290</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function retry&#40;f;  delays&#61;ExponentialBackOff&#40;&#41;, check&#61;nothing&#41;</span>
+          </td>
+        </tr>
+        <tr id='L291'>
+          <td class='lineno'>291</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    &#40;args...; kwargs...&#41; -&gt; begin</span>
+          </td>
+        </tr>
+        <tr id='L292'>
+          <td class='lineno'>292</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        y &#61; iterate&#40;delays&#41;</span>
+          </td>
+        </tr>
+        <tr id='L293'>
+          <td class='lineno'>293</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        while y &#33;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L294'>
+          <td class='lineno'>294</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            &#40;delay, state&#41; &#61; y</span>
+          </td>
+        </tr>
+        <tr id='L295'>
+          <td class='lineno'>295</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            try</span>
+          </td>
+        </tr>
+        <tr id='L296'>
+          <td class='lineno'>296</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                return f&#40;args...; kwargs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L297'>
+          <td class='lineno'>297</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            catch e</span>
+          </td>
+        </tr>
+        <tr id='L298'>
+          <td class='lineno'>298</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                if check &#33;&#61;&#61; nothing</span>
+          </td>
+        </tr>
+        <tr id='L299'>
+          <td class='lineno'>299</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    result &#61; check&#40;state, e&#41;</span>
+          </td>
+        </tr>
+        <tr id='L300'>
+          <td class='lineno'>300</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    state, retry_or_not &#61; length&#40;result&#41; &#61;&#61; 2 ? result : &#40;state, result&#41;</span>
+          </td>
+        </tr>
+        <tr id='L301'>
+          <td class='lineno'>301</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    retry_or_not || rethrow&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L302'>
+          <td class='lineno'>302</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                end</span>
+          </td>
+        </tr>
+        <tr id='L303'>
+          <td class='lineno'>303</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            end</span>
+          </td>
+        </tr>
+        <tr id='L304'>
+          <td class='lineno'>304</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            sleep&#40;delay&#41;</span>
+          </td>
+        </tr>
+        <tr id='L305'>
+          <td class='lineno'>305</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            y &#61; iterate&#40;delays, state&#41;</span>
+          </td>
+        </tr>
+        <tr id='L306'>
+          <td class='lineno'>306</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L307'>
+          <td class='lineno'>307</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # When delays is out, just run the function without try/catch</span>
+          </td>
+        </tr>
+        <tr id='L308'>
+          <td class='lineno'>308</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        return f&#40;args...; kwargs...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L309'>
+          <td class='lineno'>309</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L310'>
+          <td class='lineno'>310</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+

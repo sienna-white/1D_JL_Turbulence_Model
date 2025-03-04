@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - phytoplankton.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 22:05:19
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            <div class='call-sites'>
+              12 &#40;3 &#37;&#41;
+              samples spent in calculate_net_growth
+              <br />
+              6 &#40;50 &#37;&#41; &#40;ex.&#41;,
+              7 &#40;58 &#37;&#41; &#40;incl.&#41;
+              when called from run_my_model
+              <a href='run_model.jl-1578659b3b52a77292ed1339762b5233869a2b57.html#L255'>line 255</a>
+              <br />
+              4 &#40;33 &#37;&#41; &#40;ex.&#41;,
+              5 &#40;42 &#37;&#41; &#40;incl.&#41;
+              when called from run_my_model
+              <a href='run_model.jl-1578659b3b52a77292ed1339762b5233869a2b57.html#L259'>line 259</a>
+              <br />
+            </div>
+            
+            <span class='code'>function calculate_net_growth&#40;algae, I, discretization&#41;</span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # Inputs: </span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    #     pmax : maximum specific growth rate &#91;1/hour&#93;</span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    #     I    : light intensity &#91;mu mol photons/m^2/s&#93;</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    #     Hi   : half-saturation of light-limited growth &#91;mu mol photons * m^2/s&#93;</span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # Output:</span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    #     pi   : specific growth rate &#91;1/hour converted to 1/second&#93;</span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    N &#61; discretization&#91;&quot;N&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    pmax &#61; algae&#91;&quot;pmax&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Hi &#61; algae&#91;&quot;Hi&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    loss &#61; algae&#91;&quot;Li&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    growth &#61; zeros&#40;N&#41;</span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    for i in 1:N </span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'>9 &#40;2 &#37;&#41;</td>
+          <td class='tracecount incl'>11 &#40;3 &#37;&#41;</td>
+          <td>
+            
+            <div class='callees'>
+              1 &#40;50 &#37;&#41;
+              samples spent calling
+              <a href='essentials.jl-1bb4bf3b65f75d1fb3dc86bfdd29f837a8396594.html#L13'>getindex</a>
+              <br />
+              1 &#40;50 &#37;&#41;
+              samples spent calling
+              <a href='promotion.jl-19c22fcf9fd2f358d79c65c2fb3a734a4f85ac2c.html#L422'>&#43;</a>
+              <br />
+            </div>
+            <span class='code'>        growth&#91;i&#93; &#61; pmax * I&#91;i&#93;/&#40;Hi &#43; I&#91;i&#93;&#41; - loss</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return growth</span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end </span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            <div class='call-sites'>
+              20 &#40;5 &#37;&#41;
+              samples spent in self_shading
+              <br />
+              12 &#40;60 &#37;&#41; &#40;ex.&#41;,
+              20 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from run_my_model
+              <a href='run_model.jl-1578659b3b52a77292ed1339762b5233869a2b57.html#L252'>line 252</a>
+              <br />
+            </div>
+            
+            <span class='code'>function self_shading&#40;algae1, algae2, I_in, turbidity, discretization&#41;</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    #  Use Lambert-Beer&#39;s Law to calculate light intensity at each depth</span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # Inputs:</span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    z &#61; discretization&#91;&quot;z&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            <div class='callees'>
+              1 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='dict.jl-f8aeaec070b418fadad5177d0d6da3284765700b.html#L497'>getindex</a>
+              <br />
+            </div>
+            <span class='code'>    dz &#61; discretization&#91;&quot;dz&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    N &#61; discretization&#91;&quot;N&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # We want water depth &#91;cm&#93; to be zero at the top, 20 at the bottom &#40;pos. numbers&#41;</span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # corrected_z &#61; @. -z </span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    k1 &#61; algae1&#91;&quot;k&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    k2 &#61; algae2&#91;&quot;k&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    c1 &#61; algae1&#91;&quot;c&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L37'>
+          <td class='lineno'>37</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    c2 &#61; algae2&#91;&quot;c&quot;&#93;</span>
+          </td>
+        </tr>
+        <tr id='L38'>
+          <td class='lineno'>38</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L39'>
+          <td class='lineno'>39</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # Vector to store light intensity at each depth</span>
+          </td>
+        </tr>
+        <tr id='L40'>
+          <td class='lineno'>40</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    I &#61; zeros&#40;N&#41;</span>
+          </td>
+        </tr>
+        <tr id='L41'>
+          <td class='lineno'>41</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    I2 &#61; zeros&#40;N&#41;</span>
+          </td>
+        </tr>
+        <tr id='L42'>
+          <td class='lineno'>42</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L43'>
+          <td class='lineno'>43</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    for i in 1:N</span>
+          </td>
+        </tr>
+        <tr id='L44'>
+          <td class='lineno'>44</td>
+          <td class='tracecount excl'>2 &#40;1 &#37;&#41;</td>
+          <td class='tracecount incl'>4 &#40;1 &#37;&#41;</td>
+          <td>
+            
+            <div class='callees'>
+              2 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='operators.jl-5ebf2b15114bca269493b5820b8857cb03e2efa4.html#L587'>&#43;</a>
+              <br />
+            </div>
+            <span class='code'>        I&#91;i&#93; &#61; k1*c1&#91;i&#93; &#43; k2*c2&#91;i&#93; &#43; turbidity #*corrected_z&#91;i&#93;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L45'>
+          <td class='lineno'>45</td>
+          <td class='tracecount excl'>2 &#40;1 &#37;&#41;</td>
+          <td class='tracecount incl'>2 &#40;1 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    end </span>
+          </td>
+        </tr>
+        <tr id='L46'>
+          <td class='lineno'>46</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L47'>
+          <td class='lineno'>47</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    I2&#91;end&#93; &#61; I&#91;end&#93;</span>
+          </td>
+        </tr>
+        <tr id='L48'>
+          <td class='lineno'>48</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    for i in &#40;N-1&#41;:-1:1</span>
+          </td>
+        </tr>
+        <tr id='L49'>
+          <td class='lineno'>49</td>
+          <td class='tracecount excl'>2 &#40;1 &#37;&#41;</td>
+          <td class='tracecount incl'>4 &#40;1 &#37;&#41;</td>
+          <td>
+            
+            <div class='callees'>
+              2 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='array.jl-966786c0df099c339b1d2cd23038fc8397e21825.html#L1021'>setindex&#33;</a>
+              <br />
+            </div>
+            <span class='code'>        I2&#91;i&#93; &#61; I&#91;i&#43;1&#93; &#43; I&#91;i&#93;</span>
+          </td>
+        </tr>
+        <tr id='L50'>
+          <td class='lineno'>50</td>
+          <td class='tracecount excl'>2 &#40;1 &#37;&#41;</td>
+          <td class='tracecount incl'>2 &#40;1 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L51'>
+          <td class='lineno'>51</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L52'>
+          <td class='lineno'>52</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    for i in 1:N</span>
+          </td>
+        </tr>
+        <tr id='L53'>
+          <td class='lineno'>53</td>
+          <td class='tracecount excl'>2 &#40;1 &#37;&#41;</td>
+          <td class='tracecount incl'>5 &#40;1 &#37;&#41;</td>
+          <td>
+            
+            <div class='callees'>
+              2 &#40;67 &#37;&#41;
+              samples spent calling
+              <a href='essentials.jl-1bb4bf3b65f75d1fb3dc86bfdd29f837a8396594.html#L13'>getindex</a>
+              <br />
+              1 &#40;33 &#37;&#41;
+              samples spent calling
+              <a href='array.jl-966786c0df099c339b1d2cd23038fc8397e21825.html#L1021'>setindex&#33;</a>
+              <br />
+            </div>
+            <span class='code'>        I2&#91;i&#93; &#61; I_in * exp&#40;-I2&#91;i&#93; * z&#91;i&#93;&#41; </span>
+          </td>
+        </tr>
+        <tr id='L54'>
+          <td class='lineno'>54</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L55'>
+          <td class='lineno'>55</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L56'>
+          <td class='lineno'>56</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L57'>
+          <td class='lineno'>57</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return I2 </span>
+          </td>
+        </tr>
+        <tr id='L58'>
+          <td class='lineno'>58</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+

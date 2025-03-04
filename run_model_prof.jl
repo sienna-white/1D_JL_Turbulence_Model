@@ -84,7 +84,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     H = 6    # depth (meters)
     dz = H/N  # grid spacing - may need to adjust to reduce oscillations
     dt = 10   # (seconds) size of time step 
-    M  = 51839 #00 #000 # 50000  #500 #
+    M  = 500 #51839 #00 #000 # 50000 
 
     # Increments for saving profiles. set to 1 to save all; 10 saves every 10th, etc. 
     isave = 6 #1000
@@ -341,12 +341,13 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-using StatProfilerHTML 
-# using ProfileView   
-using Profile 
+# using StatProfilerHTML 
+# # using ProfileView   
+# using Profile 
+using BenchmarkTools
 run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
 
-# @profilehtml run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
+@time run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
 
 # StatProfilerHTML.view()
 # Profile.print() 

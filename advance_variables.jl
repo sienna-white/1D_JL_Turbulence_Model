@@ -140,7 +140,6 @@ function advance_algae(variables, algae, gamma, discretization)
 end 
 
 
-
 function advance_scalar(variables, discretization)
 
     Kz_past = variables["Kz"]

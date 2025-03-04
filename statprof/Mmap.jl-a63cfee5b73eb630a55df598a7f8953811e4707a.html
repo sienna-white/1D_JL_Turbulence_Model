@@ -1,0 +1,4501 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - ../../../../../global/common/software/nersc/n9/julia/1.10.4/share/julia/stdlib/v1.10/Mmap/src/Mmap.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 22:05:19
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># This file is a part of Julia. License is MIT: https://julialang.org/license</span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Low level module for mmap &#40;memory mapping of files&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>module Mmap</span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>import Base: OS_HANDLE, INVALID_OS_HANDLE</span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>export mmap</span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGESIZE &#61; Int&#40;Sys.isunix&#40;&#41; ? ccall&#40;:jl_getpagesize, Clong, &#40;&#41;&#41; : ccall&#40;:jl_getallocationgranularity, Clong, &#40;&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># for mmaps not backed by files</span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mutable struct Anonymous &lt;: IO</span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    name::String</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    readonly::Bool</span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    create::Bool</span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Mmap.Anonymous&#40;name::AbstractString&#61;&quot;&quot;, readonly::Bool&#61;false, create::Bool&#61;true&#41;</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Create an &#96;IO&#96;-like object for creating zeroed-out mmapped-memory that is not tied to a file</span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>for use in &#91;&#96;mmap&#96;&#93;&#40;@ref mmap&#41;. Used by &#96;SharedArray&#96; for creating shared memory arrays.</span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Examples</span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;jldoctest</span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; using Mmap</span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; anon &#61; Mmap.Anonymous&#40;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; isreadable&#40;anon&#41;</span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>true</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; iswritable&#40;anon&#41;</span>
+          </td>
+        </tr>
+        <tr id='L37'>
+          <td class='lineno'>37</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>true</span>
+          </td>
+        </tr>
+        <tr id='L38'>
+          <td class='lineno'>38</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L39'>
+          <td class='lineno'>39</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; isopen&#40;anon&#41;</span>
+          </td>
+        </tr>
+        <tr id='L40'>
+          <td class='lineno'>40</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>true</span>
+          </td>
+        </tr>
+        <tr id='L41'>
+          <td class='lineno'>41</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L42'>
+          <td class='lineno'>42</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L43'>
+          <td class='lineno'>43</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Anonymous&#40;&#41; &#61; Anonymous&#40;&quot;&quot;,false,true&#41;</span>
+          </td>
+        </tr>
+        <tr id='L44'>
+          <td class='lineno'>44</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L45'>
+          <td class='lineno'>45</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Base.isopen&#40;::Anonymous&#41; &#61; true</span>
+          </td>
+        </tr>
+        <tr id='L46'>
+          <td class='lineno'>46</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Base.isreadable&#40;::Anonymous&#41; &#61; true</span>
+          </td>
+        </tr>
+        <tr id='L47'>
+          <td class='lineno'>47</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Base.iswritable&#40;a::Anonymous&#41; &#61; &#33;a.readonly</span>
+          </td>
+        </tr>
+        <tr id='L48'>
+          <td class='lineno'>48</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L49'>
+          <td class='lineno'>49</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># const used for zeroed, anonymous memory</span>
+          </td>
+        </tr>
+        <tr id='L50'>
+          <td class='lineno'>50</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>gethandle&#40;io::Anonymous&#41; &#61; INVALID_OS_HANDLE</span>
+          </td>
+        </tr>
+        <tr id='L51'>
+          <td class='lineno'>51</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L52'>
+          <td class='lineno'>52</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># platform-specific mmap utilities</span>
+          </td>
+        </tr>
+        <tr id='L53'>
+          <td class='lineno'>53</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>if Sys.isunix&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L54'>
+          <td class='lineno'>54</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L55'>
+          <td class='lineno'>55</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PROT_READ     &#61; Cint&#40;1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L56'>
+          <td class='lineno'>56</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PROT_WRITE    &#61; Cint&#40;2&#41;</span>
+          </td>
+        </tr>
+        <tr id='L57'>
+          <td class='lineno'>57</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MAP_SHARED    &#61; Cint&#40;1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L58'>
+          <td class='lineno'>58</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MAP_PRIVATE   &#61; Cint&#40;2&#41;</span>
+          </td>
+        </tr>
+        <tr id='L59'>
+          <td class='lineno'>59</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MAP_ANONYMOUS &#61; Cint&#40;Sys.isbsd&#40;&#41; ? 0x1000 : 0x20&#41;</span>
+          </td>
+        </tr>
+        <tr id='L60'>
+          <td class='lineno'>60</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const F_GETFL       &#61; Cint&#40;3&#41;</span>
+          </td>
+        </tr>
+        <tr id='L61'>
+          <td class='lineno'>61</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L62'>
+          <td class='lineno'>62</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>gethandle&#40;io::IO&#41; &#61; RawFD&#40;fd&#40;io&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L63'>
+          <td class='lineno'>63</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L64'>
+          <td class='lineno'>64</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Determine a stream&#39;s read/write mode, and return prot &amp; flags appropriate for mmap</span>
+          </td>
+        </tr>
+        <tr id='L65'>
+          <td class='lineno'>65</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function settings&#40;s::RawFD, shared::Bool&#41;</span>
+          </td>
+        </tr>
+        <tr id='L66'>
+          <td class='lineno'>66</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    flags &#61; shared ? MAP_SHARED : MAP_PRIVATE</span>
+          </td>
+        </tr>
+        <tr id='L67'>
+          <td class='lineno'>67</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if s &#61;&#61; INVALID_OS_HANDLE</span>
+          </td>
+        </tr>
+        <tr id='L68'>
+          <td class='lineno'>68</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        flags |&#61; MAP_ANONYMOUS</span>
+          </td>
+        </tr>
+        <tr id='L69'>
+          <td class='lineno'>69</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        prot &#61; PROT_READ | PROT_WRITE</span>
+          </td>
+        </tr>
+        <tr id='L70'>
+          <td class='lineno'>70</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L71'>
+          <td class='lineno'>71</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        mode &#61; ccall&#40;:fcntl, Cint, &#40;RawFD, Cint, Cint...&#41;, s, F_GETFL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L72'>
+          <td class='lineno'>72</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        systemerror&#40;&quot;fcntl F_GETFL&quot;, mode &#61;&#61; -1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L73'>
+          <td class='lineno'>73</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        mode &#61; mode &amp; 3</span>
+          </td>
+        </tr>
+        <tr id='L74'>
+          <td class='lineno'>74</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        prot &#61; &#40;mode &#61;&#61; 0&#41; ? PROT_READ : &#40;&#40;mode &#61;&#61; 1&#41; ? PROT_WRITE : &#40;PROT_READ | PROT_WRITE&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L75'>
+          <td class='lineno'>75</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if prot &amp; PROT_READ &#61;&#61; 0</span>
+          </td>
+        </tr>
+        <tr id='L76'>
+          <td class='lineno'>76</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            throw&#40;ArgumentError&#40;&quot;mmap requires read permissions on the file &#40;open with \&quot;r&#43;\&quot; mode to override&#41;&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L77'>
+          <td class='lineno'>77</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L78'>
+          <td class='lineno'>78</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L79'>
+          <td class='lineno'>79</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return prot, flags, &#40;prot &amp; PROT_WRITE&#41; &gt; 0</span>
+          </td>
+        </tr>
+        <tr id='L80'>
+          <td class='lineno'>80</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L81'>
+          <td class='lineno'>81</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L82'>
+          <td class='lineno'>82</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Before mapping, grow the file to sufficient size</span>
+          </td>
+        </tr>
+        <tr id='L83'>
+          <td class='lineno'>83</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Note: a few mappable streams do not support lseek. When Julia</span>
+          </td>
+        </tr>
+        <tr id='L84'>
+          <td class='lineno'>84</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># supports structures in ccall, switch to fstat.</span>
+          </td>
+        </tr>
+        <tr id='L85'>
+          <td class='lineno'>85</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>grow&#33;&#40;::Anonymous,o::Integer,l::Integer&#41; &#61; return</span>
+          </td>
+        </tr>
+        <tr id='L86'>
+          <td class='lineno'>86</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function grow&#33;&#40;io::IO, offset::Integer, len::Integer&#41;</span>
+          </td>
+        </tr>
+        <tr id='L87'>
+          <td class='lineno'>87</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    pos &#61; position&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L88'>
+          <td class='lineno'>88</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    filelen &#61; filesize&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L89'>
+          <td class='lineno'>89</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if filelen &lt; offset &#43; len</span>
+          </td>
+        </tr>
+        <tr id='L90'>
+          <td class='lineno'>90</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        failure &#61; ccall&#40;:jl_ftruncate, Cint, &#40;Cint, Int64&#41;, fd&#40;io&#41;, offset&#43;len&#41;</span>
+          </td>
+        </tr>
+        <tr id='L91'>
+          <td class='lineno'>91</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        Base.systemerror&#40;:ftruncate, failure &#33;&#61; 0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L92'>
+          <td class='lineno'>92</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L93'>
+          <td class='lineno'>93</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    seek&#40;io, pos&#41;</span>
+          </td>
+        </tr>
+        <tr id='L94'>
+          <td class='lineno'>94</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return</span>
+          </td>
+        </tr>
+        <tr id='L95'>
+          <td class='lineno'>95</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L96'>
+          <td class='lineno'>96</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L97'>
+          <td class='lineno'>97</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>elseif Sys.iswindows&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L98'>
+          <td class='lineno'>98</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L99'>
+          <td class='lineno'>99</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const DWORD &#61; Culong</span>
+          </td>
+        </tr>
+        <tr id='L100'>
+          <td class='lineno'>100</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L101'>
+          <td class='lineno'>101</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGE_READONLY          &#61; DWORD&#40;0x02&#41;</span>
+          </td>
+        </tr>
+        <tr id='L102'>
+          <td class='lineno'>102</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGE_READWRITE         &#61; DWORD&#40;0x04&#41;</span>
+          </td>
+        </tr>
+        <tr id='L103'>
+          <td class='lineno'>103</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGE_WRITECOPY         &#61; DWORD&#40;0x08&#41;</span>
+          </td>
+        </tr>
+        <tr id='L104'>
+          <td class='lineno'>104</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGE_EXECUTE_READ      &#61; DWORD&#40;0x20&#41;</span>
+          </td>
+        </tr>
+        <tr id='L105'>
+          <td class='lineno'>105</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGE_EXECUTE_READWRITE &#61; DWORD&#40;0x40&#41;</span>
+          </td>
+        </tr>
+        <tr id='L106'>
+          <td class='lineno'>106</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const PAGE_EXECUTE_WRITECOPY &#61; DWORD&#40;0x80&#41;</span>
+          </td>
+        </tr>
+        <tr id='L107'>
+          <td class='lineno'>107</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const FILE_MAP_COPY          &#61; DWORD&#40;0x01&#41;</span>
+          </td>
+        </tr>
+        <tr id='L108'>
+          <td class='lineno'>108</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const FILE_MAP_WRITE         &#61; DWORD&#40;0x02&#41;</span>
+          </td>
+        </tr>
+        <tr id='L109'>
+          <td class='lineno'>109</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const FILE_MAP_READ          &#61; DWORD&#40;0x04&#41;</span>
+          </td>
+        </tr>
+        <tr id='L110'>
+          <td class='lineno'>110</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const FILE_MAP_EXECUTE       &#61; DWORD&#40;0x20&#41;</span>
+          </td>
+        </tr>
+        <tr id='L111'>
+          <td class='lineno'>111</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L112'>
+          <td class='lineno'>112</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function gethandle&#40;io::IO&#41;</span>
+          </td>
+        </tr>
+        <tr id='L113'>
+          <td class='lineno'>113</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    handle &#61; Libc._get_osfhandle&#40;RawFD&#40;fd&#40;io&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L114'>
+          <td class='lineno'>114</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Base.windowserror&#40;:mmap, handle &#61;&#61; INVALID_OS_HANDLE&#41;</span>
+          </td>
+        </tr>
+        <tr id='L115'>
+          <td class='lineno'>115</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return handle</span>
+          </td>
+        </tr>
+        <tr id='L116'>
+          <td class='lineno'>116</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L117'>
+          <td class='lineno'>117</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L118'>
+          <td class='lineno'>118</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>settings&#40;sh::Anonymous&#41; &#61; sh.name, sh.readonly, sh.create</span>
+          </td>
+        </tr>
+        <tr id='L119'>
+          <td class='lineno'>119</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>settings&#40;io::IO&#41; &#61; Ptr&#123;Cwchar_t&#125;&#40;0&#41;, isreadonly&#40;io&#41;, true</span>
+          </td>
+        </tr>
+        <tr id='L120'>
+          <td class='lineno'>120</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L121'>
+          <td class='lineno'>121</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>else</span>
+          </td>
+        </tr>
+        <tr id='L122'>
+          <td class='lineno'>122</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    error&#40;&quot;mmap not defined for this OS&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L123'>
+          <td class='lineno'>123</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end # os-test</span>
+          </td>
+        </tr>
+        <tr id='L124'>
+          <td class='lineno'>124</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L125'>
+          <td class='lineno'>125</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># core implementation of mmap</span>
+          </td>
+        </tr>
+        <tr id='L126'>
+          <td class='lineno'>126</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L127'>
+          <td class='lineno'>127</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L128'>
+          <td class='lineno'>128</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmap&#40;io::Union&#123;IOStream,AbstractString,Mmap.AnonymousMmap&#125;&#91;, type::Type&#123;Array&#123;T,N&#125;&#125;, dims, offset&#93;; grow::Bool&#61;true, shared::Bool&#61;true&#41;</span>
+          </td>
+        </tr>
+        <tr id='L129'>
+          <td class='lineno'>129</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmap&#40;type::Type&#123;Array&#123;T,N&#125;&#125;, dims&#41;</span>
+          </td>
+        </tr>
+        <tr id='L130'>
+          <td class='lineno'>130</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L131'>
+          <td class='lineno'>131</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Create an &#96;Array&#96; whose values are linked to a file, using memory-mapping. This provides a</span>
+          </td>
+        </tr>
+        <tr id='L132'>
+          <td class='lineno'>132</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>convenient way of working with data too large to fit in the computer&#39;s memory.</span>
+          </td>
+        </tr>
+        <tr id='L133'>
+          <td class='lineno'>133</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L134'>
+          <td class='lineno'>134</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The type is an &#96;Array&#123;T,N&#125;&#96; with a bits-type element of &#96;T&#96; and dimension &#96;N&#96; that</span>
+          </td>
+        </tr>
+        <tr id='L135'>
+          <td class='lineno'>135</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>determines how the bytes of the array are interpreted. Note that the file must be stored in</span>
+          </td>
+        </tr>
+        <tr id='L136'>
+          <td class='lineno'>136</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>binary format, and no format conversions are possible &#40;this is a limitation of operating</span>
+          </td>
+        </tr>
+        <tr id='L137'>
+          <td class='lineno'>137</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>systems, not Julia&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L138'>
+          <td class='lineno'>138</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L139'>
+          <td class='lineno'>139</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;dims&#96; is a tuple or single &#91;&#96;Integer&#96;&#93;&#40;@ref&#41; specifying the size or length of the array.</span>
+          </td>
+        </tr>
+        <tr id='L140'>
+          <td class='lineno'>140</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L141'>
+          <td class='lineno'>141</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The file is passed via the stream argument, either as an open &#91;&#96;IOStream&#96;&#93;&#40;@ref&#41; or filename string.</span>
+          </td>
+        </tr>
+        <tr id='L142'>
+          <td class='lineno'>142</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>When you initialize the stream, use &#96;&quot;r&quot;&#96; for a &quot;read-only&quot; array, and &#96;&quot;w&#43;&quot;&#96; to create a</span>
+          </td>
+        </tr>
+        <tr id='L143'>
+          <td class='lineno'>143</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>new array used to write values to disk.</span>
+          </td>
+        </tr>
+        <tr id='L144'>
+          <td class='lineno'>144</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L145'>
+          <td class='lineno'>145</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>If no &#96;type&#96; argument is specified, the default is &#96;Vector&#123;UInt8&#125;&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L146'>
+          <td class='lineno'>146</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L147'>
+          <td class='lineno'>147</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Optionally, you can specify an offset &#40;in bytes&#41; if, for example, you want to skip over a</span>
+          </td>
+        </tr>
+        <tr id='L148'>
+          <td class='lineno'>148</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>header in the file. The default value for the offset is the current stream position for an</span>
+          </td>
+        </tr>
+        <tr id='L149'>
+          <td class='lineno'>149</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;IOStream&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L150'>
+          <td class='lineno'>150</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L151'>
+          <td class='lineno'>151</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The &#96;grow&#96; keyword argument specifies whether the disk file should be grown to accommodate</span>
+          </td>
+        </tr>
+        <tr id='L152'>
+          <td class='lineno'>152</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>the requested size of array &#40;if the total file size is &lt; requested array size&#41;. Write</span>
+          </td>
+        </tr>
+        <tr id='L153'>
+          <td class='lineno'>153</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>privileges are required to grow the file.</span>
+          </td>
+        </tr>
+        <tr id='L154'>
+          <td class='lineno'>154</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L155'>
+          <td class='lineno'>155</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>The &#96;shared&#96; keyword argument specifies whether the resulting &#96;Array&#96; and changes made to it</span>
+          </td>
+        </tr>
+        <tr id='L156'>
+          <td class='lineno'>156</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>will be visible to other processes mapping the same file.</span>
+          </td>
+        </tr>
+        <tr id='L157'>
+          <td class='lineno'>157</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L158'>
+          <td class='lineno'>158</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>For example, the following code</span>
+          </td>
+        </tr>
+        <tr id='L159'>
+          <td class='lineno'>159</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L160'>
+          <td class='lineno'>160</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;julia</span>
+          </td>
+        </tr>
+        <tr id='L161'>
+          <td class='lineno'>161</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Create a file for mmapping</span>
+          </td>
+        </tr>
+        <tr id='L162'>
+          <td class='lineno'>162</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># &#40;you could alternatively use mmap to do this step, too&#41;</span>
+          </td>
+        </tr>
+        <tr id='L163'>
+          <td class='lineno'>163</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>using Mmap</span>
+          </td>
+        </tr>
+        <tr id='L164'>
+          <td class='lineno'>164</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>A &#61; rand&#40;1:20, 5, 30&#41;</span>
+          </td>
+        </tr>
+        <tr id='L165'>
+          <td class='lineno'>165</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>s &#61; open&#40;&quot;/tmp/mmap.bin&quot;, &quot;w&#43;&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L166'>
+          <td class='lineno'>166</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># We&#39;ll write the dimensions of the array as the first two Ints in the file</span>
+          </td>
+        </tr>
+        <tr id='L167'>
+          <td class='lineno'>167</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>write&#40;s, size&#40;A,1&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L168'>
+          <td class='lineno'>168</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>write&#40;s, size&#40;A,2&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L169'>
+          <td class='lineno'>169</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Now write the data</span>
+          </td>
+        </tr>
+        <tr id='L170'>
+          <td class='lineno'>170</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>write&#40;s, A&#41;</span>
+          </td>
+        </tr>
+        <tr id='L171'>
+          <td class='lineno'>171</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>close&#40;s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L172'>
+          <td class='lineno'>172</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L173'>
+          <td class='lineno'>173</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Test by reading it back in</span>
+          </td>
+        </tr>
+        <tr id='L174'>
+          <td class='lineno'>174</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>s &#61; open&#40;&quot;/tmp/mmap.bin&quot;&#41;   # default is read-only</span>
+          </td>
+        </tr>
+        <tr id='L175'>
+          <td class='lineno'>175</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>m &#61; read&#40;s, Int&#41;</span>
+          </td>
+        </tr>
+        <tr id='L176'>
+          <td class='lineno'>176</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>n &#61; read&#40;s, Int&#41;</span>
+          </td>
+        </tr>
+        <tr id='L177'>
+          <td class='lineno'>177</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>A2 &#61; mmap&#40;s, Matrix&#123;Int&#125;, &#40;m,n&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L178'>
+          <td class='lineno'>178</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L179'>
+          <td class='lineno'>179</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L180'>
+          <td class='lineno'>180</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>creates a &#96;m&#96;-by-&#96;n&#96; &#96;Matrix&#123;Int&#125;&#96;, linked to the file associated with stream &#96;s&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L181'>
+          <td class='lineno'>181</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L182'>
+          <td class='lineno'>182</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>A more portable file would need to encode the word size -- 32 bit or 64 bit -- and endianness</span>
+          </td>
+        </tr>
+        <tr id='L183'>
+          <td class='lineno'>183</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>information in the header. In practice, consider encoding binary data using standard formats</span>
+          </td>
+        </tr>
+        <tr id='L184'>
+          <td class='lineno'>184</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>like HDF5 &#40;which can be used with memory-mapping&#41;.</span>
+          </td>
+        </tr>
+        <tr id='L185'>
+          <td class='lineno'>185</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L186'>
+          <td class='lineno'>186</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function mmap&#40;io::IO,</span>
+          </td>
+        </tr>
+        <tr id='L187'>
+          <td class='lineno'>187</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>              ::Type&#123;Array&#123;T,N&#125;&#125;&#61;Vector&#123;UInt8&#125;,</span>
+          </td>
+        </tr>
+        <tr id='L188'>
+          <td class='lineno'>188</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>              dims::NTuple&#123;N,Integer&#125;&#61;&#40;div&#40;filesize&#40;io&#41;-position&#40;io&#41;,sizeof&#40;T&#41;&#41;,&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L189'>
+          <td class='lineno'>189</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>              offset::Integer&#61;position&#40;io&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T,N&#125;</span>
+          </td>
+        </tr>
+        <tr id='L190'>
+          <td class='lineno'>190</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # check inputs</span>
+          </td>
+        </tr>
+        <tr id='L191'>
+          <td class='lineno'>191</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    isopen&#40;io&#41; || throw&#40;ArgumentError&#40;&quot;&#36;io must be open to mmap&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L192'>
+          <td class='lineno'>192</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    isbitstype&#40;T&#41;  || throw&#40;ArgumentError&#40;&quot;unable to mmap &#36;T; must satisfy isbitstype&#40;T&#41; &#61;&#61; true&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L193'>
+          <td class='lineno'>193</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L194'>
+          <td class='lineno'>194</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    len &#61; sizeof&#40;T&#41;</span>
+          </td>
+        </tr>
+        <tr id='L195'>
+          <td class='lineno'>195</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    for l in dims</span>
+          </td>
+        </tr>
+        <tr id='L196'>
+          <td class='lineno'>196</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        len, overflow &#61; Base.Checked.mul_with_overflow&#40;promote&#40;len, l&#41;...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L197'>
+          <td class='lineno'>197</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        overflow &amp;&amp; throw&#40;ArgumentError&#40;&quot;requested size prod&#40;&#36;&#40;&#40;sizeof&#40;T&#41;, dims...&#41;&#41;&#41; too large, would overflow typeof&#40;size&#40;T&#41;&#41; &#61;&#61; &#36;&#40;typeof&#40;len&#41;&#41;&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L198'>
+          <td class='lineno'>198</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L199'>
+          <td class='lineno'>199</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    len &gt;&#61; 0 || throw&#40;ArgumentError&#40;&quot;requested size must be ≥ 0, got &#36;len&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L200'>
+          <td class='lineno'>200</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    len &#61;&#61; 0 &amp;&amp; return Array&#123;T&#125;&#40;undef, ntuple&#40;x-&gt;0,Val&#40;N&#41;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L201'>
+          <td class='lineno'>201</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    len &lt; typemax&#40;Int&#41; - PAGESIZE || throw&#40;ArgumentError&#40;&quot;requested size must be &lt; &#36;&#40;typemax&#40;Int&#41;-PAGESIZE&#41;, got &#36;len&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L202'>
+          <td class='lineno'>202</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L203'>
+          <td class='lineno'>203</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    offset &gt;&#61; 0 || throw&#40;ArgumentError&#40;&quot;requested offset must be ≥ 0, got &#36;offset&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L204'>
+          <td class='lineno'>204</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L205'>
+          <td class='lineno'>205</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # shift &#96;offset&#96; to start of page boundary</span>
+          </td>
+        </tr>
+        <tr id='L206'>
+          <td class='lineno'>206</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    offset_page::Int64 &#61; div&#40;offset, PAGESIZE&#41; * PAGESIZE</span>
+          </td>
+        </tr>
+        <tr id='L207'>
+          <td class='lineno'>207</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # add &#40;offset - offset_page&#41; to &#96;len&#96; to get total length of memory-mapped region</span>
+          </td>
+        </tr>
+        <tr id='L208'>
+          <td class='lineno'>208</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmaplen &#61; &#40;offset - offset_page&#41; &#43; len</span>
+          </td>
+        </tr>
+        <tr id='L209'>
+          <td class='lineno'>209</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L210'>
+          <td class='lineno'>210</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    file_desc &#61; gethandle&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L211'>
+          <td class='lineno'>211</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    szfile &#61; convert&#40;Csize_t, len &#43; offset&#41;</span>
+          </td>
+        </tr>
+        <tr id='L212'>
+          <td class='lineno'>212</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    requestedSizeLarger &#61; false</span>
+          </td>
+        </tr>
+        <tr id='L213'>
+          <td class='lineno'>213</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if &#33;&#40;io isa Mmap.Anonymous&#41;</span>
+          </td>
+        </tr>
+        <tr id='L214'>
+          <td class='lineno'>214</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        @static if &#33;Sys.isapple&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L215'>
+          <td class='lineno'>215</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            requestedSizeLarger &#61; szfile &gt; filesize&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L216'>
+          <td class='lineno'>216</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L217'>
+          <td class='lineno'>217</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L218'>
+          <td class='lineno'>218</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # platform-specific mmapping</span>
+          </td>
+        </tr>
+        <tr id='L219'>
+          <td class='lineno'>219</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    @static if Sys.isunix&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L220'>
+          <td class='lineno'>220</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        prot, flags, iswrite &#61; settings&#40;file_desc, shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L221'>
+          <td class='lineno'>221</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if requestedSizeLarger</span>
+          </td>
+        </tr>
+        <tr id='L222'>
+          <td class='lineno'>222</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            if iswrite</span>
+          </td>
+        </tr>
+        <tr id='L223'>
+          <td class='lineno'>223</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                if grow</span>
+          </td>
+        </tr>
+        <tr id='L224'>
+          <td class='lineno'>224</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    grow&#33;&#40;io, offset, len&#41;</span>
+          </td>
+        </tr>
+        <tr id='L225'>
+          <td class='lineno'>225</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                else</span>
+          </td>
+        </tr>
+        <tr id='L226'>
+          <td class='lineno'>226</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    throw&#40;ArgumentError&#40;&quot;requested size &#36;szfile larger than file size &#36;&#40;filesize&#40;io&#41;&#41;, but requested not to grow&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L227'>
+          <td class='lineno'>227</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                end</span>
+          </td>
+        </tr>
+        <tr id='L228'>
+          <td class='lineno'>228</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            else</span>
+          </td>
+        </tr>
+        <tr id='L229'>
+          <td class='lineno'>229</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                throw&#40;ArgumentError&#40;&quot;unable to increase file size to &#36;szfile due to read-only permissions&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L230'>
+          <td class='lineno'>230</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            end</span>
+          </td>
+        </tr>
+        <tr id='L231'>
+          <td class='lineno'>231</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L232'>
+          <td class='lineno'>232</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        @static if Sys.isapple&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L233'>
+          <td class='lineno'>233</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            iswrite &amp;&amp; grow &amp;&amp; grow&#33;&#40;io, offset, len&#41;</span>
+          </td>
+        </tr>
+        <tr id='L234'>
+          <td class='lineno'>234</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L235'>
+          <td class='lineno'>235</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        # mmap the file</span>
+          </td>
+        </tr>
+        <tr id='L236'>
+          <td class='lineno'>236</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        ptr &#61; ccall&#40;:jl_mmap, Ptr&#123;Cvoid&#125;, &#40;Ptr&#123;Cvoid&#125;, Csize_t, Cint, Cint, RawFD, Int64&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L237'>
+          <td class='lineno'>237</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            C_NULL, mmaplen, prot, flags, file_desc, offset_page&#41;</span>
+          </td>
+        </tr>
+        <tr id='L238'>
+          <td class='lineno'>238</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        systemerror&#40;&quot;memory mapping failed&quot;, reinterpret&#40;Int, ptr&#41; &#61;&#61; -1&#41;</span>
+          </td>
+        </tr>
+        <tr id='L239'>
+          <td class='lineno'>239</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L240'>
+          <td class='lineno'>240</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        name, readonly, create &#61; settings&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L241'>
+          <td class='lineno'>241</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if requestedSizeLarger</span>
+          </td>
+        </tr>
+        <tr id='L242'>
+          <td class='lineno'>242</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            if readonly</span>
+          </td>
+        </tr>
+        <tr id='L243'>
+          <td class='lineno'>243</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                throw&#40;ArgumentError&#40;&quot;unable to increase file size to &#36;szfile due to read-only permissions&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L244'>
+          <td class='lineno'>244</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            elseif &#33;grow</span>
+          </td>
+        </tr>
+        <tr id='L245'>
+          <td class='lineno'>245</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                throw&#40;ArgumentError&#40;&quot;requested size &#36;szfile larger than file size &#36;&#40;filesize&#40;io&#41;&#41;, but requested not to grow&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L246'>
+          <td class='lineno'>246</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            end</span>
+          </td>
+        </tr>
+        <tr id='L247'>
+          <td class='lineno'>247</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L248'>
+          <td class='lineno'>248</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        handle &#61; create ? ccall&#40;:CreateFileMappingW, stdcall, Ptr&#123;Cvoid&#125;, &#40;OS_HANDLE, Ptr&#123;Cvoid&#125;, DWORD, DWORD, DWORD, Cwstring&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L249'>
+          <td class='lineno'>249</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                                file_desc, C_NULL, readonly ? PAGE_READONLY : PAGE_READWRITE, szfile &gt;&gt; 32, szfile &amp; typemax&#40;UInt32&#41;, name&#41; :</span>
+          </td>
+        </tr>
+        <tr id='L250'>
+          <td class='lineno'>250</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                          ccall&#40;:OpenFileMappingW, stdcall, Ptr&#123;Cvoid&#125;, &#40;DWORD, Cint, Cwstring&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L251'>
+          <td class='lineno'>251</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                                readonly ? FILE_MAP_READ : FILE_MAP_WRITE, true, name&#41;</span>
+          </td>
+        </tr>
+        <tr id='L252'>
+          <td class='lineno'>252</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        Base.windowserror&#40;:mmap, handle &#61;&#61; C_NULL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L253'>
+          <td class='lineno'>253</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        ptr &#61; ccall&#40;:MapViewOfFile, stdcall, Ptr&#123;Cvoid&#125;, &#40;Ptr&#123;Cvoid&#125;, DWORD, DWORD, DWORD, Csize_t&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L254'>
+          <td class='lineno'>254</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    handle, readonly ? FILE_MAP_READ : FILE_MAP_WRITE, offset_page &gt;&gt; 32, offset_page &amp; typemax&#40;UInt32&#41;, mmaplen&#41;</span>
+          </td>
+        </tr>
+        <tr id='L255'>
+          <td class='lineno'>255</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        Base.windowserror&#40;:mmap, ptr &#61;&#61; C_NULL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L256'>
+          <td class='lineno'>256</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end # os-test</span>
+          </td>
+        </tr>
+        <tr id='L257'>
+          <td class='lineno'>257</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    # convert mmapped region to Julia Array at &#96;ptr &#43; &#40;offset - offset_page&#41;&#96; since file was mapped at offset_page</span>
+          </td>
+        </tr>
+        <tr id='L258'>
+          <td class='lineno'>258</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    A &#61; unsafe_wrap&#40;Array, convert&#40;Ptr&#123;T&#125;, UInt&#40;ptr&#41; &#43; UInt&#40;offset - offset_page&#41;&#41;, dims&#41;</span>
+          </td>
+        </tr>
+        <tr id='L259'>
+          <td class='lineno'>259</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    finalizer&#40;A&#41; do x</span>
+          </td>
+        </tr>
+        <tr id='L260'>
+          <td class='lineno'>260</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            <div class='call-sites'>
+              1 &#40;0 &#37;&#41;
+              samples spent in #3
+              <br />
+              1 &#40;100 &#37;&#41; &#40;ex.&#41;,
+              1 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from calculate_brunt_vaisala
+              <a href='calculate_physical_variables.jl-43794f982aab00c8410e8b47f5ca42a60edc909f.html#L68'>line 68</a>
+              <br />
+            </div>
+            
+            <span class='code'>        @static if Sys.isunix&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L261'>
+          <td class='lineno'>261</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            
+            
+            <span class='code'>            systemerror&#40;&quot;munmap&quot;,  ccall&#40;:munmap, Cint, &#40;Ptr&#123;Cvoid&#125;, Int&#41;, ptr, mmaplen&#41; &#33;&#61; 0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L262'>
+          <td class='lineno'>262</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        else</span>
+          </td>
+        </tr>
+        <tr id='L263'>
+          <td class='lineno'>263</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            status &#61; ccall&#40;:UnmapViewOfFile, stdcall, Cint, &#40;Ptr&#123;Cvoid&#125;,&#41;, ptr&#41;&#33;&#61;0</span>
+          </td>
+        </tr>
+        <tr id='L264'>
+          <td class='lineno'>264</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            status |&#61; ccall&#40;:CloseHandle, stdcall, Cint, &#40;Ptr&#123;Cvoid&#125;,&#41;, handle&#41;&#33;&#61;0</span>
+          </td>
+        </tr>
+        <tr id='L265'>
+          <td class='lineno'>265</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            Base.windowserror&#40;:UnmapViewOfFile, status &#61;&#61; 0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L266'>
+          <td class='lineno'>266</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L267'>
+          <td class='lineno'>267</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L268'>
+          <td class='lineno'>268</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return A</span>
+          </td>
+        </tr>
+        <tr id='L269'>
+          <td class='lineno'>269</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L270'>
+          <td class='lineno'>270</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L271'>
+          <td class='lineno'>271</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;file::AbstractString,</span>
+          </td>
+        </tr>
+        <tr id='L272'>
+          <td class='lineno'>272</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>     ::Type&#123;T&#125;&#61;Vector&#123;UInt8&#125;,</span>
+          </td>
+        </tr>
+        <tr id='L273'>
+          <td class='lineno'>273</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>     dims::NTuple&#123;N,Integer&#125;&#61;&#40;div&#40;filesize&#40;file&#41;,sizeof&#40;eltype&#40;T&#41;&#41;&#41;,&#41;,</span>
+          </td>
+        </tr>
+        <tr id='L274'>
+          <td class='lineno'>274</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>4 &#40;1 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              4 &#40;1 &#37;&#41;
+              samples spent in mmap
+              <br />
+              
+              3 &#40;75 &#37;&#41; &#40;incl.&#41;
+              when called from mmap
+              <a href='Mmap.jl-a63cfee5b73eb630a55df598a7f8953811e4707a.html#L274'>line 274</a>
+              <br />
+              
+              1 &#40;25 &#37;&#41; &#40;incl.&#41;
+              when called from getbytebuffer
+              <a href='utils.jl-aa5a13b33a151db329e961474e2f4b81fdd1fd6f.html#L288'>line 288</a>
+              <br />
+            </div>
+            <div class='callees'>
+              2 &#40;50 &#37;&#41;
+              samples spent calling
+              <a href='Mmap.jl-a63cfee5b73eb630a55df598a7f8953811e4707a.html#L274'>mmap</a>
+              <br />
+              1 &#40;25 &#37;&#41;
+              samples spent calling
+              <a href='io.jl-651d4a8371ad7aba614e5c0af750f6fe03f26567.html#L393'>open</a>
+              <br />
+              1 &#40;25 &#37;&#41;
+              samples spent calling
+              <a href='Mmap.jl-a63cfee5b73eb630a55df598a7f8953811e4707a.html#L274'>#mmap#6</a>
+              <br />
+            </div>
+            <span class='code'>     offset::Integer&#61;Int64&#40;0&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T&lt;:Array,N&#125; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L275'>
+          <td class='lineno'>275</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    open&#40;io-&gt;mmap&#40;io, T, dims, offset; grow&#61;grow, shared&#61;shared&#41;, file, isfile&#40;file&#41; ? &quot;r&quot; : &quot;w&#43;&quot;&#41;::Array&#123;eltype&#40;T&#41;,N&#125;</span>
+          </td>
+        </tr>
+        <tr id='L276'>
+          <td class='lineno'>276</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L277'>
+          <td class='lineno'>277</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># using a length argument instead of dims</span>
+          </td>
+        </tr>
+        <tr id='L278'>
+          <td class='lineno'>278</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;io::IO, ::Type&#123;T&#125;, len::Integer, offset::Integer&#61;position&#40;io&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T&lt;:Array&#125; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L279'>
+          <td class='lineno'>279</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmap&#40;io, T, &#40;len,&#41;, offset; grow&#61;grow, shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L280'>
+          <td class='lineno'>280</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;file::AbstractString, ::Type&#123;T&#125;, len::Integer, offset::Integer&#61;Int64&#40;0&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T&lt;:Array&#125; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L281'>
+          <td class='lineno'>281</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    open&#40;io-&gt;mmap&#40;io, T, &#40;len,&#41;, offset; grow&#61;grow, shared&#61;shared&#41;, file, isfile&#40;file&#41; ? &quot;r&quot; : &quot;w&#43;&quot;&#41;::Vector&#123;eltype&#40;T&#41;&#125;</span>
+          </td>
+        </tr>
+        <tr id='L282'>
+          <td class='lineno'>282</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L283'>
+          <td class='lineno'>283</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># constructors for non-file-backed &#40;anonymous&#41; mmaps</span>
+          </td>
+        </tr>
+        <tr id='L284'>
+          <td class='lineno'>284</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;::Type&#123;T&#125;, dims::NTuple&#123;N,Integer&#125;; shared::Bool&#61;true&#41; where &#123;T&lt;:Array,N&#125; &#61; mmap&#40;Anonymous&#40;&#41;, T, dims, Int64&#40;0&#41;; shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L285'>
+          <td class='lineno'>285</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;::Type&#123;T&#125;, i::Integer...; shared::Bool&#61;true&#41; where &#123;T&lt;:Array&#125; &#61; mmap&#40;Anonymous&#40;&#41;, T, convert&#40;Tuple&#123;Vararg&#123;Int&#125;&#125;,i&#41;, Int64&#40;0&#41;; shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L286'>
+          <td class='lineno'>286</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L287'>
+          <td class='lineno'>287</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L288'>
+          <td class='lineno'>288</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmap&#40;io, BitArray, &#91;dims, offset&#93;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L289'>
+          <td class='lineno'>289</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L290'>
+          <td class='lineno'>290</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Create a &#91;&#96;BitArray&#96;&#93;&#40;@ref&#41; whose values are linked to a file, using memory-mapping; it has the same</span>
+          </td>
+        </tr>
+        <tr id='L291'>
+          <td class='lineno'>291</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>purpose, works in the same way, and has the same arguments, as &#91;&#96;mmap&#96;&#93;&#40;@ref mmap&#41;, but</span>
+          </td>
+        </tr>
+        <tr id='L292'>
+          <td class='lineno'>292</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>the byte representation is different.</span>
+          </td>
+        </tr>
+        <tr id='L293'>
+          <td class='lineno'>293</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L294'>
+          <td class='lineno'>294</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Examples</span>
+          </td>
+        </tr>
+        <tr id='L295'>
+          <td class='lineno'>295</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;jldoctest</span>
+          </td>
+        </tr>
+        <tr id='L296'>
+          <td class='lineno'>296</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; using Mmap</span>
+          </td>
+        </tr>
+        <tr id='L297'>
+          <td class='lineno'>297</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L298'>
+          <td class='lineno'>298</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; io &#61; open&#40;&quot;mmap.bin&quot;, &quot;w&#43;&quot;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L299'>
+          <td class='lineno'>299</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L300'>
+          <td class='lineno'>300</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; B &#61; mmap&#40;io, BitArray, &#40;25,30000&#41;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L301'>
+          <td class='lineno'>301</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L302'>
+          <td class='lineno'>302</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; B&#91;3, 4000&#93; &#61; true;</span>
+          </td>
+        </tr>
+        <tr id='L303'>
+          <td class='lineno'>303</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L304'>
+          <td class='lineno'>304</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; Mmap.sync&#33;&#40;B&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L305'>
+          <td class='lineno'>305</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L306'>
+          <td class='lineno'>306</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; close&#40;io&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L307'>
+          <td class='lineno'>307</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L308'>
+          <td class='lineno'>308</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; io &#61; open&#40;&quot;mmap.bin&quot;, &quot;r&#43;&quot;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L309'>
+          <td class='lineno'>309</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L310'>
+          <td class='lineno'>310</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; C &#61; mmap&#40;io, BitArray, &#40;25,30000&#41;&#41;;</span>
+          </td>
+        </tr>
+        <tr id='L311'>
+          <td class='lineno'>311</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L312'>
+          <td class='lineno'>312</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; C&#91;3, 4000&#93;</span>
+          </td>
+        </tr>
+        <tr id='L313'>
+          <td class='lineno'>313</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>true</span>
+          </td>
+        </tr>
+        <tr id='L314'>
+          <td class='lineno'>314</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L315'>
+          <td class='lineno'>315</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; C&#91;2, 4000&#93;</span>
+          </td>
+        </tr>
+        <tr id='L316'>
+          <td class='lineno'>316</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>false</span>
+          </td>
+        </tr>
+        <tr id='L317'>
+          <td class='lineno'>317</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L318'>
+          <td class='lineno'>318</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; close&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L319'>
+          <td class='lineno'>319</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L320'>
+          <td class='lineno'>320</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>julia&gt; rm&#40;&quot;mmap.bin&quot;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L321'>
+          <td class='lineno'>321</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;&#96;&#96;</span>
+          </td>
+        </tr>
+        <tr id='L322'>
+          <td class='lineno'>322</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>This creates a 25-by-30000 &#96;BitArray&#96;, linked to the file associated with stream &#96;io&#96;.</span>
+          </td>
+        </tr>
+        <tr id='L323'>
+          <td class='lineno'>323</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L324'>
+          <td class='lineno'>324</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function mmap&#40;io::IOStream, ::Type&#123;&lt;:BitArray&#125;, dims::NTuple&#123;N,Integer&#125;,</span>
+          </td>
+        </tr>
+        <tr id='L325'>
+          <td class='lineno'>325</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>              offset::Int64&#61;position&#40;io&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where N</span>
+          </td>
+        </tr>
+        <tr id='L326'>
+          <td class='lineno'>326</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    n &#61; prod&#40;dims&#41;</span>
+          </td>
+        </tr>
+        <tr id='L327'>
+          <td class='lineno'>327</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    nc &#61; Base.num_bit_chunks&#40;n&#41;</span>
+          </td>
+        </tr>
+        <tr id='L328'>
+          <td class='lineno'>328</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    chunks &#61; mmap&#40;io, Vector&#123;UInt64&#125;, &#40;nc,&#41;, offset; grow&#61;grow, shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L329'>
+          <td class='lineno'>329</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if &#33;isreadonly&#40;io&#41;</span>
+          </td>
+        </tr>
+        <tr id='L330'>
+          <td class='lineno'>330</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        chunks&#91;end&#93; &amp;&#61; Base._msk_end&#40;n&#41;</span>
+          </td>
+        </tr>
+        <tr id='L331'>
+          <td class='lineno'>331</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L332'>
+          <td class='lineno'>332</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        if chunks&#91;end&#93; &#33;&#61; chunks&#91;end&#93; &amp; Base._msk_end&#40;n&#41;</span>
+          </td>
+        </tr>
+        <tr id='L333'>
+          <td class='lineno'>333</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            throw&#40;ArgumentError&#40;&quot;the given file does not contain a valid BitArray of size &#36;&#40;join&#40;dims, &#39;x&#39;&#41;&#41; &#40;open with \&quot;r&#43;\&quot; mode to override&#41;&quot;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L334'>
+          <td class='lineno'>334</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        end</span>
+          </td>
+        </tr>
+        <tr id='L335'>
+          <td class='lineno'>335</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L336'>
+          <td class='lineno'>336</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    B &#61; BitArray&#123;N&#125;&#40;undef, ntuple&#40;i-&gt;0,Val&#40;N&#41;&#41;...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L337'>
+          <td class='lineno'>337</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    B.chunks &#61; chunks</span>
+          </td>
+        </tr>
+        <tr id='L338'>
+          <td class='lineno'>338</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    B.len &#61; n</span>
+          </td>
+        </tr>
+        <tr id='L339'>
+          <td class='lineno'>339</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if N &#33;&#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L340'>
+          <td class='lineno'>340</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        B.dims &#61; dims</span>
+          </td>
+        </tr>
+        <tr id='L341'>
+          <td class='lineno'>341</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L342'>
+          <td class='lineno'>342</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return B</span>
+          </td>
+        </tr>
+        <tr id='L343'>
+          <td class='lineno'>343</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L344'>
+          <td class='lineno'>344</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L345'>
+          <td class='lineno'>345</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;file::AbstractString, ::Type&#123;T&#125;, dims::NTuple&#123;N,Integer&#125;, offset::Integer&#61;Int64&#40;0&#41;;grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T&lt;:BitArray,N&#125; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L346'>
+          <td class='lineno'>346</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    open&#40;io-&gt;mmap&#40;io, T, dims, offset; grow&#61;grow, shared&#61;shared&#41;, file, isfile&#40;file&#41; ? &quot;r&quot; : &quot;w&#43;&quot;&#41;::BitArray&#123;N&#125;</span>
+          </td>
+        </tr>
+        <tr id='L347'>
+          <td class='lineno'>347</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L348'>
+          <td class='lineno'>348</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># using a length argument instead of dims</span>
+          </td>
+        </tr>
+        <tr id='L349'>
+          <td class='lineno'>349</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;io::IO, ::Type&#123;T&#125;, len::Integer, offset::Integer&#61;position&#40;io&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T&lt;:BitArray&#125; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L350'>
+          <td class='lineno'>350</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmap&#40;io, T, &#40;len,&#41;, offset; grow&#61;grow, shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L351'>
+          <td class='lineno'>351</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;file::AbstractString, ::Type&#123;T&#125;, len::Integer, offset::Integer&#61;Int64&#40;0&#41;; grow::Bool&#61;true, shared::Bool&#61;true&#41; where &#123;T&lt;:BitArray&#125; &#61;</span>
+          </td>
+        </tr>
+        <tr id='L352'>
+          <td class='lineno'>352</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    open&#40;io-&gt;mmap&#40;io, T, &#40;len,&#41;, offset; grow&#61;grow, shared&#61;shared&#41;, file, isfile&#40;file&#41; ? &quot;r&quot; : &quot;w&#43;&quot;&#41;::BitVector</span>
+          </td>
+        </tr>
+        <tr id='L353'>
+          <td class='lineno'>353</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L354'>
+          <td class='lineno'>354</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># constructors for non-file-backed &#40;anonymous&#41; mmaps</span>
+          </td>
+        </tr>
+        <tr id='L355'>
+          <td class='lineno'>355</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;::Type&#123;T&#125;, dims::NTuple&#123;N,Integer&#125;; shared::Bool&#61;true&#41; where &#123;T&lt;:BitArray,N&#125; &#61; mmap&#40;Anonymous&#40;&#41;, T, dims, Int64&#40;0&#41;; shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L356'>
+          <td class='lineno'>356</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mmap&#40;::Type&#123;T&#125;, i::Integer...; shared::Bool&#61;true&#41; where &#123;T&lt;:BitArray&#125; &#61; mmap&#40;Anonymous&#40;&#41;, T, convert&#40;Tuple&#123;Vararg&#123;Int&#125;&#125;,i&#41;, Int64&#40;0&#41;; shared&#61;shared&#41;</span>
+          </td>
+        </tr>
+        <tr id='L357'>
+          <td class='lineno'>357</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L358'>
+          <td class='lineno'>358</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># msync flags for unix</span>
+          </td>
+        </tr>
+        <tr id='L359'>
+          <td class='lineno'>359</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MS_ASYNC &#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L360'>
+          <td class='lineno'>360</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MS_INVALIDATE &#61; 2</span>
+          </td>
+        </tr>
+        <tr id='L361'>
+          <td class='lineno'>361</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MS_SYNC &#61; 4</span>
+          </td>
+        </tr>
+        <tr id='L362'>
+          <td class='lineno'>362</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L363'>
+          <td class='lineno'>363</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L364'>
+          <td class='lineno'>364</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Mmap.sync&#33;&#40;array&#41;</span>
+          </td>
+        </tr>
+        <tr id='L365'>
+          <td class='lineno'>365</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L366'>
+          <td class='lineno'>366</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Forces synchronization between the in-memory version of a memory-mapped &#96;Array&#96; or</span>
+          </td>
+        </tr>
+        <tr id='L367'>
+          <td class='lineno'>367</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#91;&#96;BitArray&#96;&#93;&#40;@ref&#41; and the on-disk version.</span>
+          </td>
+        </tr>
+        <tr id='L368'>
+          <td class='lineno'>368</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L369'>
+          <td class='lineno'>369</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function sync&#33;&#40;m::Array, flags::Integer&#61;MS_SYNC&#41;</span>
+          </td>
+        </tr>
+        <tr id='L370'>
+          <td class='lineno'>370</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    offset &#61; rem&#40;UInt&#40;pointer&#40;m&#41;&#41;, PAGESIZE&#41;</span>
+          </td>
+        </tr>
+        <tr id='L371'>
+          <td class='lineno'>371</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ptr &#61; pointer&#40;m&#41; - offset</span>
+          </td>
+        </tr>
+        <tr id='L372'>
+          <td class='lineno'>372</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmaplen &#61; sizeof&#40;m&#41; &#43; offset</span>
+          </td>
+        </tr>
+        <tr id='L373'>
+          <td class='lineno'>373</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    GC.@preserve m @static if Sys.isunix&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L374'>
+          <td class='lineno'>374</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        systemerror&#40;&quot;msync&quot;,</span>
+          </td>
+        </tr>
+        <tr id='L375'>
+          <td class='lineno'>375</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    ccall&#40;:msync, Cint, &#40;Ptr&#123;Cvoid&#125;, Csize_t, Cint&#41;, ptr, mmaplen, flags&#41; &#33;&#61; 0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L376'>
+          <td class='lineno'>376</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L377'>
+          <td class='lineno'>377</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        Base.windowserror&#40;:FlushViewOfFile,</span>
+          </td>
+        </tr>
+        <tr id='L378'>
+          <td class='lineno'>378</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>            ccall&#40;:FlushViewOfFile, stdcall, Cint, &#40;Ptr&#123;Cvoid&#125;, Csize_t&#41;, ptr, mmaplen&#41; &#61;&#61; 0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L379'>
+          <td class='lineno'>379</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L380'>
+          <td class='lineno'>380</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L381'>
+          <td class='lineno'>381</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>sync&#33;&#40;B::BitArray, flags::Integer&#61;MS_SYNC&#41; &#61; sync&#33;&#40;B.chunks, flags&#41;</span>
+          </td>
+        </tr>
+        <tr id='L382'>
+          <td class='lineno'>382</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L383'>
+          <td class='lineno'>383</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>@static if Sys.isunix&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L384'>
+          <td class='lineno'>384</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MADV_NORMAL &#61; 0</span>
+          </td>
+        </tr>
+        <tr id='L385'>
+          <td class='lineno'>385</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MADV_RANDOM &#61; 1</span>
+          </td>
+        </tr>
+        <tr id='L386'>
+          <td class='lineno'>386</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MADV_SEQUENTIAL &#61; 2</span>
+          </td>
+        </tr>
+        <tr id='L387'>
+          <td class='lineno'>387</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MADV_WILLNEED &#61; 3</span>
+          </td>
+        </tr>
+        <tr id='L388'>
+          <td class='lineno'>388</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>const MADV_DONTNEED &#61; 4</span>
+          </td>
+        </tr>
+        <tr id='L389'>
+          <td class='lineno'>389</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>if Sys.islinux&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L390'>
+          <td class='lineno'>390</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_FREE &#61; 8</span>
+          </td>
+        </tr>
+        <tr id='L391'>
+          <td class='lineno'>391</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_REMOVE &#61; 9</span>
+          </td>
+        </tr>
+        <tr id='L392'>
+          <td class='lineno'>392</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_DONTFORK &#61; 10</span>
+          </td>
+        </tr>
+        <tr id='L393'>
+          <td class='lineno'>393</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_DOFORK &#61; 11</span>
+          </td>
+        </tr>
+        <tr id='L394'>
+          <td class='lineno'>394</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_MERGEABLE &#61; 12</span>
+          </td>
+        </tr>
+        <tr id='L395'>
+          <td class='lineno'>395</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_UNMERGEABLE &#61; 13</span>
+          </td>
+        </tr>
+        <tr id='L396'>
+          <td class='lineno'>396</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_HUGEPAGE &#61; 14</span>
+          </td>
+        </tr>
+        <tr id='L397'>
+          <td class='lineno'>397</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_NOHUGEPAGE &#61; 15</span>
+          </td>
+        </tr>
+        <tr id='L398'>
+          <td class='lineno'>398</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_DONTDUMP &#61; 16</span>
+          </td>
+        </tr>
+        <tr id='L399'>
+          <td class='lineno'>399</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_DODUMP &#61; 17</span>
+          </td>
+        </tr>
+        <tr id='L400'>
+          <td class='lineno'>400</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_WIPEONFORK &#61; 18</span>
+          </td>
+        </tr>
+        <tr id='L401'>
+          <td class='lineno'>401</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_KEEPONFORK &#61; 19</span>
+          </td>
+        </tr>
+        <tr id='L402'>
+          <td class='lineno'>402</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_COLD &#61; 20</span>
+          </td>
+        </tr>
+        <tr id='L403'>
+          <td class='lineno'>403</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_PAGEOUT &#61; 21</span>
+          </td>
+        </tr>
+        <tr id='L404'>
+          <td class='lineno'>404</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_HWPOISON &#61; 100</span>
+          </td>
+        </tr>
+        <tr id='L405'>
+          <td class='lineno'>405</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_SOFT_OFFLINE &#61; 101</span>
+          </td>
+        </tr>
+        <tr id='L406'>
+          <td class='lineno'>406</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>elseif Sys.isapple&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L407'>
+          <td class='lineno'>407</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_FREE &#61; 5</span>
+          </td>
+        </tr>
+        <tr id='L408'>
+          <td class='lineno'>408</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>elseif Sys.isfreebsd&#40;&#41; || Sys.isdragonfly&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L409'>
+          <td class='lineno'>409</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_FREE &#61; 5</span>
+          </td>
+        </tr>
+        <tr id='L410'>
+          <td class='lineno'>410</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_NOSYNC &#61; 6</span>
+          </td>
+        </tr>
+        <tr id='L411'>
+          <td class='lineno'>411</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_AUTOSYNC &#61; 7</span>
+          </td>
+        </tr>
+        <tr id='L412'>
+          <td class='lineno'>412</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_NOCORE &#61; 8</span>
+          </td>
+        </tr>
+        <tr id='L413'>
+          <td class='lineno'>413</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_CORE &#61; 9</span>
+          </td>
+        </tr>
+        <tr id='L414'>
+          <td class='lineno'>414</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    if Sys.isfreebsd&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L415'>
+          <td class='lineno'>415</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        const MADV_PROTECT &#61; 10</span>
+          </td>
+        </tr>
+        <tr id='L416'>
+          <td class='lineno'>416</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    else</span>
+          </td>
+        </tr>
+        <tr id='L417'>
+          <td class='lineno'>417</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        const MADV_INVAL &#61; 10</span>
+          </td>
+        </tr>
+        <tr id='L418'>
+          <td class='lineno'>418</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        const MADV_SETMAP &#61; 11</span>
+          </td>
+        </tr>
+        <tr id='L419'>
+          <td class='lineno'>419</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L420'>
+          <td class='lineno'>420</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>elseif Sys.isopenbsd&#40;&#41; || Sys.isnetbsd&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L421'>
+          <td class='lineno'>421</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_SPACEAVAIL &#61; 5</span>
+          </td>
+        </tr>
+        <tr id='L422'>
+          <td class='lineno'>422</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    const MADV_FREE &#61; 6</span>
+          </td>
+        </tr>
+        <tr id='L423'>
+          <td class='lineno'>423</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L424'>
+          <td class='lineno'>424</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L425'>
+          <td class='lineno'>425</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L426'>
+          <td class='lineno'>426</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    Mmap.madvise&#33;&#40;array, flag::Integer &#61; Mmap.MADV_NORMAL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L427'>
+          <td class='lineno'>427</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L428'>
+          <td class='lineno'>428</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>Advises the kernel on the intended usage of the memory-mapped &#96;array&#96;, with the intent</span>
+          </td>
+        </tr>
+        <tr id='L429'>
+          <td class='lineno'>429</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&#96;flag&#96; being one of the available &#96;MADV_*&#96; constants.</span>
+          </td>
+        </tr>
+        <tr id='L430'>
+          <td class='lineno'>430</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>&quot;&quot;&quot;</span>
+          </td>
+        </tr>
+        <tr id='L431'>
+          <td class='lineno'>431</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function madvise&#33;&#40;m::Array, flag::Integer&#61;MADV_NORMAL&#41;</span>
+          </td>
+        </tr>
+        <tr id='L432'>
+          <td class='lineno'>432</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    offset &#61; rem&#40;UInt&#40;pointer&#40;m&#41;&#41;, PAGESIZE&#41;</span>
+          </td>
+        </tr>
+        <tr id='L433'>
+          <td class='lineno'>433</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    ptr &#61; pointer&#40;m&#41; - offset</span>
+          </td>
+        </tr>
+        <tr id='L434'>
+          <td class='lineno'>434</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    mmaplen &#61; sizeof&#40;m&#41; &#43; offset</span>
+          </td>
+        </tr>
+        <tr id='L435'>
+          <td class='lineno'>435</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    GC.@preserve m begin</span>
+          </td>
+        </tr>
+        <tr id='L436'>
+          <td class='lineno'>436</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>        systemerror&#40;&quot;madvise&quot;,</span>
+          </td>
+        </tr>
+        <tr id='L437'>
+          <td class='lineno'>437</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>                    ccall&#40;:madvise, Cint, &#40;Ptr&#123;Cvoid&#125;, Csize_t, Cint&#41;, ptr, mmaplen, flag&#41; &#33;&#61; 0&#41;</span>
+          </td>
+        </tr>
+        <tr id='L438'>
+          <td class='lineno'>438</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    end</span>
+          </td>
+        </tr>
+        <tr id='L439'>
+          <td class='lineno'>439</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L440'>
+          <td class='lineno'>440</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>madvise&#33;&#40;B::BitArray, flag::Integer&#61;MADV_NORMAL&#41; &#61; madvise&#33;&#40;B.chunks, flag&#41;</span>
+          </td>
+        </tr>
+        <tr id='L441'>
+          <td class='lineno'>441</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end # Sys.isunix&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L442'>
+          <td class='lineno'>442</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L443'>
+          <td class='lineno'>443</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end # module</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+

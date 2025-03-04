@@ -16,6 +16,7 @@ end
 
 # ***********************************************************************
 function save2output(time, index, varname, value, output=output)
+    # print("Saving $varname at time $time")
     output[varname][:,index] .= value
     push!(times, time)
 end 
@@ -29,8 +30,6 @@ function plot_variable(varname, discretization, output=output)
     p = plot() 
 
     for i in 1:(ntimes-1)
-        print(i)
-        print(output[varname][:,i])
         plot!( output[varname][:,i], -z) # label="t = $(times[i])")
     end
    display(p) # plot(times, output[varname][1,:])

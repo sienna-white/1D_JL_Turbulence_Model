@@ -22,11 +22,8 @@ function initialize_turbulent_functions(discretization, N_BV2, kappa=kappa, SMAL
     for i in 1:length(Q)
         L[i] = Q2L[i]/(Q2[i] + SMALL) #kappa*H*(z[i]/H)*(1-(z[i]/H))    # Q2(n,1)/Q2(n,1) = 1 at initialization
     end
-    # L = @. kappa*H*(z/H)*(1-(z/H))    # Q2L(n,1)/Q2(n,1) = 1 at initialization # removed - 2/21
-
     # Initialize Gh (stratification correction)
     gh = calculate_Gh(N_BV2, L, Q)
-
     nu_t, Kq, Kz  = calculate_turbulent_functions(gh, Q, L, discretization)
     return Q2, Q2L,Q, L, gh, nu_t, Kq, Kz
 end 
@@ -83,7 +80,6 @@ end
 
 
 function calculate_turbulent_functions(gh, Q, L, discretization)
-
 
     N = discretization["N"]
     nu_t = similar(Q)

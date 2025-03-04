@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+    <link rel='stylesheet' type='text/css' href='statprofiler.css'></link>
+    <title>StatProfilerHTML - ../../../../../global/common/software/nersc/n9/julia/1.10.4/share/julia/base/idset.jl</title>
+  </head>
+  <body>
+    <div class='report-header'>
+      <div class='backlink'>
+        <a href='index.html'>Report index</a>
+      </div>
+      <div class='report-title'>
+        StatProfilerHTML.jl report
+      </div>
+      <div class='generated-on'>
+        Generated on Mon, 03 Mar 2025 21:18:01
+      </div>
+    </div>
+    <table>
+      <caption>File source code</caption>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='L1'>
+          <td class='lineno'>1</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># This file is a part of Julia. License is MIT: https://julialang.org/license</span>
+          </td>
+        </tr>
+        <tr id='L2'>
+          <td class='lineno'>2</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L3'>
+          <td class='lineno'>3</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'># Like Set, but using IdDict</span>
+          </td>
+        </tr>
+        <tr id='L4'>
+          <td class='lineno'>4</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>mutable struct IdSet&#123;T&#125; &lt;: AbstractSet&#123;T&#125;</span>
+          </td>
+        </tr>
+        <tr id='L5'>
+          <td class='lineno'>5</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    dict::IdDict&#123;T,Nothing&#125;</span>
+          </td>
+        </tr>
+        <tr id='L6'>
+          <td class='lineno'>6</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L7'>
+          <td class='lineno'>7</td>
+          <td class='tracecount excl'>2 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>22 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              22 &#40;0 &#37;&#41;
+              samples spent in IdSet
+              <br />
+              1 &#40;5 &#37;&#41; &#40;ex.&#41;,
+              18 &#40;82 &#37;&#41; &#40;incl.&#41;
+              when called from sroa_pass&#33;
+              <a href='passes.jl-37e57a6f61f4a9ad50b2f53eefc7db361ab89b94.html#L992'>line 992</a>
+              <br />
+              1 &#40;5 &#37;&#41; &#40;ex.&#41;,
+              2 &#40;9 &#37;&#41; &#40;incl.&#41;
+              when called from InferenceState
+              <a href='inferencestate.jl-76862b99bd4c2a9d03369393e035378c6db074e8.html#L282'>line 282</a>
+              <br />
+              
+              1 &#40;5 &#37;&#41; &#40;incl.&#41;
+              when called from adce_pass&#33;
+              <a href='passes.jl-37e57a6f61f4a9ad50b2f53eefc7db361ab89b94.html#L1787'>line 1787</a>
+              <br />
+              
+              1 &#40;5 &#37;&#41; &#40;incl.&#41;
+              when called from InferenceState
+              <a href='inferencestate.jl-76862b99bd4c2a9d03369393e035378c6db074e8.html#L281'>line 281</a>
+              <br />
+            </div>
+            <div class='callees'>
+              20 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='iddict.jl-d376eafc7cabdc9c4a39afba81595b62834c0534.html#L30'>IdDict</a>
+              <br />
+            </div>
+            <span class='code'>    IdSet&#123;T&#125;&#40;&#41; where &#123;T&#125; &#61; new&#40;IdDict&#123;T,Nothing&#125;&#40;&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L8'>
+          <td class='lineno'>8</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    IdSet&#123;T&#125;&#40;s::IdSet&#123;T&#125;&#41; where &#123;T&#125; &#61; new&#40;copy&#40;s.dict&#41;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L9'>
+          <td class='lineno'>9</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+        <tr id='L10'>
+          <td class='lineno'>10</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L11'>
+          <td class='lineno'>11</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>IdSet&#123;T&#125;&#40;itr&#41; where &#123;T&#125; &#61; union&#33;&#40;IdSet&#123;T&#125;&#40;&#41;, itr&#41;</span>
+          </td>
+        </tr>
+        <tr id='L12'>
+          <td class='lineno'>12</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>IdSet&#40;&#41; &#61; IdSet&#123;Any&#125;&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L13'>
+          <td class='lineno'>13</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L14'>
+          <td class='lineno'>14</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>copymutable&#40;s::IdSet&#41; &#61; typeof&#40;s&#41;&#40;s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L15'>
+          <td class='lineno'>15</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>emptymutable&#40;s::IdSet&#123;T&#125;, ::Type&#123;U&#125;&#61;T&#41; where &#123;T,U&#125; &#61; IdSet&#123;U&#125;&#40;&#41;</span>
+          </td>
+        </tr>
+        <tr id='L16'>
+          <td class='lineno'>16</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>copy&#40;s::IdSet&#41; &#61; typeof&#40;s&#41;&#40;s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L17'>
+          <td class='lineno'>17</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L18'>
+          <td class='lineno'>18</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>4 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              4 &#40;0 &#37;&#41;
+              samples spent in isempty
+              <br />
+              
+              2 &#40;50 &#37;&#41; &#40;incl.&#41;
+              when called from abstract_eval_statement
+              <a href='abstractinterpretation.jl-76a36272b07b5265f90720f45260eb0dd27a7774.html#L2639'>line 2639</a>
+              <br />
+              
+              2 &#40;50 &#37;&#41; &#40;incl.&#41;
+              when called from abstract_call_gf_by_type
+              <a href='abstractinterpretation.jl-76a36272b07b5265f90720f45260eb0dd27a7774.html#L194'>line 194</a>
+              <br />
+            </div>
+            <div class='callees'>
+              4 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='essentials.jl-1bb4bf3b65f75d1fb3dc86bfdd29f837a8396594.html#L957'>isempty</a>
+              <br />
+            </div>
+            <span class='code'>isempty&#40;s::IdSet&#41; &#61; isempty&#40;s.dict&#41;</span>
+          </td>
+        </tr>
+        <tr id='L19'>
+          <td class='lineno'>19</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>length&#40;s::IdSet&#41;  &#61; length&#40;s.dict&#41;</span>
+          </td>
+        </tr>
+        <tr id='L20'>
+          <td class='lineno'>20</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>3 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              3 &#40;0 &#37;&#41;
+              samples spent in in
+              <br />
+              
+              3 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from adce_pass&#33;
+              <a href='passes.jl-37e57a6f61f4a9ad50b2f53eefc7db361ab89b94.html#L1795'>line 1795</a>
+              <br />
+            </div>
+            <div class='callees'>
+              3 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='abstractdict.jl-511f12bcb3e9e9b8d75aa3e60f6ad2630889ba8d.html#L17'>haskey</a>
+              <br />
+            </div>
+            <span class='code'>in&#40;@nospecialize&#40;x&#41;, s::IdSet&#41; &#61; haskey&#40;s.dict, x&#41;</span>
+          </td>
+        </tr>
+        <tr id='L21'>
+          <td class='lineno'>21</td>
+          <td class='tracecount excl'>1 &#40;0 &#37;&#41;</td>
+          <td class='tracecount incl'>4 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              4 &#40;0 &#37;&#41;
+              samples spent in push&#33;
+              <br />
+              1 &#40;25 &#37;&#41; &#40;ex.&#41;,
+              4 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from mark_phi_cycles&#33;
+              <a href='passes.jl-37e57a6f61f4a9ad50b2f53eefc7db361ab89b94.html#L1618'>line 1618</a>
+              <br />
+            </div>
+            <div class='callees'>
+              3 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='iddict.jl-d376eafc7cabdc9c4a39afba81595b62834c0534.html#L86'>setindex&#33;</a>
+              <br />
+            </div>
+            <span class='code'>push&#33;&#40;s::IdSet, @nospecialize&#40;x&#41;&#41; &#61; &#40;s.dict&#91;x&#93; &#61; nothing; s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L22'>
+          <td class='lineno'>22</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>pop&#33;&#40;s::IdSet, @nospecialize&#40;x&#41;&#41; &#61; &#40;pop&#33;&#40;s.dict, x&#41;; x&#41;</span>
+          </td>
+        </tr>
+        <tr id='L23'>
+          <td class='lineno'>23</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>pop&#33;&#40;s::IdSet, @nospecialize&#40;x&#41;, @nospecialize&#40;default&#41;&#41; &#61; &#40;x in s ? pop&#33;&#40;s, x&#41; : default&#41;</span>
+          </td>
+        </tr>
+        <tr id='L24'>
+          <td class='lineno'>24</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>delete&#33;&#40;s::IdSet, @nospecialize&#40;x&#41;&#41; &#61; &#40;delete&#33;&#40;s.dict, x&#41;; s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L25'>
+          <td class='lineno'>25</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L26'>
+          <td class='lineno'>26</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>sizehint&#33;&#40;s::IdSet, newsz&#41; &#61; &#40;sizehint&#33;&#40;s.dict, newsz&#41;; s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L27'>
+          <td class='lineno'>27</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'>1 &#40;0 &#37;&#41;</td>
+          <td>
+            <div class='call-sites'>
+              1 &#40;0 &#37;&#41;
+              samples spent in empty&#33;
+              <br />
+              
+              1 &#40;100 &#37;&#41; &#40;incl.&#41;
+              when called from typeinf_local
+              <a href='abstractinterpretation.jl-76a36272b07b5265f90720f45260eb0dd27a7774.html#L3066'>line 3066</a>
+              <br />
+            </div>
+            <div class='callees'>
+              1 &#40;100 &#37;&#41;
+              samples spent calling
+              <a href='iddict.jl-d376eafc7cabdc9c4a39afba81595b62834c0534.html#L135'>empty&#33;</a>
+              <br />
+            </div>
+            <span class='code'>empty&#33;&#40;s::IdSet&#41; &#61; &#40;empty&#33;&#40;s.dict&#41;; s&#41;</span>
+          </td>
+        </tr>
+        <tr id='L28'>
+          <td class='lineno'>28</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L29'>
+          <td class='lineno'>29</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>filter&#33;&#40;f, d::IdSet&#41; &#61; unsafe_filter&#33;&#40;f, d&#41;</span>
+          </td>
+        </tr>
+        <tr id='L30'>
+          <td class='lineno'>30</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'></span>
+          </td>
+        </tr>
+        <tr id='L31'>
+          <td class='lineno'>31</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>function iterate&#40;s::IdSet, state...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L32'>
+          <td class='lineno'>32</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    y &#61; iterate&#40;s.dict, state...&#41;</span>
+          </td>
+        </tr>
+        <tr id='L33'>
+          <td class='lineno'>33</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    y &#61;&#61;&#61; nothing &amp;&amp; return nothing</span>
+          </td>
+        </tr>
+        <tr id='L34'>
+          <td class='lineno'>34</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    &#40;&#40;k, _&#41;, i&#41; &#61; y</span>
+          </td>
+        </tr>
+        <tr id='L35'>
+          <td class='lineno'>35</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>    return &#40;k, i&#41;</span>
+          </td>
+        </tr>
+        <tr id='L36'>
+          <td class='lineno'>36</td>
+          <td class='tracecount excl'></td>
+          <td class='tracecount incl'></td>
+          <td>
+            
+            
+            <span class='code'>end</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
