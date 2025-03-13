@@ -53,7 +53,6 @@ function calculate_Gh(N_BV2, L, Q)
     # Gh = -((N_BV2*L)/(Q + SMALL))**2
     # Gh = np.clip(Gh, -0.28, 0.0233)
 
-
     return Gh 
 end 
 

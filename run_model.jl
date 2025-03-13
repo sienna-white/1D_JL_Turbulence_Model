@@ -26,7 +26,7 @@ ws2 = parse(Float64, ARGS[2])
 pmax1 = parse(Float64, ARGS[3])
 pmax2 = parse(Float64, ARGS[4])
 fout_name = ARGS[5]
-file_out_name = @sprintf("output/STRAT_HIGH_RES_%s.nc", fout_name) 
+file_out_name = @sprintf("output/STRAT_HAB_HIGH_RES_%s.nc", fout_name) 
 
 function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_name::String)
 
@@ -253,13 +253,12 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
         # Algae 1
         gamma = calculate_net_growth(algae1, light, discretization)
-        algae1["c"] = advance_algae(variables, algae1, gamma, discretization)
+        algae1["c"] = zeros(N) .+ init_algae  #advance_algae(variables, algae1, gamma, discretization)
 
         # Algae 2
         gamma = calculate_net_growth(algae2, light, discretization) 
-
-        # algae2["c"] = advance_algae(variables, algae2, gamma, discretization)
-        algae2["c"] = zeros(N) .+ init_algae 
+        algae2["c"] = advance_algae(variables, algae2, gamma, discretization)
+        # algae2["c"] = zeros(N) .+ init_algae 
 
         # [9] Pack variables for next timestep 
         variables["U"] = U

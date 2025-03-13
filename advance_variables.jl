@@ -80,6 +80,8 @@ function advance_velocity(past_var::Dict, Px::Real, discretization::Dict, W=0::R
     return U
 end 
 
+function advance_algae_tracer(variables, algae, gamma, discretization)
+
 function advance_algae(variables, algae, gamma, discretization)
     N = discretization["N"]
     beta = discretization["beta"]
