@@ -80,7 +80,70 @@ function advance_velocity(past_var::Dict, Px::Real, discretization::Dict, W=0::R
     return U
 end 
 
-function advance_algae_tracer(variables, algae, gamma, discretization)
+function advance_algae_tracer(variables, algae, ind_photic_depth, discretization)
+    N = discretization["N"]
+    beta = discretization["beta"]
+    dt = discretization["dt"]
+    dz = discretization["dz"]
+
+    photic_zone = zeros(N) 
+    if ind_photic_depth < (N-1)
+        photic_zone[ind_photic_depth:end] .= 1 
+    end 
+    aA, bA, cA, dA = initialize_abcd(N)
+
+    ws = algae["ws"]
+    Kz_past = variables["Kz"]
+    A_past = algae["c"]
+    Age_past = algae["age"]
+
+    wsdtdz = abs(ws*dt)/dz
+
+    # If settling speed is UPWARD (swimming!)
+    if ws>0
+        for i in 2:(N-1)
+            aA[i] = -wsdtdz - beta/2 * (Kz_past[i-1] + Kz_past[i])
+            bA[i] = 1 + wsdtdz  + beta/2*(Kz_past[i+1] + 2*Kz_past[i] + Kz_past[i-1])
+            cA[i] = -beta/2 * (Kz_past[i] + Kz_past[i+1])
+            dA[i] = A_past[i] + photic_zone[i]*dt
+        end
+
+        # Bottom-Boundary: no flux for scalars
+        bA[1] =  1  + beta/2*(Kz_past[2] + Kz_past[1]) + wsdtdz
+        cA[1] = -beta/2 * (Kz_past[2] + Kz_past[1])
+        dA[1] =  A_past[1] +  photic_zone[1]*dt
+
+        # Top-Boundary: no flux for scalars
+        aA[end] = -wsdtdz - beta/2 * (Kz_past[end] + Kz_past[end-1])
+        bA[end] = 1 + beta/2 * (Kz_past[end] + Kz_past[end-1])  
+        dA[end] = A_past[end] + photic_zone[end]*dt
+
+    # ********** If settling speed is DOWNWARD (sinking!) **********
+    else
+        for i in 2:(N-1)
+            aA[i]  = -wsdtdz - beta/2 * (Kz_past[i-1]+ Kz_past[i]) 
+            bA[i]  = 1 + wsdtdz  + beta/2*(Kz_past[i+1] + 2*Kz_past[i] + Kz_past[i-1]) 
+            cA[i]  = -beta/2 * (Kz_past[i] + Kz_past[i+1])
+            dA[i]  = A_past[i] + photic_zone[i]*dt 
+        end 
+           
+        # Bottom-Boundary: no flux for scalars
+        bA[1] =  1 + wsdtdz  + beta/2*(Kz_past[2] + Kz_past[1]) 
+        cA[1] =  -wsdtdz -beta/2 * (Kz_past[2] + Kz_past[1])
+        dA[1] =  A_past[1] + photic_zone[1]*dt
+
+        # Top-Boundary: no flux for scalars
+        aA[end] =  -beta/2 * (Kz_past[end] + Kz_past[end-1])
+        bA[end] =  1 + beta/2 * (Kz_past[end] + Kz_past[end-1]) + wsdtdz # okay adding this here 
+        dA[end] = A_past[end] + photic_zone[end]*dt
+    end 
+
+    # Solve the tridiagonal system
+    A = TDMA(aA, bA, cA, dA, N) 
+    
+    return A
+end 
+
 
 function advance_algae(variables, algae, gamma, discretization)
     N = discretization["N"]

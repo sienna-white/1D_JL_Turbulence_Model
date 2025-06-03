@@ -10,6 +10,18 @@ nu = 1e-6         # Kinematic viscosity [m^2/s]
 rho0 = 1000       # Water density [kg/m^3]
 alpha  =  2.1e-4  # Thermal expansivity, set to zero for passive scalar case
 
+function calculate_photic_depth_ind(light, I0)
+    light_lim = 0.1 * I0
+    search = light .> light_lim
+    ind_photic_depth = length(light) - sum(search) 
+
+    # if I0>0.1
+    #     println(light[end-10:end])
+    #     println("I0 = $I0; Photic depth occurs @ ind = $ind_photic_depth")
+    # end 
+    return ind_photic_depth
+end
+
 
 function initialize_turbulent_functions(discretization, N_BV2, kappa=kappa, SMALL=SMALL)
     Q2  = fill(SMALL,  discretization["N"])   # "seed" the turbulent field with small values, then let it evolve
@@ -70,6 +82,7 @@ function calculate_brunt_vaisala(rho, discretization)
     n_bv2[end] =(-g/rho0) * (rho[end] - rho[end-1])/dz
     return n_bv2
 end 
+
 
 
 function add_noise_floor(vector, SMALL=SMALL)

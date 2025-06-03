@@ -21,12 +21,11 @@ include("forcings.jl")
 include("output.jl")
 
 
-ws1 = parse(Float64, ARGS[1])
-ws2 = parse(Float64, ARGS[2])
-pmax1 = parse(Float64, ARGS[3])
-pmax2 = parse(Float64, ARGS[4])
-fout_name = ARGS[5]
-file_out_name = @sprintf("output/STRAT_HAB_HIGH_RES_%s.nc", fout_name) 
+# ws1 = parse(Float64, ARGS[1])
+# ws2 = parse(Float64, ARGS[2])
+# pmax1 = parse(Float64, ARGS[3])
+# pmax2 = parse(Float64, ARGS[4])
+# fout_name = ARGS[5]
 
 function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_name::String)
 
@@ -50,7 +49,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     #***********************************************************************
     # Read in the CIMIS data
-    cimis_fn = "/global/homes/s/siennaw/scratch/siennaw/turbulence-model/data/CIMIS/PAR_on_august_9-15.csv"
+    cimis_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/PAR_on_august_9-15.csv"
     df = CSV.read(cimis_fn, DataFrame)
     par = df[!,"Sol Rad (PAR)"]
     println("Read in CIMIS data ...")
@@ -64,7 +63,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     #***********************************************************************
     # Wind time series 
-    wind_fn = "/global/homes/s/siennaw/scratch/siennaw/turbulence-model/data/forcing_data/wind_on_august_10-16.csv"
+    wind_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/wind_on_august_10-16.csv"
     df = CSV.read(wind_fn, DataFrame)
     wind = df[!,"WindSpeed"]
     real_time = df[!,"time"]
@@ -133,15 +132,24 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
 
     #********************** DEFINE PHYTOPLANKTON FORCINGS ***************************
-    init_algae = 3
+    init_algae = 0.005
 
-    algae1 = Dict("k" => 0.7,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
-                "pmax" => pmax1, #0.05 * hr2s,          # maximum specific growth rate [1/hour]
-                "ws" => ws1, #-1.38e-5,           # vertical velocity [m/s]
-                "Hi" => 40,                 # half-saturation of light-limited growth [mu mol photons * m^2/s]
-                "Li" => 0.006 * hr2s,             # specific loss rate [1/hour]
-                "name" => "Diatom",           # name of the species
-                "self_shading" => true)    # self-shading effect (true/false))       
+    algae1 = Dict("k" => 0.034,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
+    "pmax" => 0.005 * hr2s,           # maximum specific growth rate [1/hour]
+    "ws" => 1.38e-4, #1.38e-4,           # vertical velocity [m/s]
+    "Hi" => 40,                # half-saturation of light-limited growth [mu mol photons * m^2/s]
+    "Li" => 0.005 * hr2s,             # specific loss rate [1/hour]
+    "name" => "HAB",           # name of the species
+    "self_shading" => true)    # self-shading effect (true/false)
+
+
+    # algae1 = Dict("k" => 0.7,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
+    #             "pmax" => pmax1, #0.05 * hr2s,          # maximum specific growth rate [1/hour]
+    #             "ws" => ws1, #-1.38e-5,           # vertical velocity [m/s]
+    #             "Hi" => 40,                 # half-saturation of light-limited growth [mu mol photons * m^2/s]
+    #             "Li" => 0.006 * hr2s,             # specific loss rate [1/hour]
+    #             "name" => "Diatom",           # name of the species
+    #             "self_shading" => true)    # self-shading effect (true/false))       
 
     algae2 = Dict("k" => 0.034,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
                 "pmax" => pmax2, #0.008 * hr2s,           # maximum specific growth rate [1/hour]
@@ -215,15 +223,14 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
             rho = calculate_rho(C, base_temp)   # [2] Calculate density from temperature field
             N_BV2 = calculate_brunt_vaisala(rho, discretization)
         else
-            # println("$(real_time[i])  I0 = $I0 --> daytime ")
-            C = get_temp_field(i) #get_temp_field(i)              # [1] Observational, sttratified temperature field 
+            C = get_unstrat_temp_field(i)  ## println("$(real_time[i])  I0 = $I0 --> daytime ")
+            # C = get_temp_field(i) #get_temp_field(i)              # [1] Observational, sttratified temperature field 
             rho = calculate_rho(C, base_temp)  # [2] Calculate density from temperature field  
             N_BV2 = calculate_brunt_vaisala(rho, discretization) # [3] Calculate Brunt-Vaisala frequency 
             N_BV2 = clamp.(N_BV2, -1e-3, Inf)               # [4] Prevent any unstable stratification during daylight hours
         end 
                
-        # print(N_BV2)
-        
+
         # C  = get_temp_field(i)
         # I0 = diurnal_light(time, I_in, 0, DIURNAL_LIGHT)
 
@@ -251,13 +258,21 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         # [8] Advance phytoplankton
         light = self_shading(algae1, algae2, I0, background_turbidity, discretization)
 
-        # Algae 1
+        # Algae 1 #zeros(N) #
         gamma = calculate_net_growth(algae1, light, discretization)
-        algae1["c"] = zeros(N) .+ init_algae  #advance_algae(variables, algae1, gamma, discretization)
+        
+        a1 = advance_algae(variables, algae1, gamma, discretization)  # zeros(N) .+ init_algae  #
+        algae1["c"] =  clamp.(a1, 1e-5, Inf)   
+
+        # println("gamma = ", gamma[end-5:end])
+        # println("algae1 = ", algae1["c"][end-5:end])
+
+        # z0_ind = calculate_photic_depth_ind(light, I0)
+        # algae["age"] = advance_algae_tracer(variables, algae, gamma, z0_ind, discretization)
 
         # Algae 2
-        gamma = calculate_net_growth(algae2, light, discretization) 
-        algae2["c"] = advance_algae(variables, algae2, gamma, discretization)
+        # gamma = calculate_net_growth(algae2, light, discretization) 
+        # algae2["c"] = advance_algae(variables, algae2, gamma, discretization)
         # algae2["c"] = zeros(N) .+ init_algae 
 
         # [9] Pack variables for next timestep 
@@ -338,10 +353,17 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-using StatProfilerHTML 
-# using ProfileView   
-using Profile 
-run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
+file_out_name = @sprintf("UNSTRAT_HAB_HIGH_RES_MAY8.nc") 
+run_my_model(1.38e-4, 1.38e-4, 0.04, 0.04, file_out_name)
+
+
+
+# using StatProfilerHTML 
+# # using ProfileView   
+# using Profile 
+
+
+
 
 # @profilehtml run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
 

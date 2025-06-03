@@ -21,16 +21,17 @@ include("forcings.jl")
 include("output.jl")
 
 
-ws1 = parse(Float64, ARGS[1])
-ws2 = parse(Float64, ARGS[2])
-pmax1 = parse(Float64, ARGS[3])
-pmax2 = parse(Float64, ARGS[4])
-fout_name = ARGS[5]
-file_out_name = @sprintf("output/STRAT_HIGH_RES_%s.nc", fout_name) 
+# ws1 = parse(Float64, ARGS[1])
+# ws2 = parse(Float64, ARGS[2])
+# pmax1 = parse(Float64, ARGS[3])
+# pmax2 = parse(Float64, ARGS[4])
 
-function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_name::String)
+fout_name = 0 #ARGS[5]
+file_out_name = @sprintf("age_tracer_%s.nc", fout_name) 
 
-    println("Running model with ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2.. \n output file name = $file_out_name \n")
+function run_my_model(file_out_name::String)
+
+    # println("Running model with ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2.. \n output file name = $file_out_name \n")
 
     #***********************************************************************
     # Read in the feather file 
@@ -84,11 +85,11 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     H = 6    # depth (meters)
     dz = H/N  # grid spacing - may need to adjust to reduce oscillations
     dt = 10   # (seconds) size of time step 
-    M  = 500 #51839 #00 #000 # 50000 
+    M  = 51839 #51839 #00 #000 # 50000  #500 #
 
     # Increments for saving profiles. set to 1 to save all; 10 saves every 10th, etc. 
-    isave = 6 #1000
-    var2save = ["U","Kq", "Nu", "C", "Kz", "L", "Q2", "Q2L", "N_BV2", "algae1","algae2"]
+    isave = 20 #1000
+    var2save = ["U","Kq", "Nu", "C", "Kz", "L", "Q2", "Q2L", "N_BV2", "algae1","algae2", "a1age"]
 
     create_output_dict(M, isave, var2save, N)
 
@@ -136,16 +137,16 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     init_algae = 3
 
     algae1 = Dict("k" => 0.7,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
-                "pmax" => pmax1, #0.05 * hr2s,          # maximum specific growth rate [1/hour]
-                "ws" => ws1, #-1.38e-5,           # vertical velocity [m/s]
+                "pmax" => 0.05 * hr2s,          # maximum specific growth rate [1/hour]
+                "ws" => -1.38e-5,           # vertical velocity [m/s]
                 "Hi" => 40,                 # half-saturation of light-limited growth [mu mol photons * m^2/s]
                 "Li" => 0.006 * hr2s,             # specific loss rate [1/hour]
                 "name" => "Diatom",           # name of the species
                 "self_shading" => true)    # self-shading effect (true/false))       
 
     algae2 = Dict("k" => 0.034,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
-                "pmax" => pmax2, #0.008 * hr2s,           # maximum specific growth rate [1/hour]
-                "ws" => ws2, #1.38e-4,           # vertical velocity [m/s]
+                "pmax" => 0.008 * hr2s,           # maximum specific growth rate [1/hour]
+                "ws" => 1.38e-4,           # vertical velocity [m/s]
                 "Hi" => 40,                # half-saturation of light-limited growth [mu mol photons * m^2/s]
                 "Li" => 0.004 * hr2s,             # specific loss rate [1/hour]
                 "name" => "HAB",           # name of the species
@@ -168,8 +169,13 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     rho = calculate_rho(C, base_temp) 
     N_BV2 = calculate_brunt_vaisala(rho, discretization)
 
-    algae1["c"] = zeros(N) .+ init_algae 
-    algae2["c"] = zeros(N) .+ init_algae 
+    # algae1["c"] = zeros(N) # .+ init_algae 
+    algae2["c"] = zeros(N) #.+ init_algae 
+    c0 = zeros(N)
+    c0[40:43] .= init_algae
+    algae1["age"] = zeros(N) 
+    algae1["c"] = c0 
+
 
     Q2, Q2L, Q, L, Gh, nu_t, Kq, Kz = initialize_turbulent_functions(discretization, N_BV2)
 
@@ -187,6 +193,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     save2output(1, 1, "algae1", algae1["c"])
     save2output(1, 1, "algae2", algae2["c"])
+    save2output(1, 1, "a1age", algae1["age"])
     save2output(1, 1, "U", variables["U"])
     save2output(1, 1, "Kz", variables["Kz"])
     save2output(1, 1, "C", variables["C"])
@@ -196,6 +203,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     save2output(1, 1, "N_BV2", variables["N_BV2"])
     save2output(1, 1, "Kq", variables["Kq"])
     save2output(1, 1, "Nu", variables["Nu"])
+    push!(real_times_saved, real_time[1])
 
     for i in 2:(M-1)
 
@@ -252,14 +260,16 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         light = self_shading(algae1, algae2, I0, background_turbidity, discretization)
 
         # Algae 1
-        gamma = calculate_net_growth(algae1, light, discretization)
-        algae1["c"] = advance_algae(variables, algae1, gamma, discretization)
+        gamma = zeros(N) #calculate_net_growth(algae1, light, discretization)
+        algae1["c"] = advance_algae(variables, algae1, gamma, discretization)  # zeros(N) .+ init_algae  #
+        
+        z0_ind = calculate_photic_depth_ind(light, I0)
+        algae1["age"] = advance_algae_tracer(variables, algae1, z0_ind, discretization)
 
         # Algae 2
-        gamma = calculate_net_growth(algae2, light, discretization) 
-
+        # gamma = calculate_net_growth(algae2, light, discretization) 
         # algae2["c"] = advance_algae(variables, algae2, gamma, discretization)
-        algae2["c"] = zeros(N) .+ init_algae 
+        # algae2["c"] = zeros(N) .+ init_algae 
 
         # [9] Pack variables for next timestep 
         variables["U"] = U
@@ -274,8 +284,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
         if i % isave == 0
             index = div(i, isave) + 1  #(i-1) #div(i, isave)
-            # print("index = $index \n")
             save2output(time, index, "algae1", algae1["c"])
+            save2output(time, index, "a1age", algae1["age"])
             save2output(time, index, "algae2", algae2["c"])
             save2output(time, index, "U", variables["U"])
             save2output(time, index, "Kz", variables["Kz"])
@@ -286,8 +296,9 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
             save2output(time, index, "N_BV2", variables["N_BV2"])
             save2output(time, index, "Nu", variables["Nu"])
             save2output(time, index, "Kq", variables["Kq"])
-            # save2output(time, index, "N_BV2", variables["N_BV2"])
             push!(real_times_saved, real_time[i])
+            println("Saved $(real_time[i]) -- z_eu = $(z[z0_ind])")
+            
         end
 
     end
@@ -302,7 +313,10 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         "algae2" => L"10$^6$/cm$^3$ cells",
         "L" => "Turbulent length scale", 
         "Q2" => "TKE", "Q2L" => "TKE*L",
-        "N_BV2" => "Brunt-Vaisala frequency", "Kq" => "Kq", "Nu" => "Nu_t")
+        "N_BV2" => "Brunt-Vaisala frequency", 
+         "Kq" => "Kq", 
+         "Nu" => "Nu_t",
+         "a1age" => "Age of algae1")
 
     var2name = Dict("U" => "Velocity", 
                 "C" => "Temperature", 
@@ -311,22 +325,29 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
                 "algae2" => "HAB concentration",
                 "L" => "Turbulent length scale", 
                 "Q2" => "TKE","Q2L" => "TKE*L",
-                "N_BV2" => "Brunt-Vaisala frequency", "Kq" => "Kq", "Nu" => "Nu_t")
+                "N_BV2" => "Brunt-Vaisala frequency", 
+                "Kq" => "Turbulent diffusivity", 
+                "Nu" => "Turbulent viscosity",
+                "a1age" => "Property-age tracker for algae1")
 
     times_unique = unique(times) 
 
     ds = NCDataset(file_out_name,"c")
-    ds.attrib["title"] = "ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2"
+    ds.attrib["title"] = " test " #ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2"
 
     # model_time = collect(1:M)
     defDim(ds, "z", length(z)) 
-    defDim(ds, "time", length(times_unique))
+    defDim(ds, "time", (length(times_unique)+1))
+
+    println("Size of a1 age = ", size(output["a1age"]))
+    println("Size of algae  = ", size(output["algae1"]))
+    println("Size of times  = ", length(times_unique)+1)
 
     v = defVar(ds, "z", Float32, ("z",))
     v[:] = z
 
     v = defVar(ds, "time", Float32, ("time",), attrib = OrderedDict("units" => "seconds"))
-    v[:] = collect(1:(length(times_unique))) #model_time
+    v[:] = collect(1:(length(times_unique)+1)) #model_time
 
     for var in var2save
         # println(var)
@@ -341,13 +362,12 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-# using StatProfilerHTML 
-# # using ProfileView   
-# using Profile 
-using BenchmarkTools
-run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
+using StatProfilerHTML 
+# using ProfileView   
+using Profile 
+run_my_model(file_out_name)
 
-@time run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
+# @profilehtml run_my_model(ws1, ws2, pmax1, pmax2, file_out_name)
 
 # StatProfilerHTML.view()
 # Profile.print() 
