@@ -205,18 +205,22 @@ function advance_algae(variables, algae, gamma, discretization)
 end 
 
 
-function advance_scalar(variables, discretization)
+function advance_scalar(variables, discretization, surf, body_heat)
+    # advance temperature!! 
+    # Edited on June 11, 2025 to implement heat fluxes 
 
+    
     Kz_past = variables["Kz"]
     C_past = variables["C"]
     N = discretization["N"]
     beta = discretization["beta"]
+    dt = discretization["dt"]
+    dz = discretization["dz"]
 
     aC, bC, cC, dC = initialize_abcd(N) 
-
     for i in 2:(N-1)
         aC[i] = -0.5*beta*(Kz_past[i] + Kz_past[i-1])
-        bC[i] = 1 + 0.5*beta*(Kz_past[i+1] + 2*Kz_past[i] + Kz_past[i-1])
+        bC[i] = 1 + 0.5*beta*(Kz_past[i+1] + 2*Kz_past[i] + Kz_past[i-1]) - body_heat[i]*dt/dz
         cC[i] = -0.5*beta*(Kz_past[i] + Kz_past[i+1])
         dC[i] = C_past[i]
     end
@@ -228,9 +232,9 @@ function advance_scalar(variables, discretization)
     dC[1] =  C_past[1] 
 
     # Top-Boundary: no flux for scalars
-    aC[end] = -0.5*beta*(Kz_past[end] + Kz_past[end-1])
-    bC[end] = 1+0.5*beta*(Kz_past[end] + Kz_past[end-1])
-    dC[end] = C_past[end]  
+    aC[end] = -beta/2 *(Kz_past[end] + Kz_past[end-1])
+    bC[end] = 1 + beta/2 *(Kz_past[end] + Kz_past[end-1])
+    dC[end] = C_past[end] + dt*surf/dz  
     
     C = TDMA(aC, bC, cC, dC, N)
     return C
