@@ -220,23 +220,24 @@ function advance_scalar(variables, discretization, surf, body_heat)
     aC, bC, cC, dC = initialize_abcd(N) 
     for i in 2:(N-1)
         aC[i] = -0.5*beta*(Kz_past[i] + Kz_past[i-1])
-        bC[i] = 1 + 0.5*beta*(Kz_past[i+1] + 2*Kz_past[i] + Kz_past[i-1]) - body_heat[i]*dt/dz
+        bC[i] = 1 + 0.5*beta*(Kz_past[i+1] + 2*Kz_past[i] + Kz_past[i-1]) # - body_heat[i]*dt #/dz
         cC[i] = -0.5*beta*(Kz_past[i] + Kz_past[i+1])
-        dC[i] = C_past[i]
+        dC[i] = C_past[i] + body_heat[i]*dt
     end
 
     #####  Boundary conditions
     # Bottom-Boundary: no flux for scalars
-    bC[1] = 1 + beta/2*(Kz_past[2] + Kz_past[1])
+    bC[1] = 1 + beta/2*(Kz_past[2] + Kz_past[1])  #/dz
     cC[1] = -beta/2*(Kz_past[2] + Kz_past[1])
-    dC[1] =  C_past[1] 
+    dC[1] =  C_past[1] + body_heat[1]*dt
 
     # Top-Boundary: no flux for scalars
     aC[end] = -beta/2 *(Kz_past[end] + Kz_past[end-1])
-    bC[end] = 1 + beta/2 *(Kz_past[end] + Kz_past[end-1])
-    dC[end] = C_past[end] + dt*surf/dz  
+    bC[end] = 1 + beta/2 *(Kz_past[end] + Kz_past[end-1]) #- body_heat[end]*dt #*dz
+    dC[end] = C_past[end] + dt*surf/dz  + body_heat[end]*dt
     
     C = TDMA(aC, bC, cC, dC, N)
+    # println("C = ", C)
     return C
 end
 

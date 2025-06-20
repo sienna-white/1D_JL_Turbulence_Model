@@ -31,8 +31,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     println("Running model with ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2.. \n output file name = $file_out_name \n")
 
-    # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
-    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
+    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
+    # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
     #***********************************************************************
     # Read in the feather file 
     # data  = Arrow.Table("interpolated_temperature_profile_aug10-16.feather")
@@ -48,7 +48,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     #***********************************************************************
     # Read in the heat flux data 
-    heat_flux_fn =  @sprintf("%s/heat_flux_reducedwind.csv", forcing_fn)  
+    heat_flux_fn =  @sprintf("%s/heat_flux.csv", forcing_fn)  
     @info ("Reading in heat flux data from $heat_flux_fn ...")
     df = CSV.read(heat_flux_fn, DataFrame)
     surface = df[!,"surface"]
@@ -60,11 +60,9 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     end
 
     function get_shortwave(index::Int, shortwave=shortwave)
-        sw = shortwave[index]/(specific_heat_water * rhoW)
+        sw = shortwave[index]
         return sw 
     end
-
-
 
     #***********************************************************************
     # Read in the CIMIS data
@@ -85,7 +83,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     wind_fn =  @sprintf("%s/wind.csv", forcing_fn)  
     @info ("Reading in wind data from $wind_fn ...")
     df = CSV.read(wind_fn, DataFrame)
-    wind = df[!,"WindSpeed"] * 0.25
+    wind = df[!,"WindSpeed"] 
     real_time = df[!,"time"]
     
     
@@ -112,7 +110,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     # Create depth vector 
     z = collect(H:-dz:dz) .- dz/2 # depth vector
-    # println("Length of z is ", length(z))
 
        
     # 055, 0.16
@@ -130,17 +127,40 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # print("$adjustment -- adjustment \n")
 
     function get_body_flux_heat(sw, N, z, n1=n1, adjustment=adjustment)
-        heating = zeros(N)
+        rad = zeros(N)       # radiation 
+        qsource = zeros(N)   # heat source term
+        A = 0.78             # From Paulson & Simpson for Type III water 
+        g1 = 1.4
+        g2 = 7.9
+        dz = 0.1
+        rhoW = 1000                     # Density of water, kg/m^3
+        specific_heat_water = 4181 
+
         for i in 1:N 
-            # h0 = sw * (0.0084 * exp(-z[i] * 2.2)) # 2024 # + (1-R)* exp(-z[i]/n2))
-            # h0 = sw * (0.014 * exp(-z[i] * 2.2)) # 2022
-            h0 = sw * (0.011 * exp(-z[i] * 2.2)) # 2022 reduced wind 
-            heating[i] = h0 # convert to heat flux
-        end
-        # println("heat= ", heating)
-        return heating
+            rad[i] = sw * (A * exp(-z[i]/g1) + (1-A)*exp(-z[i]/g2))
+        end 
+
+        qsource[end] = (sw - rad[end - 1])/(specific_heat_water * rhoW * dz)  # dz  z[end] 
+
+        for i in range(2, N)
+            qsource[i] = (rad[i] - rad[i - 1])/(specific_heat_water * rhoW * dz) # mark thinks this should be dz 
+        end 
+
+        return qsource
         
-    end 
+    end
+    # function get_body_flux_heat(sw, N, z, n1=n1, adjustment=adjustment)
+    #     heating = zeros(N)
+    #     for i in 1:N 
+    #         # h0 = sw * (0.0084 * exp(-z[i] * 2.2)) # 2024 # + (1-R)* exp(-z[i]/n2))
+    #         # h0 = sw * (0.014 * exp(-z[i] * 2.2)) # 2022
+    #         h0 = sw * (0.011 * exp(-z[i] * 2.2)) # 2022 reduced wind 
+    #         heating[i] = h0 # convert to heat flux
+    #     end
+    #     # println("heat= ", heating)
+    #     return heating
+        
+    # end 
 
     # test = get_body_flux_heat(1000, N, z)
     # println("Z = ", z)
@@ -224,9 +244,9 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # C = zeros(N) .+ LinRange(bottom_temp, top_temp, N)  
     # C = @. base_temp - tanh(z * 2)*0.4 
 
-    # C = [ 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.798220, 27.816607, 27.834993, 27.853380, 27.878350, 27.915170, 27.951990, 27.988810, 28.025630, 28.062450, 28.099270, 28.136090, 28.172910, 28.181460, 28.182300, 28.183140, 28.183980, 28.184820, 28.185660, 28.186500, 28.187340, 28.188050, 28.188283, 28.188517, 28.188750, 28.188983, 28.189087, 28.189180, 28.189273, 28.189367, 28.189280, 28.189093, 28.188907, 28.188720, 28.188400, 28.187840, 28.187280, 28.186720, 28.186233, 28.186700, 28.187167, 28.187027, 28.186840, 28.188853, 28.191467, 28.189520, 28.185040,]
+    C = [ 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.798220, 27.816607, 27.834993, 27.853380, 27.878350, 27.915170, 27.951990, 27.988810, 28.025630, 28.062450, 28.099270, 28.136090, 28.172910, 28.181460, 28.182300, 28.183140, 28.183980, 28.184820, 28.185660, 28.186500, 28.187340, 28.188050, 28.188283, 28.188517, 28.188750, 28.188983, 28.189087, 28.189180, 28.189273, 28.189367, 28.189280, 28.189093, 28.188907, 28.188720, 28.188400, 28.187840, 28.187280, 28.186720, 28.186233, 28.186700, 28.187167, 28.187027, 28.186840, 28.188853, 28.191467, 28.189520, 28.185040,]
     # C = @. C/max(C) * 23
-    C = zeros(N) .+ 24
+    # C = zeros(N) .+ 24
     rho = calculate_rho(C, base_temp) 
     N_BV2 = calculate_brunt_vaisala(rho, discretization)
 
@@ -241,13 +261,9 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
                     "Kq" => Kq, "Kz" => Kz, "L" => L)
 
     Times = collect(0:dt:(M*dt))
-    # println("Times = ", Times)
     real_times_saved = []
 
     #***************************************************************************
-
-    # println("Initial temp condition = $C")
-
     save2output(1, 1, "algae1", algae1["c"])
     save2output(1, 1, "algae2", algae2["c"])
     save2output(1, 1, "U", variables["U"])
@@ -259,6 +275,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     save2output(1, 1, "N_BV2", variables["N_BV2"])
     save2output(1, 1, "Kq", variables["Kq"])
     save2output(1, 1, "Nu", variables["Nu"])
+    #***************************************************************************
 
     for i in 2:(M-1)
 
@@ -295,7 +312,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         #  [4] Advance temperature 
         body_heat = get_body_flux_heat(sw, N, z, n1, adjustment)
         C = advance_scalar(variables, discretization, surf, body_heat) 
-        
 
         # [7] Semi-implicit: Calculate turbulent lengthscale
         L, Q2L = calculate_lengthscale(Q2, Q2L, N_BV2, discretization)
@@ -345,6 +361,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
             # ind_photic_depth = length(light) - sum(search) 
             # println("photic_depth = ", z[ind_photic_depth])
 
+            # println("heating = ", body_heat)
+            # println("C = ", C)
             if i % 5000 == 0
                 println("... on time = $i/$M")
             end 
@@ -420,7 +438,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-file_out_name = @sprintf("2022_rw.nc") 
+file_out_name = @sprintf("2024_June20.nc") 
 run_my_model(1.38e-4, 1.38e-4, 0.008, 0.04, file_out_name)
 
 
