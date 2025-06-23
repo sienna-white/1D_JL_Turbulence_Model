@@ -31,8 +31,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     println("Running model with ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2.. \n output file name = $file_out_name \n")
 
-    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
-    # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
+    # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
+    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
     #***********************************************************************
     # Read in the feather file 
     # data  = Arrow.Table("interpolated_temperature_profile_aug10-16.feather")
@@ -48,7 +48,9 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     #***********************************************************************
     # Read in the heat flux data 
-    heat_flux_fn =  @sprintf("%s/heat_flux.csv", forcing_fn)  
+    # heat_flux_fn =  @sprintf("%s/heat_flux.csv", forcing_fn)  
+
+    heat_flux_fn =  @sprintf("%s/heat_flux_june22.csv", forcing_fn)  
     @info ("Reading in heat flux data from $heat_flux_fn ...")
     df = CSV.read(heat_flux_fn, DataFrame)
     surface = df[!,"surface"]
@@ -93,8 +95,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     #***********************************************************************
 
 
-
-
     #********************** SPATIAL DOMAIN  ***************************
     N = 60    # number of grid points
     H = 6    # depth (meters)
@@ -111,31 +111,22 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # Create depth vector 
     z = collect(H:-dz:dz) .- dz/2 # depth vector
 
-       
-    # 055, 0.16
-    # R = 0.77
-    # n1 = 0.15 #1.4
-
-
-    # fairly good --> 0.19, 0.048 
-    # also okay : 0.3, 0.04 
-    # bad: 1.2, 0.03 
-    # 0.17, 0.077
-    n1 = 0.1 #0.19
-    adjustment = 0 #sum(exp.(-z./n1))  
-    
-    # print("$adjustment -- adjustment \n")
-
-    function get_body_flux_heat(sw, N, z, n1=n1, adjustment=adjustment)
+    function get_body_flux_heat(sw, N, z)
         rad = zeros(N)       # radiation 
         qsource = zeros(N)   # heat source term
-        A = 0.78             # From Paulson & Simpson for Type III water 
-        g1 = 1.4
-        g2 = 7.9
+        # A = 0.78             # From Paulson & Simpson for Type III water 
+        # g1 = 1.4
+        # g2 = 7.9
+
+        # try 
+        g1 = 0.33
+        g2 = 2.34
+        A = 0.57
+
         dz = 0.1
         rhoW = 1000                     # Density of water, kg/m^3
         specific_heat_water = 4181 
-
+        # sw = sw * 1.3
         for i in 1:N 
             rad[i] = sw * (A * exp(-z[i]/g1) + (1-A)*exp(-z[i]/g2))
         end 
@@ -149,22 +140,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         return qsource
         
     end
-    # function get_body_flux_heat(sw, N, z, n1=n1, adjustment=adjustment)
-    #     heating = zeros(N)
-    #     for i in 1:N 
-    #         # h0 = sw * (0.0084 * exp(-z[i] * 2.2)) # 2024 # + (1-R)* exp(-z[i]/n2))
-    #         # h0 = sw * (0.014 * exp(-z[i] * 2.2)) # 2022
-    #         h0 = sw * (0.011 * exp(-z[i] * 2.2)) # 2022 reduced wind 
-    #         heating[i] = h0 # convert to heat flux
-    #     end
-    #     # println("heat= ", heating)
-    #     return heating
-        
-    # end 
 
-    # test = get_body_flux_heat(1000, N, z)
-    # println("Z = ", z)
-    # println("Test body flux heat = ", test)
     #********************** FIXED CONSTANTS  ***************************
     rhoA = 1.23                     # Density of air, kg/m^3
     rhoW = 1000                     # Density of water, kg/m^3
@@ -193,15 +169,15 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     top_temp = 28.2
     bottom_temp = 27.8
 
-
     # (4) Light 
     DIURNAL_LIGHT = false  
-    background_turbidity =  0.5
+    background_turbidity =  0.4
     # I_in = 350 
 
 
     #********************** DEFINE PHYTOPLANKTON FORCINGS ***************************
-    init_algae = 0.005
+    # init_algae = 0.005
+    init_algae = 0.01
 
     algae1 = Dict("k" => 0.034,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
     "pmax" =>pmax1 * hr2s,           # maximum specific growth rate [1/hour]
@@ -245,8 +221,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # C = @. base_temp - tanh(z * 2)*0.4 
 
     C = [ 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.798220, 27.816607, 27.834993, 27.853380, 27.878350, 27.915170, 27.951990, 27.988810, 28.025630, 28.062450, 28.099270, 28.136090, 28.172910, 28.181460, 28.182300, 28.183140, 28.183980, 28.184820, 28.185660, 28.186500, 28.187340, 28.188050, 28.188283, 28.188517, 28.188750, 28.188983, 28.189087, 28.189180, 28.189273, 28.189367, 28.189280, 28.189093, 28.188907, 28.188720, 28.188400, 28.187840, 28.187280, 28.186720, 28.186233, 28.186700, 28.187167, 28.187027, 28.186840, 28.188853, 28.191467, 28.189520, 28.185040,]
-    # C = @. C/max(C) * 23
-    # C = zeros(N) .+ 24
+    # C = @. C/max(C) * 26
+    C = zeros(N) .+ 26
     rho = calculate_rho(C, base_temp) 
     N_BV2 = calculate_brunt_vaisala(rho, discretization)
 
@@ -283,34 +259,32 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         time = Times[i];
         # println("i = $i")
 
-        # [1] Advance velocity field
+        # [1] Get forcing variables at time step 
         pressure = get_pressure_at_timestamp(time, Px0, T_Px)
         ustar = calculate_ustar(U)
-
         W0 = get_wind_speed(i)
-
         I0 = get_light(i)
         surf = get_surf_flux(i)
         sw = get_shortwave(i) 
 
-        # println("surf=  $surf" )
-        rho = calculate_rho(C, base_temp)   # [2] Calculate density from temperature field
+        # [2] Calculate density from temperature field
+        rho = calculate_rho(C, base_temp)  
         N_BV2 = calculate_brunt_vaisala(rho, discretization)
-        # N_BV2 = clamp.(N_BV2, -1e-3, Inf)
+        # N_BV2 = clamp.(N_BV2, 0, Inf)
 
-        # Advance velocity field 
+        # [3] Advance velocity field 
         wind_stress = wind_speed_2_wind_stress(W0, discretization) 
         U = advance_velocity(variables, pressure, discretization, wind_stress)
 
-        #  [2] Advance TKE / Q2 
+        # [4] Advance TKE / Q2 
         Q2 = advance_Q2(variables, ustar, discretization) 
         Q = @. sqrt(Q2)
 
-        #  [3] Advance Q2*L      
+        # [5] Advance Q2*L      
         Q2L = advance_Q2L(variables, ustar, discretization)
     
-        #  [4] Advance temperature 
-        body_heat = get_body_flux_heat(sw, N, z, n1, adjustment)
+        # [6] Advance temperature 
+        body_heat = get_body_flux_heat(sw, N, z)
         C = advance_scalar(variables, discretization, surf, body_heat) 
 
         # [7] Semi-implicit: Calculate turbulent lengthscale
@@ -322,18 +296,9 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
         # [8] Advance phytoplankton
         light = self_shading(algae1, algae2, I0, background_turbidity, discretization)
-
-
-   
-
-        # Algae 1 #zeros(N) #
         gamma = calculate_net_growth(algae1, light, discretization)
-        
         a1 = advance_algae(variables, algae1, gamma, discretization)  # zeros(N) .+ init_algae  #
         algae1["c"] =  clamp.(a1, 1e-5, Inf)   
-
-        # println("gamma = ", gamma[end-5:end])
-        # println("algae1 = ", algae1["c"][end-5:end])
 
         # z0_ind = calculate_photic_depth_ind(light, I0)
         # algae["age"] = advance_algae_tracer(variables, algae, gamma, z0_ind, discretization)
@@ -359,10 +324,11 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
             # light_lim = 0.1 * I0
             # search = light .> light_lim
             # ind_photic_depth = length(light) - sum(search) 
+            # if ind_photic_depth == 0
+            #     ind_photic_depth = 1
+            # end
             # println("photic_depth = ", z[ind_photic_depth])
 
-            # println("heating = ", body_heat)
-            # println("C = ", C)
             if i % 5000 == 0
                 println("... on time = $i/$M")
             end 
@@ -384,8 +350,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     end
 
-
-
     # ********************** save data ****************************
     units_dict = Dict("U" => "m/s", 
         "C" => "deg C", 
@@ -405,17 +369,12 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
                 "Q2" => "TKE","Q2L" => "TKE*L",
                 "N_BV2" => "Brunt-Vaisala frequency", "Kq" => "Kq", "Nu" => "Nu_t")
 
-    # times_unique = unique(times) 
-    # println("Length of times_unique = ", length(times_unique))
-    # println("start + end of times unique $(times_unique[1]) $(times_unique[end])")
-    # println("Times unique has $(length(times_unique)) elements \n")
 
     ds = NCDataset(file_out_name,"c")
     ds.attrib["title"] = "ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2"
 
     # model_time = collect(1:M)
     nt = div(M,isave) + 1 
-    # nt =  length(times_unique) + 1 
     defDim(ds, "z", length(z)) 
     defDim(ds, "time", nt)
 
@@ -423,7 +382,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     v[:] = z
 
     v = defVar(ds, "time", Float32, ("time",), attrib = OrderedDict("units" => "seconds"))
-    v[:] = collect(1:nt) #model_time
+    v[:] = collect(1:nt) 
 
     for var in var2save
         # println(var)
@@ -438,9 +397,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-file_out_name = @sprintf("2024_June20.nc") 
+file_out_name = @sprintf("2022_June22_noconv.nc") 
 run_my_model(1.38e-4, 1.38e-4, 0.008, 0.04, file_out_name)
-
 
 
 # using StatProfilerHTML 
