@@ -50,7 +50,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # Read in the heat flux data 
     # heat_flux_fn =  @sprintf("%s/heat_flux.csv", forcing_fn)  
 
-    forcing_fp = @sprintf("%s/CIMIS.csv", forcing_fn)  
+    forcing_fp = @sprintf("%s/CIMIS2.csv", forcing_fn)  
     @info ("Reading in forcing data from $forcing_fp ...")
     forcing_df = CSV.read(forcing_fp, DataFrame)
     
@@ -105,7 +105,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     H = 6    # depth (meters)
     dz = H/N  # grid spacing - may need to adjust to reduce oscillations
     dt = 10   # (seconds) size of time step 
-    M  = 3600*16 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
+    M  = 190050 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
          
     # Increments for saving profiles. set to 1 to save all; 10 saves every 10th, etc. 
     isave = 100 # 360 #1000
@@ -273,7 +273,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         # println("[HF] Longwave out = ", dfhf[i,"longwave_out"])
         println("[HF] Sensible heat = ", dfhf[i,"sensible_heat"])
         println("[HF] Latent heat = ", dfhf[i,"latent_heat"])
-        println("[HF] Net longwave radiation = $(dfhf[i,"longwave_in"] - dfhf[i,"longwave_out"])")
+        # println("[HF] Net longwave radiation = $(dfhf[i,"longwave_in"] - dfhf[i,"longwave_out"])")
         
         # println("Surface water temp= $(C[end])")
         shortwave_in, surface = calculate_heat_flux(forcing_df[i,"DOY"], 
