@@ -19,7 +19,7 @@ include("advance_variables.jl")
 include("phytoplankton.jl")
 include("forcings.jl") 
 include("output.jl")
-
+include("calculate_heat_fluxes.jl")
 
 # ws1 = parse(Float64, ARGS[1])
 # ws2 = parse(Float64, ARGS[2])
@@ -31,8 +31,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     println("Running model with ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2.. \n output file name = $file_out_name \n")
 
-    # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
-    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
+    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
+    # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
     #***********************************************************************
     # Read in the feather file 
     # data  = Arrow.Table("interpolated_temperature_profile_aug10-16.feather")
@@ -50,19 +50,24 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # Read in the heat flux data 
     # heat_flux_fn =  @sprintf("%s/heat_flux.csv", forcing_fn)  
 
-    heat_flux_fn =  @sprintf("%s/heat_flux_june22.csv", forcing_fn)  
-    @info ("Reading in heat flux data from $heat_flux_fn ...")
-    df = CSV.read(heat_flux_fn, DataFrame)
-    surface = df[!,"surface"]
-    shortwave = df[!,"sw_in"]
+    forcing_fp = @sprintf("%s/CIMIS.csv", forcing_fn)  
+    @info ("Reading in forcing data from $forcing_fp ...")
+    forcing_df = CSV.read(forcing_fp, DataFrame)
+    
 
-    function get_surf_flux(index::Int, surface=surface)
-        sf = surface[index]/(specific_heat_water * rhoW) 
+    heat_flux_fn =  @sprintf("%s/heat_flux2.csv", forcing_fn)  
+    @info ("Reading in heat flux data from $heat_flux_fn ...")
+    dfhf = CSV.read(heat_flux_fn, DataFrame)
+    # surface0 = df[!,"surface"]
+    # shortwave = df[!,"sw_in"]
+
+    function get_surf_flux(index::Int, dfhf=dfhf)
+        sf = dfhf[index,"surface"]/(specific_heat_water * rhoW) 
         return sf
     end
 
-    function get_shortwave(index::Int, shortwave=shortwave)
-        sw = shortwave[index]
+    function get_shortwave(index::Int, dfhf=dfhf)
+        sw = dfhf[index,"sw_in"]
         return sw 
     end
 
@@ -100,10 +105,10 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     H = 6    # depth (meters)
     dz = H/N  # grid spacing - may need to adjust to reduce oscillations
     dt = 10   # (seconds) size of time step 
-    M  = 359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
+    M  = 3600*12 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
          
     # Increments for saving profiles. set to 1 to save all; 10 saves every 10th, etc. 
-    isave = 360 #1000
+    isave = 100 # 360 #1000
     var2save = ["U","Kq", "Nu", "C", "Kz", "L", "Q2", "Q2L", "N_BV2", "algae1","algae2"]
 
     create_output_dict(M, isave, var2save, N)
@@ -171,7 +176,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     # (4) Light 
     DIURNAL_LIGHT = false  
-    background_turbidity =  0.4
+    background_turbidity =  0.5
     # I_in = 350 
 
 
@@ -222,7 +227,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     C = [ 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.786400, 27.798220, 27.816607, 27.834993, 27.853380, 27.878350, 27.915170, 27.951990, 27.988810, 28.025630, 28.062450, 28.099270, 28.136090, 28.172910, 28.181460, 28.182300, 28.183140, 28.183980, 28.184820, 28.185660, 28.186500, 28.187340, 28.188050, 28.188283, 28.188517, 28.188750, 28.188983, 28.189087, 28.189180, 28.189273, 28.189367, 28.189280, 28.189093, 28.188907, 28.188720, 28.188400, 28.187840, 28.187280, 28.186720, 28.186233, 28.186700, 28.187167, 28.187027, 28.186840, 28.188853, 28.191467, 28.189520, 28.185040,]
     # C = @. C/max(C) * 26
-    C = zeros(N) .+ 26
+    # C = zeros(N) .+ 26
     rho = calculate_rho(C, base_temp) 
     N_BV2 = calculate_brunt_vaisala(rho, discretization)
 
@@ -255,6 +260,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     for i in 2:(M-1)
 
+        println("\n\n")
 
         time = Times[i];
         # println("i = $i")
@@ -266,7 +272,28 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         I0 = get_light(i)
         surf = get_surf_flux(i)
         sw = get_shortwave(i) 
+        # println("From heat flux ...")
+        # println("[HF] Longwave in = ", dfhf[i,"longwave_in"])
+        # println("[HF] Longwave out = ", dfhf[i,"longwave_out"])
+        # println("[HF] Sensible heat = ", dfhf[i,"sensible_heat"])
+        # println("[HF] Latent heat = ", dfhf[i,"latent_heat"])
+  
+        
 
+        println("Surface water temp= $(C[end])")
+        shortwave_in, surface = calculate_heat_flux(forcing_df[i,"DOY"], 
+                                                    C[end],
+                                                    forcing_df[i,"T_air_C"], 
+                                                    forcing_df[i,"shortwave"], 
+                                                    forcing_df[i,"RH"], 
+                                                    forcing_df[i,"T_dew_point_F"],
+                                                    W0)
+
+        println("[HF] shortwave in = ", sw)
+        println("[HF] surface flux = ", surf*specific_heat_water*rhoW)
+        
+        surface_heat_flux = surface/(specific_heat_water * rhoW) 
+        
         # [2] Calculate density from temperature field
         rho = calculate_rho(C, base_temp)  
         N_BV2 = calculate_brunt_vaisala(rho, discretization)
@@ -284,8 +311,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         Q2L = advance_Q2L(variables, ustar, discretization)
     
         # [6] Advance temperature 
-        body_heat = get_body_flux_heat(sw, N, z)
-        C = advance_scalar(variables, discretization, surf, body_heat) 
+        body_heat = get_body_flux_heat(shortwave_in, N, z)
+        C = advance_scalar(variables, discretization, surface_heat_flux, body_heat) 
 
         # [7] Semi-implicit: Calculate turbulent lengthscale
         L, Q2L = calculate_lengthscale(Q2, Q2L, N_BV2, discretization)
@@ -353,12 +380,12 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # ********************** save data ****************************
     units_dict = Dict("U" => "m/s", 
         "C" => "deg C", 
-        "Kz" => "m\$^2\$ s\$^{-1}\$", 
+        "Kz" => L"m\$^2\$ s\$^(-1)\$", 
         "algae1" => L"10$^6$/cm$^3$ cells",
         "algae2" => L"10$^6$/cm$^3$ cells",
         "L" => "Turbulent length scale", 
         "Q2" => "TKE", "Q2L" => "TKE*L",
-        "N_BV2" => "Brunt-Vaisala frequency", "Kq" => "Kq", "Nu" => "Nu_t")
+        "N_BV2" => L"s$^(-2)$", "Kq" => "Kq", "Nu" => "Nu_t")
 
     var2name = Dict("U" => "Velocity", 
                 "C" => "Temperature", 
@@ -366,8 +393,11 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
                 "algae1" => "Diatom concentration",
                 "algae2" => "HAB concentration",
                 "L" => "Turbulent length scale", 
-                "Q2" => "TKE","Q2L" => "TKE*L",
-                "N_BV2" => "Brunt-Vaisala frequency", "Kq" => "Kq", "Nu" => "Nu_t")
+                "Q2" => "TKE",
+                "Q2L" => "TKE*L",
+                "N_BV2" => "Brunt-Vaisala frequency", 
+                "Kq" => "Kq", 
+                "Nu" => "Turbulent viscosity")
 
 
     ds = NCDataset(file_out_name,"c")
@@ -385,7 +415,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     v[:] = collect(1:nt) 
 
     for var in var2save
-        # println(var)
         v = defVar(ds, var, Float64,("z","time"), attrib = OrderedDict(
         "units" =>  units_dict[var], "long_name" => var2name[var]))
         v[:,:] = output[var];
@@ -397,7 +426,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-file_out_name = @sprintf("2022_June22_noconv.nc") 
+file_out_name = @sprintf("2024_heat_flux.nc") 
 run_my_model(1.38e-4, 1.38e-4, 0.008, 0.04, file_out_name)
 
 
