@@ -105,7 +105,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     H = 6    # depth (meters)
     dz = H/N  # grid spacing - may need to adjust to reduce oscillations
     dt = 10   # (seconds) size of time step 
-    M  = 3600*12 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
+    M  = 3600*16 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
          
     # Increments for saving profiles. set to 1 to save all; 10 saves every 10th, etc. 
     isave = 100 # 360 #1000
@@ -127,7 +127,6 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         g1 = 0.33
         g2 = 2.34
         A = 0.57
-
         dz = 0.1
         rhoW = 1000                     # Density of water, kg/m^3
         specific_heat_water = 4181 
@@ -135,13 +134,10 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         for i in 1:N 
             rad[i] = sw * (A * exp(-z[i]/g1) + (1-A)*exp(-z[i]/g2))
         end 
-
         qsource[end] = (sw - rad[end - 1])/(specific_heat_water * rhoW * dz)  # dz  z[end] 
-
         for i in range(2, N)
             qsource[i] = (rad[i] - rad[i - 1])/(specific_heat_water * rhoW * dz) # mark thinks this should be dz 
         end 
-
         return qsource
         
     end
@@ -275,12 +271,11 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         # println("From heat flux ...")
         # println("[HF] Longwave in = ", dfhf[i,"longwave_in"])
         # println("[HF] Longwave out = ", dfhf[i,"longwave_out"])
-        # println("[HF] Sensible heat = ", dfhf[i,"sensible_heat"])
-        # println("[HF] Latent heat = ", dfhf[i,"latent_heat"])
-  
+        println("[HF] Sensible heat = ", dfhf[i,"sensible_heat"])
+        println("[HF] Latent heat = ", dfhf[i,"latent_heat"])
+        println("[HF] Net longwave radiation = $(dfhf[i,"longwave_in"] - dfhf[i,"longwave_out"])")
         
-
-        println("Surface water temp= $(C[end])")
+        # println("Surface water temp= $(C[end])")
         shortwave_in, surface = calculate_heat_flux(forcing_df[i,"DOY"], 
                                                     C[end],
                                                     forcing_df[i,"T_air_C"], 

@@ -14,15 +14,16 @@ latitude_radian = latitude/deg2rad
 # [2] for longwave
 surface_pressure = 101325 * (1 - altitude * 2.25577e-5)^5.25588 * (1/100) # calculated in (mb)
 surface_pressure = surface_pressure * 100 # Convert to Pascal
-G = 2.92                            # Values from Smith-Gamma table (need to look up)# Other option for springtime is 3.11 
 
 
 # [3] for heat flux
 # C_pa = 1006 # Specific heat of air at constant pressure (J kg^-1 C^-1)
 
+    # longwave_out = calculate_longwave_out(T_water_C)  # Longwave radiation out
+    # longwave_in  = calculate_longwave_in(DOY, shortwave, T_dew_point_F, T_air_C, ea, zenith)  # Longwave radiation in (W/m^2)
 
 function calculate_heat_flux(DOY, T_water_C, T_air_C, shortwave, RH, T_dew_point_F, wind_speed)
-
+    println("incoming shortwave radiation (W/m^2) = $(shortwave)")
     # [1] Saturation vapor pressure (hPa)
     es = get_saturation_vapor_pressure(T_air_C) 
     es = es * 100 # Conversion millibar --> Pascal
@@ -32,22 +33,23 @@ function calculate_heat_flux(DOY, T_water_C, T_air_C, shortwave, RH, T_dew_point
 
     # [3] Calculate zenith 
     zenith = calculate_zenith(DOY)
-    println("Zenith angle (radians) = $(zenith)")
+    # println("Zenith angle (radians) = $(zenith)")
 
     shortwave_in = calculate_shortwave_in(DOY, zenith, shortwave)  # Shortwave radiation in (W/m^2)
-    longwave_out = calculate_longwave_out(T_water_C)  # Longwave radiation out
-    longwave_in  = calculate_longwave_in(DOY, shortwave, T_dew_point_F, T_air_C, ea, zenith)  # Longwave radiation in (W/m^2)
     sensible_heat_flux, latent_heat_flux  = get_sensible_and_latent(wind_speed, T_water_C, T_air_C, es, ea)  # Sensible and latent heat fluxes (W/m^2)
-    
+    net_longwave = calculate_net_longwave(T_water_C, T_air_C, ea)
+
     # println("Wind speed = $(wind_speed)")
     println("T_water_C = $(T_water_C)")
     println("T_air_C = $(T_air_C)")
-    println("Longwave radiation in = $(longwave_in)")
-    println("Longwave radiation out = $(longwave_out)")
+
+
+    # println("[1] Net longwave radiation = $(longwave_in - longwave_out)")
+    println("[2] New longwave radiation = $net_longwave")
+    
     println("Sensible heat flux = $(sensible_heat_flux)")
     println("Latent heat flux = $(latent_heat_flux)")
-
-    surface = longwave_in - longwave_out - sensible_heat_flux - latent_heat_flux  # Surface energy balance
+    surface = net_longwave - sensible_heat_flux - latent_heat_flux  # Surface energy balance
     println("Shortwave radiation = $(shortwave_in)")
     println("Surface energy balance = $(surface)")   
 
@@ -56,9 +58,12 @@ end
 function calculate_shortwave_in(DOY, zenith, shortwave)
     # Calculate hortwave radiation in (W/m^2)
     # zenith = calculate_zenith(DOY)
-    if zenith < pi/2
+        # albedo = calculate_albedo(zenith)
+        # println("Albedo = $albedo")
+        # Qsin = shortwave * (1 - albedo)
+    if shortwave > 10
         albedo = calculate_albedo(zenith)
-        println("Albedo = $albedo")
+        # println("Albedo = $albedo")
         Qsin = shortwave * (1 - albedo)
     else 
         Qsin = 0.0  # If shortwave is less than 5 W/m^2, set it to zero
@@ -75,9 +80,24 @@ function calculate_longwave_out(T_water_C)
     return Qlout 
 end 
 
-
+function calculate_net_longwave(T_water_C, T_air_C, ea)
+    ccf = 0.665788  # Cloud cover fraction (from the original code)
+    cloud = 0.1
+    epsilon_w = 0.972      # Emissivity of water (Davies et al., 1971)
+    sigma    = 5.67e-8     # Stefan-Boltzmann constant (W m^-2 K^-4)
+    x1=(1.0-ccf*cloud*cloud)*(celsius2kelvin(T_air_C)^4)
+    x2=(0.39 - 0.05*sqrt(ea*0.01))
+    
+    # x3=4.0*(T_water_C^3) * (T_water_C - T_air_C)
+    x3=4.0*(celsius2kelvin(T_air_C)^3) * (T_water_C - T_air_C)
+    ql = -epsilon_w*sigma*(x1*x2 + x3)
+    return ql 
+end 
 function calculate_longwave_in(DOY, shortwave, T_dew_point_F, T_air_C, ea, zenith, surface_pressure=surface_pressure) 
-    # zenith = calculate_zenith(DOY)
+  
+  
+  
+    G = 2.92     # Values from Smith-Gamma table (need to look up)# Other option for springtime is 3.11 
     cos_zenith = cos(zenith)                             # Cosine of the solar zenith angle
     air_mass_thickness_coeff = 35 * (1244 * cos_zenith^2 + 1)^(-1/2) 
     precip_water = exp((0.1133 - log(G+1)) + 0.0393*T_dew_point_F) # Note T_dew_point is in Fahrenheit 
@@ -96,7 +116,8 @@ function calculate_longwave_in(DOY, shortwave, T_dew_point_F, T_air_C, ea, zenit
     clear_sky_shortwave =  I_eff * cos_zenith * Tr_x_Tpg * T_w * T_a # Clear-sky shortwave radiation (W m^-2)
 
     s = shortwave/clear_sky_shortwave  # Ratio of measured shortwave radiation to the clear-sky shortwave radiation
-    clf = clamp((1 - s), 0.0, 1.0)  # Cloud cover fraction 
+    clf = clamp((1 - s), 0.0, 0.5)  # Cloud cover fraction 
+    println("Cloud cover fraction (clf) = $clf (compare to 0.665788 )")
 
     sigma    = 5.67e-8   
     month = 8 
@@ -104,7 +125,7 @@ function calculate_longwave_in(DOY, shortwave, T_dew_point_F, T_air_C, ea, zenit
     term2 = 1.22 + 0.06 * sin((month + 2)* pi/6)
     term3 = (ea/celsius2kelvin(T_air_C))^(1/7)
     emissivity = (clf + (1-clf) * term2 * term3)
-    emissivity = clamp(emissivity, 0.0, 0.8)  # Ensure emissivity is between 0 and 1
+    emissivity = clamp(emissivity, 0.0, 1)  # Ensure emissivity is between 0 and 1
     Qlin = term1 * emissivity #(clf + (1-clf) * term2 * term3) 
     # println("term1 = $term1, term2 = $term2, term3 = $term3, ea = $ea, T_air_C = $T_air_C")
 
@@ -150,36 +171,67 @@ function calculate_zenith(DOY, DclDay=DclDay, DgCrcl=DgCrcl, Tropic=Tropic, deg2
     # println("Zenith angle (radians) = $zenith")
 
     deg2rad = pi / 180
-    φ = 37.5 * deg2rad
+    rad2deg = 180 / pi
+
+    # 37.9283,-121.2893
+    latitude_r  = 37.9283 * deg2rad  # Convert latitude to radians
+    longitude_r = -121.2893 * deg2rad  # Convert longitude to radians
     
-    # # Approximate solar declination (Cooper 1969)
-    δ = 23.44 * deg2rad * sin(2*pi * (DOY - 81) / 365)
+    days_per_year = 365.25
+    th0 = 2*pi*DOY/days_per_year
+    th02 = 2*th0
+    th03 = 3*th0
+    
+    # sun declination :
+    sundec = (0.006918 - 0.399912*cos(th0) + 0.070257*sin(th0)       
+            - 0.006758*cos(th02) + 0.000907*sin(th02)                 
+            - 0.002697*cos(th03) + 0.001480*sin(th03)) 
 
-    # # Solar hour angle (radians)
-    h = ((DOY-floor(DOY))*24 - 12.0) * 15.0 * deg2rad
+    # sun hour angle 
+    hour  = (DOY-floor(DOY))*24
+    thsun = (hour-12)*15*deg2rad + longitude_r   
 
-    # # Solar zenith angle
-    cos_zenith = sin(φ)*sin(δ) + cos(φ)*cos(δ)*cos(h)
-    # cos_zenith = clamp(cos_zenith, -1.0, 1.0)  # avoid domain errors
-    zenith = acos(cos_zenith)  # in radians
-    return zenith 
+    # !  cosine of the solar zenith angle :
+    coszen =sin(latitude_r)*sin(sundec) + cos(latitude_r)*cos(sundec)*cos(thsun)
+    if (coszen < 0) 
+        coszen = 0
+    end 
+
+    solar_zenith_angle = acos(coszen)
+
+    # φ = 37.5 * deg2rad
+    
+    # # # Approximate solar declination (Cooper 1969)
+    # δ = 23.44 * deg2rad * sin(2*pi * (DOY - 81) / 365)
+
+    # # # Solar hour angle (radians)
+    # h = ((DOY-floor(DOY))*24 - 12.0) * 15.0 * deg2rad
+
+    # # # Solar zenith angle
+    # cos_zenith = sin(φ)*sin(δ) + cos(φ)*cos(δ)*cos(h)
+    # # cos_zenith = clamp(cos_zenith, -1.0, 1.0)  # avoid domain errors
+    # zenith = acos(cos_zenith)  # in radians
+    return solar_zenith_angle 
 end 
 
 
 function calculate_albedo(zenith)
+    zenith = clamp(zenith, 0.0, 1.48353) # clamp around pi/2 (85 deg)
     RefInd = 1.33      
     # Angle of Refraction calculation based on Snell's Law 
     RefAng = asin(sin(zenith)/RefInd)  # Angle of refraction
-    println("Zenith = $zenith")
-    albedo = 0.026 + 0.065 * (tan(zenith))^1.8
-    albedo = clamp(albedo, 0.03, 0.9)
+    albedo1 = 0.026 + 0.065 * (tan(zenith))^1.8
+    println("Albedo1 = $albedo1")
+    
     # Albedo Calculation 
-    # A1 = tan(zenith - RefAng)^2
-    # A2 = tan(zenith + RefAng)^2
-    # A3 = sin(zenith - RefAng)^2
-    # A4 = sin(zenith + RefAng)^2
-    # albedo = 0.5 * (A1/A2 + A3/A4)
+    A1 = tan(zenith - RefAng)^2
+    A2 = tan(zenith + RefAng)^2
+    A3 = sin(zenith - RefAng)^2
+    A4 = sin(zenith + RefAng)^2
+    albedo = 0.5 * (A1/A2 + A3/A4)
+    println("Albedo2 = $albedo")
     # albedo = clamp(albedo, 0, 1)  # Ensure albedo is between 0 and 1
+    albedo = clamp(albedo, 0.02, 0.45) # 0.5 worked well 
     return albedo 
 end 
 
@@ -274,7 +326,7 @@ function get_sensible_and_latent(wind_speed, T_water_C, T_air_C, es, ea, surface
     eps = 1.0e-12
 
     # Latent heat of vaporization (J kg^-1)
-    Lv = (2.5-0.00234*T_water_C)*1e6
+    Lv = (2.5 - 0.00234*T_water_C)*1e6
 
     # Specfic humidity (kg kg^-1)
     qa = HumidityRatio*ea/(surface_pressure-0.377*ea)
@@ -282,12 +334,8 @@ function get_sensible_and_latent(wind_speed, T_water_C, T_air_C, es, ea, surface
     # Saturation specific humidity
     qs = HumidityRatio*es/(surface_pressure-0.377*es) 
 
-    # println("Specific humidity (qa) = $qa")
-    # println("Saturation specific humidity (qs) = $qs")
-
     # Density of the air  
     rho_air = surface_pressure/(GasConstant*celsius2kelvin(T_air_C)*(1.0 + HumidityRatio*qa))
-    # println("density of air (rho_air) = $rho_air")
 
     # Stability 
     s0=0.25*(T_water_C - T_air_C)/(wind_speed+1.0e-10)^2
@@ -300,11 +348,14 @@ function get_sensible_and_latent(wind_speed, T_water_C, T_air_C, es, ea, surface
     ced=(ae + be * exp(pe * log(wind_speed + eps)) + ce * (wind_speed-8.0)^2)*1e-3
     # Adjust coefficients based on stability
     if s < 0
+        x = 0 
         if s > -3.3
             x = 0.1+0.03*s + 0.9*exp(4.8*s)
         else
-            x = 0 
+            x = 0 # 
         end 
+        # # SW TEMP
+        # x = clamp(x, 0.2, 100)  # Ensure x is between 0 and 1
         cdd = cdd * x
         chd = chd * x
         ced = ced * x
@@ -319,6 +370,8 @@ function get_sensible_and_latent(wind_speed, T_water_C, T_air_C, es, ea, surface
 
     # Latent heat flux
     latent = ced * Lv * rho_air * wind_speed * (qs - qa)
+    println("qa = $qa, qs = $qs, Δq = $(qs - qa)")
+    println("ced = $ced")
 
     return sensible, latent
 end 
