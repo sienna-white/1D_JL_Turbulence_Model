@@ -17,7 +17,7 @@ surface_pressure = surface_pressure * 100 # Convert to Pascal
 
 
 function calculate_heat_flux(DOY, T_water_C, T_air_C, shortwave, RH, T_dew_point_F, wind_speed)
-    println("incoming shortwave radiation (W/m^2) = $(shortwave)")
+    # println("incoming shortwave radiation (W/m^2) = $(shortwave)")
     # [1] Saturation vapor pressure (hPa)
     es = get_saturation_vapor_pressure(T_air_C) 
     es = es * 100 # Conversion millibar --> Pascal
@@ -32,13 +32,13 @@ function calculate_heat_flux(DOY, T_water_C, T_air_C, shortwave, RH, T_dew_point
     sensible_heat_flux, latent_heat_flux  = get_sensible_and_latent(wind_speed, T_water_C, T_air_C, es, ea)  # Sensible and latent heat fluxes (W/m^2)
     net_longwave = calculate_net_longwave(T_water_C, T_air_C, ea)
 
-    println("T_water_C = $(T_water_C)")
-    println("T_air_C = $(T_air_C)")
-    println("Sensible heat flux = $(sensible_heat_flux)")
-    println("Latent heat flux = $(latent_heat_flux)")
+    # println("T_water_C = $(T_water_C)")
+    # println("T_air_C = $(T_air_C)")
+    # println("Sensible heat flux = $(sensible_heat_flux)")
+    # println("Latent heat flux = $(latent_heat_flux)")
     surface = net_longwave - sensible_heat_flux - latent_heat_flux  # Surface energy balance
-    println("Shortwave radiation = $(shortwave_in)")
-    println("Surface energy balance = $(surface)")   
+    # println("Shortwave radiation = $(shortwave_in)")
+    # println("Surface energy balance = $(surface)")   
 
     return shortwave_in, surface
 end 
@@ -110,7 +110,7 @@ function calculate_albedo(zenith)
     # Angle of Refraction calculation based on Snell's Law 
     RefAng = asin(sin(zenith)/RefInd)  # Angle of refraction
     albedo1 = 0.026 + 0.065 * (tan(zenith))^1.8
-    println("Albedo1 = $albedo1")
+    # println("Albedo1 = $albedo1")
     
     # Albedo Calculation 
     A1 = tan(zenith - RefAng)^2
@@ -118,7 +118,7 @@ function calculate_albedo(zenith)
     A3 = sin(zenith - RefAng)^2
     A4 = sin(zenith + RefAng)^2
     albedo = 0.5 * (A1/A2 + A3/A4)
-    println("Albedo2 = $albedo")
+    # println("Albedo2 = $albedo")
     albedo = clamp(albedo, 0.02, 0.2) # 0.5 worked well 
     return albedo 
 end 

@@ -6,20 +6,21 @@ using DataStructures: OrderedDict
 using NCDatasets
 using Arrow, DataFrames
 using CSV, DataFrames
-using Colors
-using ColorSchemes
-using Plots
+# using Colors
+# using ColorSchemes
+# using Plots
 using Printf
 using LaTeXStrings
 using Profile
 using Statistics 
 
-include("calculate_physical_variables.jl") 
-include("advance_variables.jl")
-include("phytoplankton.jl")
-include("forcings.jl") 
-include("output.jl")
-include("calculate_heat_fluxes.jl")
+include("model_code/calculate_physical_variables.jl") 
+include("model_code/advance_variables.jl")
+include("model_code/phytoplankton.jl")
+include("model_code/forcings.jl") 
+include("model_code/output.jl")
+include("model_code/calculate_heat_fluxes.jl")
+include("model_code/kaimal.jl")
 
 # ws1 = parse(Float64, ARGS[1])
 # ws2 = parse(Float64, ARGS[2])
@@ -31,7 +32,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     println("Running model with ws1 = $ws1, ws2 = $ws2, pmax1 = $pmax1, pmax2 = $pmax2.. \n output file name = $file_out_name \n")
 
-    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/august6-28/"
+    forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2024/august6-28/"
     # forcing_fn = "/global/homes/s/siennaw/scratch/siennaw/stockton_field_data/forcing_for_model/2022/june2-29"
     #***********************************************************************
     # Read in the feather file 
@@ -85,28 +86,15 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     #***********************************************************************
 
 
-    #***********************************************************************
-    # Wind time series 
-    wind_fn =  @sprintf("%s/wind.csv", forcing_fn)  
-    @info ("Reading in wind data from $wind_fn ...")
-    df = CSV.read(wind_fn, DataFrame)
-    wind = df[!,"WindSpeed"] 
-    real_time = df[!,"time"]
-    
-    
-    function get_wind_speed(index::Int, wind=wind)
-        return wind[index]
-    end
-    #***********************************************************************
-
 
     #********************** SPATIAL DOMAIN  ***************************
     N = 60    # number of grid points
     H = 6    # depth (meters)
     dz = H/N  # grid spacing - may need to adjust to reduce oscillations
     dt = 10   # (seconds) size of time step 
-    M  = 190050 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
+    M  = 360*24 #190050 #359*24*22 #206000 # 359*24* 25 # 17280 #00 #000 # 50000  #500 # 17280 # 
          
+
     # Increments for saving profiles. set to 1 to save all; 10 saves every 10th, etc. 
     isave = 100 # 360 #1000
     var2save = ["U","Kq", "Nu", "C", "Kz", "L", "Q2", "Q2L", "N_BV2", "algae1","algae2"]
@@ -116,6 +104,24 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     # Create depth vector 
     z = collect(H:-dz:dz) .- dz/2 # depth vector
 
+        #***********************************************************************
+    # Wind time series 
+    wind_fn =  @sprintf("%s/wind.csv", forcing_fn)  
+    @info ("Reading in wind data from $wind_fn ...")
+    # df = CSV.read(wind_fn, DataFrame)
+    # wind = df[!,"WindSpeed"] 
+    # real_time = df[!,"time"]
+    U = 3.5 
+    wt, wind = simulate_kaimal_wind(M, 1/dt, U)
+    
+    
+    function get_wind_speed(index::Int, wind=wind)
+        return wind[index]
+    end
+    #***********************************************************************
+
+
+    
     function get_body_flux_heat(sw, N, z)
         rad = zeros(N)       # radiation 
         qsource = zeros(N)   # heat source term
@@ -123,10 +129,15 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         # g1 = 1.4
         # g2 = 7.9
 
+        # new coeffiicents 3/13 (type 9 water)
+        g1 = 0.25
+        g2 = 0.55
+        A = 0.91
+
         # try 
-        g1 = 0.33
-        g2 = 2.34
-        A = 0.57
+        # g1 = 0.33
+        # g2 = 2.34
+        # A = 0.57
         dz = 0.1
         rhoW = 1000                     # Density of water, kg/m^3
         specific_heat_water = 4181 
@@ -199,7 +210,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     algae2 = Dict("k" => 0.034,              # specific light attenuation coefficient [cm^2 / 10^6 cells]
                 "pmax" => pmax2, #0.008 * hr2s,           # maximum specific growth rate [1/hour]
-                "ws" => ws2, #1.38e-4,           # vertical velocity [m/s]
+                "ws" => -1.38e-4, #1.38e-4,           # vertical velocity [m/s]
                 "Hi" => 40,                # half-saturation of light-limited growth [mu mol photons * m^2/s]
                 "Li" => 0.004 * hr2s,             # specific loss rate [1/hour]
                 "name" => "HAB",           # name of the species
@@ -256,7 +267,7 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 
     for i in 2:(M-1)
 
-        println("\n\n")
+        # println("\n\n")
 
         time = Times[i];
         # println("i = $i")
@@ -264,15 +275,16 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         # [1] Get forcing variables at time step 
         pressure = get_pressure_at_timestamp(time, Px0, T_Px)
         ustar = calculate_ustar(U)
-        W0 = get_wind_speed(i)
+        W0 = get_wind_speed(i) 
+        W0 = clamp(W0, 0, Inf)
         I0 = get_light(i)
         surf = get_surf_flux(i)
         sw = get_shortwave(i) 
         # println("From heat flux ...")
         # println("[HF] Longwave in = ", dfhf[i,"longwave_in"])
         # println("[HF] Longwave out = ", dfhf[i,"longwave_out"])
-        println("[HF] Sensible heat = ", dfhf[i,"sensible_heat"])
-        println("[HF] Latent heat = ", dfhf[i,"latent_heat"])
+        # println("[HF] Sensible heat = ", dfhf[i,"sensible_heat"])
+        # println("[HF] Latent heat = ", dfhf[i,"latent_heat"])
         # println("[HF] Net longwave radiation = $(dfhf[i,"longwave_in"] - dfhf[i,"longwave_out"])")
         
         # println("Surface water temp= $(C[end])")
@@ -284,8 +296,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
                                                     forcing_df[i,"T_dew_point_F"],
                                                     W0)
 
-        println("[HF] shortwave in = ", sw)
-        println("[HF] surface flux = ", surf*specific_heat_water*rhoW)
+        # println("[HF] shortwave in = ", sw)
+        # println("[HF] surface flux = ", surf*specific_heat_water*rhoW)
         
         surface_heat_flux = surface/(specific_heat_water * rhoW) 
         
@@ -317,18 +329,14 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
         nu_t, Kq, Kz = calculate_turbulent_functions(gh, Q, L, discretization) 
 
         # [8] Advance phytoplankton
-        light = self_shading(algae1, algae2, I0, background_turbidity, discretization)
-        gamma = calculate_net_growth(algae1, light, discretization)
+        # light = self_shading(algae1, algae2, I0, background_turbidity, discretization)
+        gamma = zeros(N) #calculate_net_growth(algae1, light, discretization)
         a1 = advance_algae(variables, algae1, gamma, discretization)  # zeros(N) .+ init_algae  #
         algae1["c"] =  clamp.(a1, 1e-5, Inf)   
-
-        # z0_ind = calculate_photic_depth_ind(light, I0)
-        # algae["age"] = advance_algae_tracer(variables, algae, gamma, z0_ind, discretization)
-
         # Algae 2
         # gamma = calculate_net_growth(algae2, light, discretization) 
-        # algae2["c"] = advance_algae(variables, algae2, gamma, discretization)
-        # algae2["c"] = zeros(N) .+ init_algae 
+        a2 = advance_algae(variables, algae2, gamma, discretization)
+        algae2["c"] = clamp.(a2, 1e-5, Inf)   
 
         # [9] Pack variables for next timestep 
         variables["U"] = U
@@ -367,7 +375,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
             save2output(time, index, "N_BV2", variables["N_BV2"])
             save2output(time, index, "Nu", variables["Nu"])
             save2output(time, index, "Kq", variables["Kq"])
-            push!(real_times_saved, real_time[i])
+            # push!(real_times_saved, real_time[i])
+
         end
 
     end
@@ -409,6 +418,10 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
     v = defVar(ds, "time", Float32, ("time",), attrib = OrderedDict("units" => "seconds"))
     v[:] = collect(1:nt) 
 
+    v = defVar(ds, "wind" , Float64,("time",), attrib = OrderedDict(
+            "units" =>  "m/s", "long_name" => "generated wind speed"))
+    v[:] = wind[1:isave:end];
+
     for var in var2save
         v = defVar(ds, var, Float64,("z","time"), attrib = OrderedDict(
         "units" =>  units_dict[var], "long_name" => var2name[var]))
@@ -421,8 +434,8 @@ function run_my_model(ws1::Real, ws2::Real, pmax1::Real, pmax2::Real, file_out_n
 end 
 
 
-file_out_name = @sprintf("2024_heat_flux.nc") 
-run_my_model(1.38e-4, 1.38e-4, 0.008, 0.04, file_out_name)
+file_out_name = @sprintf("2024_heat_flux_x1.0_noise7.nc") 
+run_my_model(1.38e-4, 1.38e-5, 0.008, 0.04, file_out_name)
 
 
 # using StatProfilerHTML 
