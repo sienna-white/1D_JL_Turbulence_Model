@@ -3,23 +3,23 @@ output = Dict()
 times = [] 
 
 # ***********************************************************************
-function create_output_dict(M::Int, isave::Int, Vars::Vector{<:String}, N::Int, output=output)
+function create_output_dict(M::Int, Nens::Int, isave::Int, Vars::Vector{<:String}, N::Int, output=output)
     nvars = length(Vars)
     n_saved_steps = div(M,isave) + 1 #- 1
     @info "Creating output dict with $(nvars) variables and $(n_saved_steps) saved steps"
 
 
     for i = 1:nvars
-        output[Vars[i]] = zeros(Float64, N, n_saved_steps)
+        output[Vars[i]] = zeros(Float64, Nens, N, n_saved_steps)
     end
 end 
 # ***********************************************************************
 
 
 # ***********************************************************************
-function save2output(time, index, varname, value, output=output)
+function save2output(time, index, Nens, varname, value, output=output)
     # print("Saving $varname at time $time")
-    output[varname][:,index] .= value
+    output[varname][Nens, :,index] .= value
     push!(times, time)
 end 
 # ***********************************************************************
